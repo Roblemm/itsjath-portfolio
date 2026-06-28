@@ -19,10 +19,9 @@ export const EDUCATION = {
 } as const;
 
 export const NAV_LINKS = [
+  { href: '/', label: 'Home' },
   { href: '/work/', label: 'Work' },
   { href: '/about/', label: 'About' },
   { href: '/resume.pdf', label: 'Resume' },
   { href: '/contact/', label: 'Contact' },
 ] as const;
-
-export const INTRO_SESSION_KEY = 'itsjath:intro-played';

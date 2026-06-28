@@ -1,0 +1,468 @@
+/* ── Cinematic home hero ─────────────────────────────────── */
+
+.home {
+  position: relative;
+}
+
+/* Reveal primitive — JS toggles .is-visible */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 900ms var(--ease-cinematic),
+    transform 900ms var(--ease-cinematic);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hero stage ──────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: calc(var(--nav-height) * -1);
+  padding-top: var(--nav-height);
+}
+
+.hero__field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Darken the left side so copy stays legible over the wave */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 90% at 12% 40%,
+      var(--black-000) 0%,
+      color-mix(in srgb, var(--black-000) 82%, transparent) 34%,
+      transparent 64%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 55%,
+      color-mix(in srgb, var(--black-000) 70%, transparent) 82%,
+      var(--black-000) 100%
+    );
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 3;
+  width: min(100% - var(--content-pad) * 2, var(--content-max));
+  margin-inline: auto;
+}
+
+.hero__copy {
+  max-width: 40rem;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+  margin-bottom: 1.6rem;
+}
+
+.hero__eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold-500);
+  box-shadow: 0 0 12px var(--gold-500);
+  animation: hero-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes hero-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.hero__title {
+  font-size: clamp(3.6rem, 12vw, 9.5rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  margin-bottom: 2rem;
+}
+
+.hero__title-line {
+  display: block;
+}
+
+.hero__title-line--name {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+
+.hero__dot {
+  -webkit-text-fill-color: var(--purple-500);
+  color: var(--purple-500);
+}
+
+.hero__lead {
+  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+  color: var(--white-100);
+  max-width: 32rem;
+  line-height: 1.5;
+}
+
+.hero__edu {
+  margin-top: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: var(--white-500);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--white-000);
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--gold-500) 55%, transparent);
+  transition: color 200ms var(--ease-standard), border-color 200ms var(--ease-standard);
+}
+
+.hero__cta:hover {
+  color: var(--gold-300);
+  border-color: var(--gold-300);
+}
+
+.hero__cta-arrow {
+  transition: transform 220ms var(--ease-cinematic);
+}
+
+.hero__cta:hover .hero__cta-arrow {
+  transform: translateX(5px);
+}
+
+/* ── Stat panel ──────────────────────────────────────────── */
+
+.hero__stats {
+  position: absolute;
+  right: var(--content-pad);
+  bottom: clamp(2.5rem, 6vh, 5rem);
+  z-index: 4;
+  display: grid;
+  grid-auto-flow: column;
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  padding: 1.4rem clamp(1.4rem, 2.2vw, 2.2rem);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--black-100) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white-500) 14%, transparent);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 30px 80px -40px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 color-mix(in srgb, var(--white-000) 6%, transparent);
+}
+
+.hero-stat {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.hero-stat__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.55rem;
+  border-radius: 999px;
+  color: var(--gold-300);
+  background: color-mix(in srgb, var(--gold-500) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold-500) 24%, transparent);
+}
+
+.hero-stat__icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.hero-stat:nth-child(2) .hero-stat__icon {
+  color: var(--purple-300);
+  background: color-mix(in srgb, var(--purple-500) 14%, transparent);
+  border-color: color-mix(in srgb, var(--purple-500) 30%, transparent);
+}
+
+.hero-stat__value {
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--white-000);
+}
+
+.hero-stat__label {
+  font-size: var(--text-xs);
+  color: var(--white-500);
+  line-height: 1.3;
+}
+
+/* ── Scroll cue ──────────────────────────────────────────── */
+
+.hero__cue {
+  position: absolute;
+  left: var(--content-pad);
+  bottom: clamp(2.5rem, 6vh, 5rem);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-cinematic);
+}
+
+.hero__cue[data-visible="true"] {
+  opacity: 0.7;
+}
+
+.hero__cue-mouse {
+  position: relative;
+  width: 22px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1.5px solid color-mix(in srgb, var(--white-300) 45%, transparent);
+}
+
+.hero__cue-wheel {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  background: var(--gold-300);
+  animation: cue-scroll 1.8s var(--ease-cinematic) infinite;
+}
+
+@keyframes cue-scroll {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  70% { transform: translate(-50%, 12px); opacity: 0; }
+  100% { transform: translate(-50%, 0); opacity: 0; }
+}
+
+.hero__cue-label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--white-500);
+}
+
+/* ── Below the fold ──────────────────────────────────────── */
+
+.home__below {
+  position: relative;
+  z-index: 5;
+  background: var(--black-000);
+}
+
+.featured {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 860px) {
+  .featured {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+  }
+}
+
+.featured__title {
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.2rem);
+}
+
+.featured__lead {
+  margin-top: 1.25rem;
+}
+
+.featured__link {
+  margin-top: 1.75rem;
+}
+
+.featured__visual {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 16 / 11;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--purple-500) 28%, transparent);
+  background:
+    radial-gradient(ellipse at 30% 80%, color-mix(in srgb, var(--purple-500) 30%, transparent), transparent 58%),
+    radial-gradient(ellipse at 75% 25%, color-mix(in srgb, var(--gold-500) 22%, transparent), transparent 55%),
+    var(--black-200);
+  will-change: transform;
+  transition: border-color 280ms var(--ease-standard), transform 280ms var(--ease-cinematic);
+}
+
+.featured__visual:hover {
+  border-color: color-mix(in srgb, var(--gold-500) 45%, transparent);
+  transform: translateY(-4px);
+}
+
+.featured__visual-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, transparent 30%, color-mix(in srgb, var(--purple-700) 24%, transparent));
+}
+
+.featured__visual-tag {
+  position: relative;
+  margin: 1.25rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--white-100);
+  background: color-mix(in srgb, var(--black-000) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white-500) 18%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.quote {
+  max-width: 52rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.quote__text {
+  font-size: clamp(1.5rem, 1rem + 2.2vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--white-000);
+  max-width: none;
+}
+
+.quote__cite {
+  display: block;
+  margin-top: 1.75rem;
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.home__caps-title {
+  margin-top: 0.75rem;
+}
+
+.caps-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.caps-grid li {
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  font-size: var(--text-sm);
+  color: var(--white-100);
+  border: 1px solid color-mix(in srgb, var(--white-500) 16%, transparent);
+  background: color-mix(in srgb, var(--black-200) 60%, transparent);
+  transition: border-color 200ms var(--ease-standard), color 200ms var(--ease-standard);
+}
+
+.caps-grid li:hover {
+  border-color: color-mix(in srgb, var(--purple-500) 45%, transparent);
+  color: var(--white-000);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 960px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .hero__inner {
+    padding-block: 6rem 2.5rem;
+  }
+
+  .hero__stats {
+    position: static;
+    width: min(100% - var(--content-pad) * 2, var(--content-max));
+    margin-inline: auto;
+    grid-auto-flow: column;
+    justify-content: space-between;
+  }
+
+  .hero__cue {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__stats {
+    gap: 1rem;
+    padding: 1.1rem;
+  }
+
+  .hero-stat__label {
+    font-size: 0.62rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero__eyebrow-dot,
+  .hero__cue-wheel {
+    animation: none;
+  }
+}

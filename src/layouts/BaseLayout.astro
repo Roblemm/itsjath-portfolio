@@ -1,7 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/global/Navigation.astro';
-import Signal from '../components/global/Signal.astro';
 import SiteFooter from '../components/global/SiteFooter.astro';
 import { SITE } from '../utils/site';
 import '../styles/global.css';
@@ -39,10 +38,10 @@ const currentPath = Astro.url.pathname;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="ambient" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="site-shell">
       <Navigation currentPath={currentPath} />
-      <Signal />
       <main id="main" class="site-main">
         <slot />
       </main>

@@ -43,7 +43,9 @@
   --nav-height: 4.5rem;
   --content-max: 72rem;
   --content-pad: clamp(1.25rem, 4vw, 3rem);
-  --signal-size: 10px;
+
+  /* Gradients */
+  --gradient-gold: linear-gradient(135deg, var(--gold-300) 0%, var(--gold-500) 45%, var(--gold-700) 100%);
 
   /* Fonts */
   --font-display: "Instrument Sans", "Inter", Arial, sans-serif;

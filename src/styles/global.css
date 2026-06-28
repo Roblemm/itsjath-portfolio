@@ -1,7 +1,7 @@
 @import "./tokens.css";
 @import "./reset.css";
 @import "./typography.css";
-@import "./motion.css";
+@import "./hero.css";
 @import "./transitions.css";
 
 html,
@@ -9,8 +9,13 @@ body {
   background: var(--black-000);
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   position: relative;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -41,6 +46,8 @@ body {
 }
 
 .site-shell {
+  position: relative;
+  z-index: 1;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -115,31 +122,21 @@ body {
   gap: 0.65rem;
 }
 
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.stat__value {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  color: var(--gold-500);
-  line-height: 1;
-}
-
-.stat__label {
-  font-size: var(--text-sm);
-  color: var(--white-500);
-  max-width: 18ch;
+.ambient {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(60% 50% at 78% 8%, color-mix(in srgb, var(--purple-700) 26%, transparent), transparent 70%),
+    radial-gradient(50% 45% at 12% 92%, color-mix(in srgb, var(--gold-700) 12%, transparent), transparent 70%);
 }
 
 .grain {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
   opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
