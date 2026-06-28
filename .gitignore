@@ -1,0 +1,39 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+.astro/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# deployment
+.vercel
+
+# internal planning (not for public repo)
+specs/
+AGENTS.md
+CLAUDE.md
+
+# editor & local tooling
+.cursor/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# logs & debug
+*.log
+npm-debug.log*
+
+# test artifacts
+test-results/
+playwright-report/
+coverage/
