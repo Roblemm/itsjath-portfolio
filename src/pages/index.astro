@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResumeLink from '../components/global/ResumeLink.astro';
+import { EDUCATION, SITE } from '../utils/site';
+---
+
+<BaseLayout>
+  <div class="intro-overlay" data-intro-overlay>
+    <div class="intro-text" aria-live="polite">
+      <span class="intro-text__line">
+        <span class="intro-text__inner" data-intro-line="1">Hey...</span>
+      </span>
+      <span class="intro-text__line">
+        <span class="intro-text__inner" data-intro-line="2">it's Jath.</span>
+      </span>
+      <span class="intro-text__line">
+        <span
+          class="intro-text__inner"
+          data-intro-final
+          style="display: none;"
+        >
+          Hey, itsjath<span class="wordmark__dot wordmark__dot--purple">.</span>
+        </span>
+      </span>
+    </div>
+    <button type="button" class="btn btn--ghost intro-skip" data-intro-skip>
+      Skip
+    </button>
+  </div>
+
+  <section class="container section hero-content" data-hero-content>
+    <div class="hero-grid">
+      <div>
+        <p class="meta">Backend &amp; full-stack engineer</p>
+        <h1 class="hero-greeting">
+          Hey, itsjath<span class="wordmark__dot" data-hero-dot>.</span>
+        </h1>
+        <p class="lead">
+          I build software, products, and creative experiences — and I know how to
+          move from an unclear problem to a finished outcome.
+        </p>
+        <p style="margin-top: 1rem; color: var(--white-500); font-size: var(--text-sm);">
+          {EDUCATION.school} · {EDUCATION.degrees}
+        </p>
+        <div class="hero-actions">
+          <a href="/work/" class="btn">View work</a>
+          <ResumeLink />
+          <a href="/contact/" class="btn btn--ghost">Contact</a>
+        </div>
+      </div>
+
+      <div class="hero-stats" aria-label="Selected proof points">
+        <div class="stat">
+          <span class="stat__value">78M+</span>
+          <span class="stat__label">Combined plays and views across ForestlyGames releases</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value">4,000+</span>
+          <span class="stat__label">Community members across studio programs</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value">30+</span>
+          <span class="stat__label">Developers and creators coordinated on shipped work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

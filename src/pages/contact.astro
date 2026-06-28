@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../utils/site';
+---
+
+<BaseLayout title="Contact" description="Reach out for internships, full-time roles, and collaborations.">
+  <div class="container section page-enter" data-page-content>
+    <header class="page-header">
+      <p class="meta page-header__eyebrow">Chapter 5 — Connection</p>
+      <h1>Contact</h1>
+      <p class="lead" style="margin-top: 1rem;">
+        Open to internships, full-time software roles, founder conversations, and
+        collaborations. The fastest path is email.
+      </p>
+    </header>
+
+    <div class="contact-grid">
+      <div class="contact-links">
+        <a class="contact-link" href={`mailto:${SITE.email}`}>
+          <span class="meta">Email</span>
+          <span>{SITE.email}</span>
+        </a>
+        <a class="contact-link" href={SITE.linkedin} target="_blank" rel="noopener noreferrer">
+          <span class="meta">LinkedIn</span>
+          <span>linkedin.com/in/jathniel-ahonsi</span>
+        </a>
+        <a class="contact-link" href={SITE.github} target="_blank" rel="noopener noreferrer">
+          <span class="meta">GitHub</span>
+          <span>github.com/Roblemm</span>
+        </a>
+      </div>
+
+      <div class="prose">
+        <h2>Opportunity types</h2>
+        <ul>
+          <li>Software engineering internships and new-grad roles</li>
+          <li>Backend and full-stack product work</li>
+          <li>Technical leadership on small teams</li>
+          <li>Creative technology and games</li>
+        </ul>
+        <p style="margin-top: 1.5rem; color: var(--white-500); font-size: var(--text-sm);">
+          {SITE.location}
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

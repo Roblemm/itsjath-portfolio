@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => {
+  if (a.data.flagship !== b.data.flagship) return a.data.flagship ? -1 : 1;
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return a.data.title.localeCompare(b.data.title);
+});
+---
+
+<BaseLayout title="Work" description="Selected projects across software, platforms, and creative releases.">
+  <div class="container section page-enter" data-page-content>
+    <header class="page-header">
+      <p class="meta page-header__eyebrow">Chapter 2 — Proof</p>
+      <h1>Work</h1>
+      <p class="lead" style="margin-top: 1rem;">
+        Selected projects across backend systems, platforms, and creative releases.
+        Each entry states role, problem, and outcome up front.
+      </p>
+    </header>
+
+    <div class="work-list">
+      {
+        projects.map((project) => (
+          <a
+            href={`/work/${project.id}/`}
+            class:list={['work-card', { 'work-card--featured': project.data.flagship }]}
+          >
+            <div class="work-card__meta">
+              <span class="meta">{project.data.category}</span>
+              <span class="meta">{project.data.year}</span>
+              {project.data.flagship && <span class="meta" style="color: var(--gold-500);">Flagship</span>}
+            </div>
+            <h2 class="work-card__title">{project.data.title}</h2>
+            <p class="work-card__summary">{project.data.one_line_summary}</p>
+            <p class="work-card__summary">
+              <strong style="color: var(--white-100);">Role:</strong> {project.data.role}
+            </p>
+            <span class="link-arrow">View project →</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

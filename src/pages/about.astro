@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResumeLink from '../components/global/ResumeLink.astro';
+import { EDUCATION, SITE } from '../utils/site';
+---
+
+<BaseLayout title="About" description="Background, education, and direction.">
+  <div class="container section page-enter" data-page-content>
+    <header class="page-header">
+      <p class="meta page-header__eyebrow">Chapter 4 — Person</p>
+      <h1>About</h1>
+      <p class="lead" style="margin-top: 1rem;">
+        Purdue Computer Science student who builds and deploys production systems —
+        across backend engineering, product operations, and creative releases.
+      </p>
+    </header>
+
+    <div class="prose">
+      <section>
+        <h2>Current</h2>
+        <p>
+          {EDUCATION.school} — {EDUCATION.degrees}. GPA {EDUCATION.gpa}.
+          Graduation {EDUCATION.graduation}.
+        </p>
+        <p>
+          Interested in software engineering roles with room to work across product,
+          backend systems, and creative technology.
+        </p>
+      </section>
+
+      <section>
+        <h2>Origin</h2>
+        <p>
+          I started in Minecraft servers and Roblox games, then moved into building
+          communities, studios, and products around them. ForestlyDevs became a
+          developer marketplace. ForestlyGames became the creative studio —
+          Escape Bruno Running Head was the breakthrough that made the scale of
+          entertainment feel real.
+        </p>
+      </section>
+
+      <section>
+        <h2>How I work</h2>
+        <ul>
+          <li>Take ownership across technical and business problems</li>
+          <li>Think in systems — data models, workflows, and user outcomes together</li>
+          <li>Ship finished work, not endless prototypes</li>
+          <li>Use modern AI tooling as part of the development workflow</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Direction</h2>
+        <p>
+          Backend and full-stack engineering, product systems, creative technology,
+          and long-term work in games and broader entertainment.
+        </p>
+        <div class="hero-actions" style="margin-top: 1.5rem;">
+          <ResumeLink />
+          <a href="/work/" class="btn btn--ghost">View work</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
