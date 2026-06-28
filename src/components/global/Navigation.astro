@@ -1,0 +1,41 @@
+---
+import { NAV_LINKS, SITE } from '../../utils/site';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function isActive(href: string): boolean {
+  if (href === '/resume.pdf') return false;
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href.replace(/\/$/, ''));
+}
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a href="/" class="wordmark" aria-label={`${SITE.name} home`}>
+      {SITE.name}<span class="wordmark__dot">.</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="nav__link"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                {...(link.href.endsWith('.pdf') ? { target: '_blank', rel: 'noopener' } : {})}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

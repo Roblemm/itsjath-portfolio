@@ -1,0 +1,23 @@
+<div
+  class="signal"
+  data-signal
+  data-state="dormant"
+  aria-hidden="true"
+  style="position: fixed; top: 0; left: 0; z-index: 8500; pointer-events: none;"
+>
+  <div class="signal-ring" data-signal-ring></div>
+  <div class="signal-core" data-signal-core></div>
+</div>
+
+<style>
+  .signal {
+    width: var(--signal-size);
+    height: var(--signal-size);
+  }
+
+  .signal-ring,
+  .signal-core {
+    position: absolute;
+    inset: 0;
+  }
+</style>

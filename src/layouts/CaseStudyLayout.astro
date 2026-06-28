@@ -1,0 +1,44 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, role, timeline, problem, outcome, skills, recruiter_takeaway } = project.data;
+---
+
+<BaseLayout title={title} description={project.data.one_line_summary}>
+  <article class="container section page-enter" data-page-content>
+    <header class="page-header">
+      <p class="meta page-header__eyebrow">Case study</p>
+      <h1>{title}</h1>
+      <p class="lead" style="margin-top: 1rem;">{project.data.one_line_summary}</p>
+    </header>
+
+    <dl class="case-summary">
+      <dt>Role</dt>
+      <dd>{role}</dd>
+      {timeline && (
+        <>
+          <dt>Timeline</dt>
+          <dd>{timeline}</dd>
+        </>
+      )}
+      <dt>Problem</dt>
+      <dd>{problem}</dd>
+      <dt>Outcome</dt>
+      <dd>{outcome}</dd>
+      <dt>Recruiter takeaway</dt>
+      <dd>{recruiter_takeaway}</dd>
+      <dt>Skills demonstrated</dt>
+      <dd>{skills.join(' · ')}</dd>
+    </dl>
+
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

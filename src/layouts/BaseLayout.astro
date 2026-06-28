@@ -1,0 +1,55 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Navigation from '../components/global/Navigation.astro';
+import Signal from '../components/global/Signal.astro';
+import SiteFooter from '../components/global/SiteFooter.astro';
+import { SITE } from '../utils/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+} = Astro.props;
+
+const pageTitle = title === SITE.title ? `${SITE.name} — ${SITE.title}` : `${title} — ${SITE.name}`;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{pageTitle}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="site-shell">
+      <Navigation currentPath={currentPath} />
+      <Signal />
+      <main id="main" class="site-main">
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+    <script>
+      import '../scripts/motion/controller';
+    </script>
+  </body>
+</html>

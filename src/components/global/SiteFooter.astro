@@ -1,0 +1,13 @@
+---
+import { EDUCATION, SITE } from '../../utils/site';
+import SocialLinks from './SocialLinks.astro';
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__meta">
+      © {new Date().getFullYear()} {SITE.title}. {EDUCATION.school}.
+    </p>
+    <SocialLinks />
+  </div>
+</footer>
