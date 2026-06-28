@@ -1,0 +1,51 @@
+:root {
+  /* Blacks */
+  --black-000: #030305;
+  --black-100: #07070a;
+  --black-200: #0d0d12;
+  --black-300: #15151c;
+
+  /* Whites */
+  --white-000: #fffdf8;
+  --white-100: #f2efe8;
+  --white-300: #c8c2b8;
+  --white-500: #8c8792;
+
+  /* Purple */
+  --purple-300: #b98cff;
+  --purple-500: #8e4dff;
+  --purple-700: #5a20b8;
+
+  /* Gold */
+  --gold-300: #ffe08a;
+  --gold-500: #f1be4d;
+  --gold-700: #a87619;
+
+  /* Semantic */
+  --danger: #ff6b6b;
+  --success: #7ee2a8;
+
+  /* Typography scale */
+  --text-xs: clamp(0.72rem, 0.68rem + 0.12vw, 0.82rem);
+  --text-sm: clamp(0.9rem, 0.84rem + 0.18vw, 1.02rem);
+  --text-md: clamp(1rem, 0.94rem + 0.28vw, 1.2rem);
+  --text-lg: clamp(1.3rem, 1.1rem + 0.8vw, 1.9rem);
+  --text-xl: clamp(2rem, 1.4rem + 2.6vw, 4.2rem);
+  --text-hero: clamp(4.8rem, 2.4rem + 9vw, 11rem);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-dramatic: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-impact: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --nav-height: 4.5rem;
+  --content-max: 72rem;
+  --content-pad: clamp(1.25rem, 4vw, 3rem);
+  --signal-size: 10px;
+
+  /* Fonts */
+  --font-display: "Instrument Sans", "Inter", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
