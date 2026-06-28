@@ -4,157 +4,168 @@ import ResumeLink from '../components/global/ResumeLink.astro';
 import { EDUCATION, SITE } from '../utils/site';
 
 const stats = [
-  {
-    value: '78M+',
-    label: 'Plays & views',
-    icon: 'play',
-  },
-  {
-    value: '4,000+',
-    label: 'Community members',
-    icon: 'community',
-  },
-  {
-    value: '30+',
-    label: 'Creators & devs led',
-    icon: 'shield',
-  },
+  { value: 78, suffix: 'M+', label: 'Plays & views', icon: 'play' },
+  { value: 4000, suffix: '+', label: 'Community members', icon: 'community', format: 'comma' },
+  { value: 30, suffix: '+', label: 'Creators & devs led', icon: 'shield' },
+];
+
+const capabilities = [
+  'Java', 'TypeScript', 'Spring Boot', 'Next.js', 'PostgreSQL',
+  'REST APIs', 'Product ops', 'Creative direction', 'Systems design',
 ];
 ---
 
 <BaseLayout>
   <div class="home" data-home>
-    <section class="hero" data-hero>
-      <canvas class="hero__field" data-hero-field aria-hidden="true"></canvas>
-      <div class="hero__veil" aria-hidden="true"></div>
+    <canvas class="field" data-hero-field aria-hidden="true"></canvas>
+    <div class="field-veil" aria-hidden="true"></div>
 
-      <div class="container hero__inner">
-        <div class="hero__copy">
-          <p class="hero__eyebrow reveal" data-reveal>
-            <span class="hero__eyebrow-dot"></span>
-            Creator · Developer · Operator
-          </p>
-
-          <h1 class="hero__title">
-            <span class="hero__title-line reveal" data-reveal>Hey,</span>
-            <span class="hero__title-line hero__title-line--name reveal" data-reveal>
-              itsjath<span class="hero__dot">.</span>
-            </span>
-          </h1>
-
-          <p class="hero__lead reveal" data-reveal>
-            I build digital experiences, systems, and entertainment that people
-            notice, use, and talk about.
-          </p>
-
-          <p class="hero__edu reveal" data-reveal>
-            {EDUCATION.school} — Computer Science &amp; Business Analytics
-          </p>
-
-          <div class="hero__actions reveal" data-reveal>
-            <a href="/work/" class="hero__cta">
-              Explore my work
-              <span class="hero__cta-arrow" aria-hidden="true">→</span>
-            </a>
-            <ResumeLink />
-          </div>
+    <!-- ── Scene 1 · Hero ─────────────────────────────────── -->
+    <section class="scene scene--hero" data-hero>
+      <div class="container hero__inner" data-hero-copy>
+        <p class="hero__eyebrow" data-hero-stagger>
+          <span class="hero__eyebrow-dot"></span>
+          Creator · Developer · Operator
+        </p>
+        <h1 class="hero__title">
+          <span class="hero__title-line" data-hero-stagger>Hey,</span>
+          <span class="hero__title-line hero__title-line--name" data-hero-stagger>
+            itsjath<span class="hero__dot">.</span>
+          </span>
+        </h1>
+        <p class="hero__lead" data-hero-stagger>
+          I build digital experiences, systems, and entertainment that people
+          notice, use, and talk about.
+        </p>
+        <p class="hero__edu" data-hero-stagger>
+          {EDUCATION.school} — Computer Science &amp; Business Analytics
+        </p>
+        <div class="hero__actions" data-hero-stagger>
+          <a href="/work/" class="hero__cta">
+            Explore my work
+            <span class="hero__cta-arrow" aria-hidden="true">→</span>
+          </a>
+          <ResumeLink />
         </div>
       </div>
 
-      <div class="hero__stats reveal" data-reveal aria-label="Selected proof points">
-        {
-          stats.map((stat) => (
-            <div class="hero-stat">
-              <span class="hero-stat__icon" aria-hidden="true">
-                {stat.icon === 'play' && (
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
-                  </svg>
-                )}
-                {stat.icon === 'community' && (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                    <circle cx="9" cy="8" r="3" />
-                    <circle cx="17" cy="10" r="2.3" />
-                    <path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke-linecap="round" />
-                    <path d="M15 14c2.6 0 4.5 1.8 4.5 4.5" stroke-linecap="round" />
-                  </svg>
-                )}
-                {stat.icon === 'shield' && (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                    <path d="M12 3 5 6v6c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z" stroke-linejoin="round" />
-                    <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                )}
-              </span>
-              <span class="hero-stat__value">{stat.value}</span>
-              <span class="hero-stat__label">{stat.label}</span>
-            </div>
-          ))
-        }
-      </div>
-
       <div class="hero__cue" data-scroll-cue aria-hidden="true">
-        <span class="hero__cue-mouse">
-          <span class="hero__cue-wheel"></span>
-        </span>
+        <span class="hero__cue-mouse"><span class="hero__cue-wheel"></span></span>
         <span class="hero__cue-label">Scroll to explore</span>
       </div>
     </section>
 
-    <div class="home__below">
-      <section class="container section" data-scroll-featured>
-        <p class="meta reveal" data-reveal data-scroll-featured-item>Featured project</p>
-        <div class="featured">
-          <div class="featured__body reveal" data-scroll-featured-item>
-            <h2 class="featured__title">Escape Bruno Running Head</h2>
-            <p class="lead featured__lead">
-              The flagship creative release — a Roblox horror-obby that spread to
-              millions of plays and creator coverage.
+    <!-- ── Scene 2 · Manifesto (pinned word reveal) ───────── -->
+    <section class="scene scene--manifesto" data-manifesto>
+      <div class="manifesto__sticky">
+        <div class="container">
+          <p class="scene__index">01 — Approach</p>
+          <p class="manifesto__text" data-split>
+            I operate at the intersection of creativity, technology, and business
+            — turning unclear problems into finished outcomes.
+          </p>
+          <p class="manifesto__sign" data-split-fade>{SITE.title}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Scene 3 · Stats (count up) ─────────────────────── -->
+    <section class="scene scene--stats" data-stats>
+      <div class="container">
+        <p class="scene__index" data-reveal>02 — Proof</p>
+        <div class="stats-grid">
+          {
+            stats.map((stat) => (
+              <div class="stat" data-reveal>
+                <span class="stat__icon" aria-hidden="true">
+                  {stat.icon === 'play' && (
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
+                    </svg>
+                  )}
+                  {stat.icon === 'community' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                      <circle cx="9" cy="8" r="3" />
+                      <circle cx="17" cy="10" r="2.3" />
+                      <path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke-linecap="round" />
+                      <path d="M15 14c2.6 0 4.5 1.8 4.5 4.5" stroke-linecap="round" />
+                    </svg>
+                  )}
+                  {stat.icon === 'shield' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                      <path d="M12 3 5 6v6c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z" stroke-linejoin="round" />
+                      <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  )}
+                </span>
+                <span
+                  class="stat__value"
+                  data-count
+                  data-count-to={stat.value}
+                  data-count-suffix={stat.suffix}
+                  data-count-format={stat.format ?? 'plain'}
+                >0{stat.suffix}</span>
+                <span class="stat__label">{stat.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Scene 4 · Featured project (pinned reveal) ─────── -->
+    <section class="scene scene--featured" data-featured>
+      <div class="featured__sticky">
+        <a
+          class="featured__visual"
+          href="/work/escape-bruno-head/"
+          data-featured-visual
+          aria-label="Read the Escape Bruno Running Head case study"
+        >
+          <span class="featured__visual-glow" aria-hidden="true"></span>
+        </a>
+        <div class="container featured__overlay">
+          <div class="featured__body" data-featured-body>
+            <p class="scene__index">03 — Flagship</p>
+            <h2 class="featured__title">Escape Bruno<br />Running Head</h2>
+            <p class="featured__lead">
+              A Roblox horror-obby that spread to millions of plays and creator
+              coverage — the breakthrough that made the scale of entertainment
+              feel real.
             </p>
-            <a href="/work/escape-bruno-head/" class="link-arrow featured__link">
-              Read the case study →
+            <a href="/work/escape-bruno-head/" class="hero__cta">
+              Read the case study
+              <span class="hero__cta-arrow" aria-hidden="true">→</span>
             </a>
           </div>
-          <a
-            href="/work/escape-bruno-head/"
-            class="featured__visual"
-            data-scroll-parallax
-            aria-label="Read the Escape Bruno Running Head case study"
-          >
-            <span class="featured__visual-glow" aria-hidden="true"></span>
-            <span class="featured__visual-tag">Flagship · Roblox</span>
-          </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="container section">
-        <blockquote class="quote reveal" data-scroll-quote>
-          <p class="quote__text">
-            I operate at the intersection of creativity, technology, and business —
-            turning unclear problems into finished outcomes.
-          </p>
-          <cite class="quote__cite">{SITE.title}</cite>
-        </blockquote>
-      </section>
-
-      <section class="container section home__caps reveal" data-scroll-caps>
-        <p class="meta">Toolkit</p>
-        <h2 class="home__caps-title">Selected capabilities</h2>
-        <ul class="caps-grid">
-          <li>Java</li>
-          <li>TypeScript</li>
-          <li>Spring Boot</li>
-          <li>Next.js</li>
-          <li>PostgreSQL</li>
-          <li>REST APIs</li>
-          <li>Product ops</li>
-          <li>Creative direction</li>
-        </ul>
-        <div class="hero__actions" style="margin-top: 2.5rem;">
-          <a href="/work/" class="btn">All work</a>
-          <a href="/about/" class="btn btn--ghost">About</a>
+    <!-- ── Scene 5 · Capabilities marquee ─────────────────── -->
+    <section class="scene scene--caps" data-caps>
+      <div class="container">
+        <p class="scene__index" data-reveal>04 — Toolkit</p>
+        <h2 class="caps__title" data-reveal>Selected capabilities</h2>
+      </div>
+      <div class="marquee" data-marquee aria-hidden="true">
+        <div class="marquee__track" data-marquee-track>
+          {capabilities.map((c) => <span class="marquee__item">{c}</span>)}
+          {capabilities.map((c) => <span class="marquee__item">{c}</span>)}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- ── Scene 6 · CTA ──────────────────────────────────── -->
+    <section class="scene scene--cta" data-cta>
+      <div class="container cta__inner">
+        <p class="scene__index" data-reveal>05 — Connect</p>
+        <h2 class="cta__title" data-reveal>Let's build something<br />worth talking about.</h2>
+        <div class="cta__actions" data-reveal>
+          <a href="/contact/" class="btn btn--gold">Get in touch</a>
+          <a href="/work/" class="btn btn--ghost">View all work</a>
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>

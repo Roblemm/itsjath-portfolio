@@ -45,9 +45,15 @@ function makeSprite(color: { r: number; g: number; b: number }, radius: number):
   return sprite;
 }
 
-export function initHeroField(canvas: HTMLCanvasElement): () => void {
+export interface HeroField {
+  destroy: () => void;
+  /** Drive the field with overall page scroll progress, 0..1. */
+  setScroll: (progress: number) => void;
+}
+
+export function initHeroField(canvas: HTMLCanvasElement): HeroField {
   const maybeCtx = canvas.getContext('2d', { alpha: true });
-  if (!maybeCtx) return () => undefined;
+  if (!maybeCtx) return { destroy: () => undefined, setScroll: () => undefined };
   const ctx: CanvasRenderingContext2D = maybeCtx;
 
   const SPRITE_RADIUS = 64;
@@ -67,6 +73,10 @@ export function initHeroField(canvas: HTMLCanvasElement): () => void {
   let pointerY = 0.5;
   let targetPointerX = 0.5;
   let targetPointerY = 0.5;
+
+  // Scroll progress drives the cinematic transformation across scenes.
+  let scroll = 0;
+  let targetScroll = 0;
 
   function rand(min: number, max: number): number {
     return min + Math.random() * (max - min);
@@ -111,28 +121,39 @@ export function initHeroField(canvas: HTMLCanvasElement): () => void {
     const w1 = Math.sin(xNorm * 4.1 + t * 0.45) * 0.12;
     const w2 = Math.sin(xNorm * 9.3 - t * 0.7 + 1.3) * 0.05;
     const lean = (pointerY - 0.5) * 0.06;
-    return 0.55 + tilt + w1 + w2 + lean;
+    // The whole ribbon rises and exits the frame as the page scrolls.
+    const drift = scroll * 0.5;
+    return 0.55 + tilt + w1 + w2 + lean - drift;
+  }
+
+  /** Overall brightness of the field — vivid in the hero, calm deeper down. */
+  function vividness(): number {
+    return Math.max(0.1, 1 - scroll * 1.5);
+  }
+
+  /** Focal point slides left as you scroll, like a camera pan. */
+  function focalX(): number {
+    return 0.62 + (pointerX - 0.5) * 0.08 - scroll * 0.18;
   }
 
   /** Vertical thickness of the ribbon, narrowing toward the bright focal point. */
   function ribbonSpread(xNorm: number): number {
-    const focal = 0.62 + (pointerX - 0.5) * 0.08;
-    const d = Math.abs(xNorm - focal);
+    const d = Math.abs(xNorm - focalX());
     // tight near focal, flaring toward the edges
     return 0.04 + Math.pow(d, 1.35) * 0.42;
   }
 
   /** Brightness envelope — peaks at the focal point, fades at the edges. */
   function focusEnvelope(xNorm: number): number {
-    const focal = 0.62 + (pointerX - 0.5) * 0.08;
-    const d = Math.abs(xNorm - focal);
+    const d = Math.abs(xNorm - focalX());
     return Math.max(0, 1 - Math.pow(d * 1.55, 1.6));
   }
 
   /** A glowing continuous ribbon traced along the flow centerline. */
   function drawRibbon() {
     const samples = 64;
-    const focal = 0.62 + (pointerX - 0.5) * 0.08;
+    const focal = focalX();
+    const v = vividness();
 
     const grad = ctx.createLinearGradient(0, 0, width, 0);
     grad.addColorStop(0, 'rgba(150,90,255,0)');
@@ -159,14 +180,14 @@ export function initHeroField(canvas: HTMLCanvasElement): () => void {
     ctx.shadowColor = 'rgba(255,190,90,0.55)';
     ctx.shadowBlur = 38;
     ctx.lineWidth = 6;
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = 0.5 * v;
     trace();
     ctx.stroke();
 
     // Bright hot core
     ctx.shadowBlur = 14;
     ctx.lineWidth = 1.6;
-    ctx.globalAlpha = 0.9;
+    ctx.globalAlpha = 0.9 * v;
     trace();
     ctx.stroke();
 
@@ -178,15 +199,20 @@ export function initHeroField(canvas: HTMLCanvasElement): () => void {
     time += 0.016;
     pointerX += (targetPointerX - pointerX) * 0.04;
     pointerY += (targetPointerY - pointerY) * 0.04;
+    scroll += (targetScroll - scroll) * 0.08;
+
+    const v = vividness();
+    // Gold gives way to purple as the camera moves deeper into the page.
+    const goldScale = Math.max(0, 1 - scroll * 0.85);
 
     ctx.clearRect(0, 0, width, height);
     ctx.globalCompositeOperation = 'lighter';
 
     // Ambient purple bloom in the upper field
-    const focalX = (0.62 + (pointerX - 0.5) * 0.08) * width;
+    const fxBloom = focalX() * width;
     const bloomY = centerlineY(0.62, time) * height - height * 0.18;
-    ctx.globalAlpha = 0.4;
-    ctx.drawImage(purpleSprite, focalX - 260, bloomY - 220, 560, 440);
+    ctx.globalAlpha = 0.4 * (0.5 + v * 0.5);
+    ctx.drawImage(purpleSprite, fxBloom - 260, bloomY - 220, 560, 440);
 
     for (const p of particles) {
       p.t += p.speed;
@@ -204,8 +230,8 @@ export function initHeroField(canvas: HTMLCanvasElement): () => void {
       const env = focusEnvelope(xNorm);
       // Particles near the centerline read as the hot gold core.
       const core = Math.max(0, 1 - Math.abs(p.offset) * 1.15);
-      const goldMix = Math.min(1, core * env * 1.4);
-      const alpha = Math.min(0.9, (0.05 + env * 0.55) * p.glow * (0.5 + core * 0.8));
+      const goldMix = Math.min(1, core * env * 1.4) * goldScale;
+      const alpha = Math.min(0.9, (0.05 + env * 0.55) * p.glow * (0.5 + core * 0.8)) * v;
 
       if (alpha < 0.012) continue;
 
@@ -227,10 +253,9 @@ export function initHeroField(canvas: HTMLCanvasElement): () => void {
     // The flowing gold ribbon + a concentrated hot bloom at the focal point.
     drawRibbon();
 
-    const focal = 0.62 + (pointerX - 0.5) * 0.08;
-    const fx = focal * width;
-    const fy = centerlineY(focal, time) * height;
-    ctx.globalAlpha = 0.6;
+    const fx = focalX() * width;
+    const fy = centerlineY(focalX(), time) * height;
+    ctx.globalAlpha = 0.6 * v * goldScale;
     ctx.drawImage(goldSprite, fx - 150, fy - 90, 300, 180);
 
     ctx.globalAlpha = 1;
@@ -301,11 +326,20 @@ export function initHeroField(canvas: HTMLCanvasElement): () => void {
     raf = requestAnimationFrame(frame);
   }
 
-  return () => {
-    running = false;
-    cancelAnimationFrame(raf);
-    window.removeEventListener('resize', onResize);
-    window.removeEventListener('pointermove', onPointerMove);
-    document.removeEventListener('visibilitychange', onVisibility);
+  return {
+    setScroll(progress: number) {
+      targetScroll = Math.max(0, Math.min(1, progress));
+      if (prefersReducedMotion()) {
+        scroll = targetScroll;
+        renderStatic();
+      }
+    },
+    destroy() {
+      running = false;
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('pointermove', onPointerMove);
+      document.removeEventListener('visibilitychange', onVisibility);
+    },
   };
 }

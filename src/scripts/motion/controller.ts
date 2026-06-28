@@ -1,6 +1,7 @@
 import { initNav } from './nav';
 import { initHome } from './home';
 import { initReveals } from './reveal';
+import { initSmoothScroll } from './smooth-scroll';
 
 function isHome(): boolean {
   const path = window.location.pathname;
@@ -8,7 +9,7 @@ function isHome(): boolean {
 }
 
 function boot(): () => void {
-  const cleanups: Array<() => void> = [initNav()];
+  const cleanups: Array<() => void> = [initSmoothScroll(), initNav()];
 
   if (isHome()) {
     cleanups.push(initHome());
