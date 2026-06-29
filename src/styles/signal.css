@@ -1,0 +1,226 @@
+/* ── Signal — concentrated point, large reactions ────────── */
+
+.signal {
+  --signal-gold: 0;
+  --signal-energy: 0.5;
+  --signal-color: color-mix(in srgb, var(--gold-500) calc(var(--signal-gold) * 100%), var(--purple-500));
+  --signal-hot: color-mix(in srgb, var(--gold-300) calc(var(--signal-gold) * 100%), var(--white-000));
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Large ambient reaction — not the signal body */
+.signal__reach {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(160px, 28vw, 340px);
+  height: clamp(160px, 28vw, 340px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--signal-color) 14%, transparent) 0%,
+    color-mix(in srgb, var(--signal-color) 4%, transparent) 42%,
+    transparent 68%
+  );
+  opacity: calc(var(--signal-energy) * 0.85);
+  transition: opacity 0.4s ease;
+}
+
+.signal__pulse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--signal-color) 70%, transparent);
+  animation: signal-pulse 2.4s var(--ease-cinematic) infinite;
+  opacity: calc(0.35 + var(--signal-energy) * 0.45);
+}
+
+.signal__pulse--delay {
+  animation-delay: 1.2s;
+}
+
+@keyframes signal-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: calc(0.5 + var(--signal-energy) * 0.4);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(calc(8 + var(--signal-energy) * 6));
+    opacity: 0;
+  }
+}
+
+.signal__cross {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: color-mix(in srgb, var(--signal-color) 55%, transparent);
+  transform: translate(-50%, -50%);
+  opacity: calc(0.25 + var(--signal-energy) * 0.35);
+}
+
+.signal__cross--v {
+  width: 1px;
+  height: clamp(18px, 4vw, 28px);
+}
+
+.signal__cross--h {
+  width: clamp(18px, 4vw, 28px);
+  height: 1px;
+}
+
+/* The signal itself — sharp pinprick */
+.signal__point {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--signal-hot);
+  box-shadow:
+    0 0 6px 1px var(--signal-hot),
+    0 0 14px 2px color-mix(in srgb, var(--signal-color) 80%, transparent),
+    0 0 28px 4px color-mix(in srgb, var(--signal-color) 35%, transparent);
+}
+
+/* ── Chapter modes ───────────────────────────────────────── */
+
+.signal[data-chapter='hero'] .signal__cross {
+  opacity: 0.2;
+}
+
+.signal[data-chapter='approach'] .signal__reach {
+  width: clamp(220px, 38vw, 480px);
+  height: clamp(220px, 38vw, 480px);
+}
+
+.signal[data-chapter='approach'] .signal__cross--v {
+  height: clamp(28px, 6vw, 44px);
+}
+
+.signal[data-chapter='approach'] .signal__cross--h {
+  width: clamp(28px, 6vw, 44px);
+}
+
+.signal[data-chapter='proof'] .signal__reach {
+  opacity: calc(var(--signal-energy) * 0.42);
+}
+
+.signal[data-chapter='proof'] .signal__point {
+  box-shadow:
+    0 0 4px 1px var(--gold-300),
+    0 0 10px 2px color-mix(in srgb, var(--gold-500) 40%, transparent),
+    0 0 18px 3px color-mix(in srgb, var(--gold-500) 14%, transparent);
+}
+
+.signal[data-chapter='connect'] .signal__pulse {
+  animation-duration: 1.8s;
+}
+
+/* Waypoint anchors */
+.signal-waypoint {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.signal-waypoint--hero-start {
+  right: clamp(1.25rem, 9vw, 5.5rem);
+  left: auto;
+  top: 44%;
+}
+
+.signal-waypoint--manifesto-in {
+  left: 8%;
+  top: 42%;
+}
+
+.signal-waypoint--manifesto-out {
+  left: 72%;
+  top: 64%;
+}
+
+.signal-waypoint--stats {
+  left: 18%;
+  top: 62%;
+}
+
+.signal-waypoint--featured {
+  left: 50%;
+  top: 68%;
+}
+
+.signal-waypoint--caps {
+  right: 24%;
+  top: 62%;
+}
+
+.signal-waypoint--cta {
+  left: 50%;
+  top: 78%;
+}
+
+@media (max-width: 768px) {
+  .signal-waypoint--hero-start {
+    right: clamp(1rem, 6vw, 2.5rem);
+    top: 40%;
+  }
+
+  .signal-waypoint--manifesto-in {
+    left: 6%;
+    top: 38%;
+  }
+
+  .signal-waypoint--manifesto-out {
+    left: 78%;
+    top: 58%;
+  }
+
+  .signal-waypoint--stats {
+    left: 22%;
+    top: 58%;
+  }
+
+  .signal-waypoint--featured {
+    top: 72%;
+  }
+
+  .signal-waypoint--caps {
+    top: 68%;
+  }
+
+  .signal__reach {
+    width: clamp(120px, 36vw, 220px);
+    height: clamp(120px, 36vw, 220px);
+  }
+
+  .signal[data-chapter='approach'] .signal__reach {
+    width: clamp(160px, 48vw, 280px);
+    height: clamp(160px, 48vw, 280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal__pulse {
+    animation: none;
+    opacity: 0.3;
+  }
+}

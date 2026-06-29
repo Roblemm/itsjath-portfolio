@@ -1,0 +1,77 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+const { title, one_line_summary, category, year, role, cover, metrics, highlight, status, demo } =
+  project.data;
+
+const categoryLabel: Record<string, string> = {
+  creative: 'Games & creative',
+  platform: 'Platform',
+  software: 'Software',
+  studio: 'Studio',
+};
+---
+
+<a
+  href={`/work/${project.id}/`}
+  class:list={['work-card', { 'work-card--flagship': featured, 'work-card--no-media': !cover }]}
+>
+  {
+    cover ? (
+      <div class="work-card__media">
+        <img
+          src={cover}
+          alt=""
+          class="work-card__img"
+          loading="lazy"
+          decoding="async"
+        />
+        {demo && (
+          <span class="work-card__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+            </svg>
+            Demo
+          </span>
+        )}
+      </div>
+    ) : (
+      <div class="work-card__media work-card__media--code" aria-hidden="true">
+        <span class="work-card__code-mark">{`</>`}</span>
+      </div>
+    )
+  }
+  <div class="work-card__body">
+    <div class="work-card__meta">
+      <span class="meta">{categoryLabel[category] ?? category}</span>
+      <span class="meta">{year}</span>
+      <span class="meta work-card__status">{status}</span>
+      {featured && <span class="meta work-card__flag">Flagship</span>}
+    </div>
+    <h2 class="work-card__title">{title}</h2>
+    {highlight && <p class="work-card__highlight">{highlight}</p>}
+    <p class="work-card__summary">{one_line_summary}</p>
+    {
+      metrics && metrics.length > 0 && (
+        <ul class="work-card__metrics">
+          {metrics.map((m) => (
+            <li class="work-card__metric">
+              <span class="work-card__metric-value">{m.value}</span>
+              <span class="work-card__metric-label">{m.label}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p class="work-card__role">
+      <strong>Role</strong> {role}
+    </p>
+    <span class="link-arrow">View case study →</span>
+  </div>
+</a>

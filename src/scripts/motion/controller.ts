@@ -1,7 +1,8 @@
 import { initNav } from './nav';
 import { initHome } from './home';
+import { initPageIntro } from './page-intro';
 import { initReveals } from './reveal';
-import { initSmoothScroll } from './smooth-scroll';
+import { getLenis, initSmoothScroll } from './smooth-scroll';
 
 function isHome(): boolean {
   const path = window.location.pathname;
@@ -14,6 +15,7 @@ function boot(): () => void {
   if (isHome()) {
     cleanups.push(initHome());
   } else {
+    cleanups.push(initPageIntro());
     cleanups.push(initReveals());
   }
 
@@ -24,6 +26,8 @@ let cleanup: (() => void) | undefined;
 
 function start() {
   cleanup?.();
+  window.scrollTo(0, 0);
+  getLenis()?.scrollTo(0, { immediate: true });
   cleanup = boot();
 }
 

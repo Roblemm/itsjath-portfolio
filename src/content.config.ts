@@ -16,8 +16,34 @@ const projects = defineCollection({
     outcome: z.string(),
     skills: z.array(z.string()),
     recruiter_takeaway: z.string(),
+    highlight: z.string().optional(),
+    metrics: z
+      .array(
+        z.object({
+          value: z.string(),
+          label: z.string(),
+        }),
+      )
+      .optional(),
+    demo: z
+      .object({
+        youtubeId: z.string(),
+        label: z.string().optional(),
+      })
+      .optional(),
+    videos: z
+      .array(
+        z.object({
+          title: z.string(),
+          youtubeId: z.string(),
+          note: z.string().optional(),
+        }),
+      )
+      .optional(),
     featured: z.boolean().default(false),
     flagship: z.boolean().default(false),
+    cover: z.string().optional(),
+    gallery: z.array(z.string()).optional(),
     links: z
       .object({
         live: z.string().url().optional(),

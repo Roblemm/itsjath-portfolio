@@ -1,22 +1,28 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/global/Navigation.astro';
+import PageIntro from '../components/global/PageIntro.astro';
 import SiteFooter from '../components/global/SiteFooter.astro';
 import { SITE } from '../utils/site';
+import type { PageIntroConfig } from '../utils/page-intros';
+import { getPageIntro } from '../utils/page-intros';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
+  intro?: PageIntroConfig | null;
 }
 
 const {
   title = SITE.title,
   description = SITE.description,
+  intro: introOverride,
 } = Astro.props;
 
 const pageTitle = title === SITE.title ? `${SITE.name} — ${SITE.title}` : `${title} — ${SITE.name}`;
 const currentPath = Astro.url.pathname;
+const intro = getPageIntro(currentPath, introOverride);
 ---
 
 <!doctype html>
@@ -36,10 +42,18 @@ const currentPath = Astro.url.pathname;
     <title>{pageTitle}</title>
     <ClientRouter />
   </head>
-  <body>
+  <body data-page-intro-pending={intro ? '' : undefined}>
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="ambient" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
+    {intro && <PageIntro config={intro} />}
+    {intro && (
+      <noscript>
+        <style>
+          {`.page-intro { display: none !important; } [data-page-content] { opacity: 1 !important; }`}
+        </style>
+      </noscript>
+    )}
     <div class="site-shell">
       <Navigation currentPath={currentPath} />
       <main id="main" class="site-main">

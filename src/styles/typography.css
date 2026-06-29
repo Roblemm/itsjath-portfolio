@@ -49,10 +49,6 @@ p {
 }
 
 .wordmark__dot {
-  color: var(--gold-500);
-}
-
-.wordmark__dot--purple {
   color: var(--purple-500);
 }
 

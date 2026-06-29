@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ResumeLink from '../components/global/ResumeLink.astro';
+import Signal from '../components/global/Signal.astro';
 import { EDUCATION, SITE } from '../utils/site';
 
 const stats = [
@@ -16,7 +17,14 @@ const capabilities = [
 ---
 
 <BaseLayout>
-  <div class="home" data-home>
+  <div class="intro" data-intro>
+    <p class="intro__line intro__line--hey" data-intro-hey>Hey...</p>
+    <p class="intro__line intro__line--name" data-intro-name>it's Jath.</p>
+    <button type="button" class="intro__skip" data-intro-skip>Skip intro</button>
+  </div>
+
+  <div class="home" data-home data-intro-pending>
+    <Signal />
     <canvas class="field" data-hero-field aria-hidden="true"></canvas>
     <div class="field-veil" aria-hidden="true"></div>
 
@@ -28,9 +36,9 @@ const capabilities = [
           Creator · Developer · Operator
         </p>
         <h1 class="hero__title">
-          <span class="hero__title-line" data-hero-stagger>Hey,</span>
+          <span class="hero__title-line hero__title-line--hey" data-hero-stagger>Hey,</span>
           <span class="hero__title-line hero__title-line--name" data-hero-stagger>
-            itsjath<span class="hero__dot">.</span>
+            <span class="hero__title-its">its</span><span class="hero__title-jath">jath</span><span class="hero__dot" data-signal-dot>.</span>
           </span>
         </h1>
         <p class="hero__lead" data-hero-stagger>
@@ -53,26 +61,52 @@ const capabilities = [
         <span class="hero__cue-mouse"><span class="hero__cue-wheel"></span></span>
         <span class="hero__cue-label">Scroll to explore</span>
       </div>
+      <span
+        class="signal-waypoint signal-waypoint--hero-start"
+        data-signal-waypoint
+        data-chapter="hero"
+        data-energy="0.45"
+        data-gold="0.12"
+        aria-hidden="true"
+      ></span>
     </section>
 
     <!-- ── Scene 2 · Manifesto (pinned word reveal) ───────── -->
     <section class="scene scene--manifesto" data-manifesto>
       <div class="manifesto__sticky">
         <div class="container">
-          <p class="scene__index">01 — Approach</p>
+          <p class="scene__index">Approach</p>
           <p class="manifesto__text" data-split>
             I operate at the intersection of creativity, technology, and business
             — turning unclear problems into finished outcomes.
           </p>
           <p class="manifesto__sign" data-split-fade>{SITE.title}</p>
         </div>
+        <span
+          class="signal-waypoint signal-waypoint--manifesto-in"
+          data-signal-waypoint
+          data-chapter="approach"
+          data-energy="1"
+          data-energy-mobile="0.85"
+          data-gold="0.08"
+          aria-hidden="true"
+        ></span>
+        <span
+          class="signal-waypoint signal-waypoint--manifesto-out"
+          data-signal-waypoint
+          data-chapter="approach"
+          data-energy="1.15"
+          data-energy-mobile="0.95"
+          data-gold="0.18"
+          aria-hidden="true"
+        ></span>
       </div>
     </section>
 
     <!-- ── Scene 3 · Stats (count up) ─────────────────────── -->
     <section class="scene scene--stats" data-stats>
       <div class="container">
-        <p class="scene__index" data-reveal>02 — Proof</p>
+        <p class="scene__index" data-reveal>Proof</p>
         <div class="stats-grid">
           {
             stats.map((stat) => (
@@ -110,6 +144,15 @@ const capabilities = [
             ))
           }
         </div>
+        <span
+          class="signal-waypoint signal-waypoint--stats"
+          data-signal-waypoint
+          data-chapter="proof"
+          data-energy="0.95"
+          data-energy-mobile="0.8"
+          data-gold="0.75"
+          aria-hidden="true"
+        ></span>
       </div>
     </section>
 
@@ -120,13 +163,14 @@ const capabilities = [
           class="featured__visual"
           href="/work/escape-bruno-head/"
           data-featured-visual
+          style="background-image: url('/images/work/escape-bruno/gallery-1.png');"
           aria-label="Read the Escape Bruno Running Head case study"
         >
           <span class="featured__visual-glow" aria-hidden="true"></span>
         </a>
         <div class="container featured__overlay">
           <div class="featured__body" data-featured-body>
-            <p class="scene__index">03 — Flagship</p>
+            <p class="scene__index">Flagship</p>
             <h2 class="featured__title">Escape Bruno<br />Running Head</h2>
             <p class="featured__lead">
               A Roblox horror-obby that spread to millions of plays and creator
@@ -139,13 +183,21 @@ const capabilities = [
             </a>
           </div>
         </div>
+        <span
+          class="signal-waypoint signal-waypoint--featured"
+          data-signal-waypoint
+          data-chapter="flagship"
+          data-energy="0.7"
+          data-gold="0.88"
+          aria-hidden="true"
+        ></span>
       </div>
     </section>
 
     <!-- ── Scene 5 · Capabilities marquee ─────────────────── -->
     <section class="scene scene--caps" data-caps>
       <div class="container">
-        <p class="scene__index" data-reveal>04 — Toolkit</p>
+        <p class="scene__index" data-reveal>Toolkit</p>
         <h2 class="caps__title" data-reveal>Selected capabilities</h2>
       </div>
       <div class="marquee" data-marquee aria-hidden="true">
@@ -154,17 +206,34 @@ const capabilities = [
           {capabilities.map((c) => <span class="marquee__item">{c}</span>)}
         </div>
       </div>
+      <span
+        class="signal-waypoint signal-waypoint--caps"
+        data-signal-waypoint
+        data-chapter="toolkit"
+        data-energy="0.6"
+        data-gold="0.95"
+        aria-hidden="true"
+      ></span>
     </section>
 
     <!-- ── Scene 6 · CTA ──────────────────────────────────── -->
     <section class="scene scene--cta" data-cta>
       <div class="container cta__inner">
-        <p class="scene__index" data-reveal>05 — Connect</p>
+        <p class="scene__index" data-reveal>Connect</p>
         <h2 class="cta__title" data-reveal>Let's build something<br />worth talking about.</h2>
         <div class="cta__actions" data-reveal>
           <a href="/contact/" class="btn btn--gold">Get in touch</a>
           <a href="/work/" class="btn btn--ghost">View all work</a>
         </div>
+        <span
+          class="signal-waypoint signal-waypoint--cta"
+          data-signal-waypoint
+          data-target=".cta__actions"
+          data-chapter="connect"
+          data-energy="0.65"
+          data-gold="1"
+          aria-hidden="true"
+        ></span>
       </div>
     </section>
   </div>

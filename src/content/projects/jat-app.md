@@ -16,6 +16,12 @@ skills:
   - Docker
   - Automated testing
 recruiter_takeaway: Classic full-stack delivery — API design, persistence, front end, tests, and containerization.
+highlight: Spring Boot + Next.js productivity stack with JUnit coverage and Docker deployment.
+metrics:
+  - value: Full-stack
+    label: Solo build
+  - value: JUnit
+    label: Test coverage
 featured: false
 flagship: false
 ---

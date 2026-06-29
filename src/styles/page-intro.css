@@ -1,0 +1,139 @@
+/* ── Per-page cinematic intros ───────────────────────────── */
+
+[data-page-intro-pending] [data-page-content] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black-000);
+  pointer-events: auto;
+}
+
+.page-intro__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35em;
+  padding-inline: var(--content-pad);
+}
+
+.page-intro__line {
+  margin: 0;
+  max-width: none;
+  overflow: visible;
+}
+
+.page-intro__text {
+  display: inline-block;
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--white-000);
+  line-height: 1.05;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.page-intro__line--accent .page-intro__text {
+  background: linear-gradient(135deg, var(--purple-300), var(--gold-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.page-intro[data-variant='type'] .page-intro__text {
+  font-family: var(--font-mono);
+  font-size: clamp(1.4rem, 4.5vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.page-intro[data-variant='type'] .page-intro__line--accent .page-intro__text {
+  background: none;
+  color: var(--gold-300);
+  -webkit-text-fill-color: var(--gold-300);
+}
+
+.page-intro[data-variant='split'] .page-intro__line:first-child .page-intro__text {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.page-intro[data-variant='split'] .page-intro__line--accent .page-intro__text {
+  font-size: clamp(2.2rem, 8vw, 5rem);
+}
+
+.page-intro__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.page-intro__mask > .page-intro__text {
+  display: inline-block;
+}
+
+.page-intro__skip {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 2.5rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white-500);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  opacity: 0;
+}
+
+.page-intro__skip:hover {
+  color: var(--white-100);
+}
+
+.page-intro__cursor {
+  display: inline-block;
+  width: 0.55em;
+  margin-left: 0.05em;
+  border-right: 2px solid var(--gold-300);
+  animation: page-intro-blink 0.9s step-end infinite;
+}
+
+@keyframes page-intro-blink {
+  50% { opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  .page-intro[data-variant='split'] .page-intro__line--accent .page-intro__text {
+    white-space: normal;
+    text-wrap: balance;
+    max-width: 92vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-intro {
+    display: none;
+  }
+
+  [data-page-intro-pending] [data-page-content] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

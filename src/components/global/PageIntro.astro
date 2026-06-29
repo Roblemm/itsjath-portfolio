@@ -1,0 +1,35 @@
+---
+import type { PageIntroConfig } from '../../utils/page-intros';
+
+interface Props {
+  config: PageIntroConfig;
+}
+
+const { config } = Astro.props;
+---
+
+<div
+  class="page-intro"
+  data-page-intro
+  data-variant={config.variant}
+  aria-hidden="false"
+>
+  <div class="page-intro__inner">
+    {
+      config.lines.map((line, i) => (
+        <div
+          class:list={[
+            'page-intro__line',
+            { 'page-intro__line--accent': config.accent === i },
+          ]}
+          data-page-intro-line
+        >
+          <span class="page-intro__text">{line}</span>
+        </div>
+      ))
+    }
+  </div>
+  <button type="button" class="page-intro__skip" data-page-intro-skip>
+    Skip
+  </button>
+</div>

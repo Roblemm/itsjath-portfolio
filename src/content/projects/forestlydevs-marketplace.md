@@ -14,8 +14,19 @@ skills:
   - Community growth
   - Product iteration
 recruiter_takeaway: Built and operated a real marketplace — growth, onboarding optimization, and facilitating transactions between developers.
+highlight: Redesigned onboarding for a 500%+ engagement lift — 1,200+ users and 8,500+ portfolios hosted.
+metrics:
+  - value: 1,200+
+    label: Users
+  - value: 8,500+
+    label: Portfolios hosted
+  - value: 500%
+    label: Onboarding lift
+  - value: "40"
+    label: Projects in one month
 featured: true
 flagship: false
+cover: /images/work/forestlydevs/cover.png
 ---
 
 ## Overview
@@ -25,8 +36,9 @@ ForestlyDevs began as a place by developers, for developers, with the motto *Gro
 ## Operating work
 
 - Ran the two-sided marketplace end to end
-- Redesigned onboarding flows based on drop-off analysis
-- Coordinated community programs that converted interest into active projects
+- Onboarded and coached 100+ developers, converting interest into 40 new projects in one month
+- Redesigned onboarding flows based on drop-off analysis — 500%+ engagement lift the following week
+- Connected users with 8,500+ investment opportunities, portfolios, and job postings
 
 ## Relevance
 

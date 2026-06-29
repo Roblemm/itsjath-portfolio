@@ -1,7 +1,9 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initHeroField } from './hero-field';
+import { initHomeIntro } from './home-intro';
 import { prefersReducedMotion } from './reduced-motion';
+import { initSignalScroll } from './signal-scroll';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,47 +56,30 @@ function initScrollCue(): () => void {
   };
 }
 
-export function initHome(): () => void {
-  const cleanups: Array<() => void> = [];
+function runHeroEntrance(onComplete?: () => void) {
+  gsap.set('[data-hero-stagger]', { y: 26, opacity: 0 });
+  gsap.to('[data-hero-stagger]', {
+    y: 0,
+    opacity: 1,
+    duration: 1.1,
+    ease: 'power3.out',
+    stagger: 0.085,
+    delay: 0.08,
+    onComplete,
+  });
+}
 
-  const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-field]');
-  const field = canvas ? initHeroField(canvas) : null;
-  if (field) cleanups.push(field.destroy);
+function sortReadingOrder(elements: HTMLElement[]): HTMLElement[] {
+  return [...elements].sort((a, b) => {
+    const ra = a.getBoundingClientRect();
+    const rb = b.getBoundingClientRect();
+    if (Math.abs(ra.top - rb.top) > 10) return ra.top - rb.top;
+    return ra.left - rb.left;
+  });
+}
 
-  cleanups.push(initScrollCue());
-
-  // ── Reduced motion: show everything, no scroll choreography ──
-  if (prefersReducedMotion()) {
-    document
-      .querySelectorAll<HTMLElement>('[data-hero-stagger], [data-reveal]')
-      .forEach((el) => el.classList.add('is-in'));
-    document.querySelectorAll<HTMLElement>('[data-split] .word, [data-split]').forEach((el) => {
-      el.style.opacity = '1';
-    });
-    const splitEl = document.querySelector<HTMLElement>('[data-split]');
-    if (splitEl) splitWords(splitEl).forEach((w) => (w.style.opacity = '1'));
-    const fade = document.querySelector<HTMLElement>('[data-split-fade]');
-    if (fade) fade.style.opacity = '1';
-    const fv = document.querySelector<HTMLElement>('[data-featured-visual]');
-    if (fv) gsap.set(fv, { clearProps: 'all' });
-    setCountersFinal();
-    field?.setScroll(0);
-    return () => cleanups.forEach((fn) => fn());
-  }
-
-  const ctx = gsap.context(() => {
-    // ── Hero entrance ──
-    gsap.set('[data-hero-stagger]', { y: 26, opacity: 0 });
-    gsap.to('[data-hero-stagger]', {
-      y: 0,
-      opacity: 1,
-      duration: 1.1,
-      ease: 'power3.out',
-      stagger: 0.085,
-      delay: 0.15,
-    });
-
-    // ── Drive the canvas field with overall scroll through the first scenes ──
+function initScrollChoreography(field: ReturnType<typeof initHeroField> | null) {
+  return gsap.context(() => {
     if (field) {
       ScrollTrigger.create({
         trigger: '[data-home]',
@@ -105,7 +90,6 @@ export function initHome(): () => void {
       });
     }
 
-    // ── Hero copy drifts up and fades as you leave the scene ──
     gsap.to('[data-hero-copy]', {
       yPercent: -16,
       opacity: 0,
@@ -118,7 +102,6 @@ export function initHome(): () => void {
       },
     });
 
-    // ── Manifesto: words ignite one by one as the pinned scene scrolls ──
     const manifesto = document.querySelector<HTMLElement>('[data-manifesto]');
     const splitEl = manifesto?.querySelector<HTMLElement>('[data-split]');
     const fade = manifesto?.querySelector<HTMLElement>('[data-split-fade]');
@@ -127,19 +110,26 @@ export function initHome(): () => void {
       gsap.set(words, { opacity: 0.14, filter: 'blur(0px)' });
       if (fade) gsap.set(fade, { opacity: 0 });
 
+      let readingOrder = sortReadingOrder(words);
+      const resortWords = () => {
+        readingOrder = sortReadingOrder(words);
+      };
+      resortWords();
+      requestAnimationFrame(resortWords);
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: manifesto,
           start: 'top top',
           end: 'bottom bottom',
           scrub: 0.6,
+          onRefresh: resortWords,
         },
       });
-      tl.to(words, { opacity: 1, stagger: 0.5, ease: 'none', duration: 1 }, 0);
-      if (fade) tl.to(fade, { opacity: 1, duration: 0.4 }, '>-0.2');
+      tl.to(readingOrder, { opacity: 1, stagger: 0.06, ease: 'none', duration: 1 }, 0);
+      if (fade) tl.to(fade, { opacity: 1, duration: 0.4 }, '>-0.15');
     }
 
-    // ── Stats count up on entry ──
     document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
       const to = Number(el.dataset.countTo ?? '0');
       const suffix = el.dataset.countSuffix ?? '';
@@ -162,7 +152,6 @@ export function initHome(): () => void {
       });
     });
 
-    // ── Generic reveals ──
     gsap.set('[data-reveal]', { y: 28, opacity: 0 });
     ScrollTrigger.batch('[data-reveal]', {
       start: 'top 88%',
@@ -177,42 +166,116 @@ export function initHome(): () => void {
         }),
     });
 
-    // ── Featured: visual scales/clips open, copy rises (pinned scene) ──
     const featured = document.querySelector<HTMLElement>('[data-featured]');
     const visual = featured?.querySelector<HTMLElement>('[data-featured-visual]');
     const body = featured?.querySelector<HTMLElement>('[data-featured-body]');
     if (featured && visual) {
-      gsap.set(visual, { scale: 1.18, clipPath: 'inset(22% 14% round 24px)' });
-      gsap.to(visual, {
-        scale: 1,
-        clipPath: 'inset(0% 0% round 24px)',
-        ease: 'none',
+      gsap.set(visual, {
+        scale: 1.18,
+        clipPath: 'inset(22% 14% round 24px)',
+        opacity: 0.25,
+      });
+      if (body) gsap.set(body, { opacity: 0, y: 40 });
+
+      const ft = gsap.timeline({
         scrollTrigger: {
           trigger: featured,
           start: 'top top',
-          end: 'center center',
-          scrub: true,
+          end: 'bottom bottom',
+          scrub: 0.6,
         },
       });
+
+      ft.to(
+        visual,
+        {
+          scale: 1,
+          clipPath: 'inset(0% 0% round 24px)',
+          opacity: 1,
+          ease: 'none',
+          duration: 1,
+        },
+        0,
+      );
+
       if (body) {
-        gsap.from(body.children, {
-          y: 40,
-          opacity: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-          stagger: 0.12,
-          scrollTrigger: { trigger: featured, start: 'top 40%' },
-        });
+        ft.to(
+          body,
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'none',
+            duration: 0.5,
+          },
+          0.4,
+        );
       }
     }
 
     ScrollTrigger.refresh();
   });
+}
+
+export function initHome(): () => void {
+  const cleanups: Array<() => void> = [];
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-field]');
+  const field = canvas ? initHeroField(canvas) : null;
+  if (field) cleanups.push(field.destroy);
+
+  cleanups.push(initScrollCue());
+
+  if (prefersReducedMotion()) {
+    document
+      .querySelectorAll<HTMLElement>('[data-hero-stagger], [data-reveal]')
+      .forEach((el) => el.classList.add('is-in'));
+    document.querySelectorAll<HTMLElement>('[data-split] .word, [data-split]').forEach((el) => {
+      el.style.opacity = '1';
+    });
+    const splitEl = document.querySelector<HTMLElement>('[data-split]');
+    if (splitEl) splitWords(splitEl).forEach((w) => (w.style.opacity = '1'));
+    const fade = document.querySelector<HTMLElement>('[data-split-fade]');
+    if (fade) fade.style.opacity = '1';
+    const fv = document.querySelector<HTMLElement>('[data-featured-visual]');
+    if (fv) gsap.set(fv, { clearProps: 'all' });
+    const fb = document.querySelector<HTMLElement>('[data-featured-body]');
+    if (fb) gsap.set(fb, { clearProps: 'all', opacity: 1, y: 0 });
+    setCountersFinal();
+    field?.setScroll(0);
+    document.querySelector('[data-intro]')?.remove();
+    document.querySelector('[data-home]')?.removeAttribute('data-intro-pending');
+    cleanups.push(initSignalScroll());
+    return () => cleanups.forEach((fn) => fn());
+  }
+
+  let scrollCtx: gsap.Context | null = null;
+
+  const beginExperience = (instant = false) => {
+    const mountSignal = () => {
+      cleanups.push(initSignalScroll({ initialProgress: 0 }));
+      ScrollTrigger.refresh();
+    };
+
+    if (instant) {
+      gsap.set('[data-hero-stagger]', { y: 0, opacity: 1 });
+      mountSignal();
+    } else {
+      runHeroEntrance(mountSignal);
+    }
+
+    scrollCtx = initScrollChoreography(field);
+    cleanups.push(() => scrollCtx?.revert());
+  };
+
+  cleanups.push(
+    initHomeIntro({
+      onComplete: beginExperience,
+    }),
+  );
 
   const onResize = () => ScrollTrigger.refresh();
   window.addEventListener('resize', onResize);
   cleanups.push(() => window.removeEventListener('resize', onResize));
-  cleanups.push(() => ctx.revert());
 
   return () => cleanups.forEach((fn) => fn());
 }

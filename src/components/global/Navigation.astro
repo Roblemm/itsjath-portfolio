@@ -23,7 +23,7 @@ function isActive(href: string): boolean {
     <nav class="nav__center" aria-label="Primary">
       <ul class="nav__links">
         {
-          NAV_LINKS.map((link, i) => (
+          NAV_LINKS.map((link) => (
             <li>
               <a
                 href={link.href}
@@ -31,8 +31,7 @@ function isActive(href: string): boolean {
                 aria-current={isActive(link.href) ? 'page' : undefined}
                 {...(link.href.endsWith('.pdf') ? { target: '_blank', rel: 'noopener' } : {})}
               >
-                <span class="nav__num">{String(i + 1).padStart(2, '0')}</span>
-                <span class="nav__label">{link.label}</span>
+                {link.label}
               </a>
             </li>
           ))

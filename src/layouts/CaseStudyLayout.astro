@@ -1,22 +1,93 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import type { CollectionEntry } from 'astro:content';
+import { caseStudyIntro } from '../utils/page-intros';
 
 interface Props {
   project: CollectionEntry<'projects'>;
 }
 
 const { project } = Astro.props;
-const { title, role, timeline, problem, outcome, skills, recruiter_takeaway } = project.data;
+const {
+  title,
+  role,
+  timeline,
+  problem,
+  outcome,
+  skills,
+  recruiter_takeaway,
+  cover,
+  gallery,
+  metrics,
+  demo,
+  videos,
+  status,
+  year,
+  category,
+} = project.data;
+
+const categoryLabel: Record<string, string> = {
+  creative: 'Games & creative',
+  platform: 'Platform',
+  software: 'Software',
+  studio: 'Studio',
+};
 ---
 
-<BaseLayout title={title} description={project.data.one_line_summary}>
+<BaseLayout
+  title={title}
+  description={project.data.one_line_summary}
+  intro={caseStudyIntro(title)}
+>
   <article class="container section page-enter" data-page-content>
-    <header class="page-header">
-      <p class="meta page-header__eyebrow">Case study</p>
+    {cover && (
+      <figure class="case-hero">
+        <img src={cover} alt="" class="case-hero__img" loading="eager" decoding="async" />
+      </figure>
+    )}
+
+    <header class="page-header" style="padding-top: 0;">
+      <p class="meta page-header__eyebrow">
+        {categoryLabel[category] ?? category} · {status} · {year}
+      </p>
       <h1>{title}</h1>
       <p class="lead" style="margin-top: 1rem;">{project.data.one_line_summary}</p>
     </header>
+
+    {
+      metrics && metrics.length > 0 && (
+        <dl class="case-metrics" aria-label="Project metrics">
+          {metrics.map((m) => (
+            <div class="case-metrics__item">
+              <dt class="case-metrics__value">{m.value}</dt>
+              <dd class="case-metrics__label">{m.label}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+
+    <blockquote class="case-pull">
+      <strong>Why this matters to recruiters</strong>
+      {recruiter_takeaway}
+    </blockquote>
+
+    {
+      demo && (
+        <section class="case-demo" aria-label="Project demo">
+          <p class="case-demo__label">{demo.label ?? 'Gameplay demo'}</p>
+          <div class="case-demo__frame">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${demo.youtubeId}`}
+              title={demo.label ?? `${title} demo`}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          </div>
+        </section>
+      )
+    }
 
     <dl class="case-summary">
       <dt>Role</dt>
@@ -31,11 +102,46 @@ const { title, role, timeline, problem, outcome, skills, recruiter_takeaway } = 
       <dd>{problem}</dd>
       <dt>Outcome</dt>
       <dd>{outcome}</dd>
-      <dt>Recruiter takeaway</dt>
-      <dd>{recruiter_takeaway}</dd>
       <dt>Skills demonstrated</dt>
       <dd>{skills.join(' · ')}</dd>
     </dl>
+
+    {
+      videos && videos.length > 0 && (
+        <section class="case-videos" aria-labelledby="creator-videos">
+          <h2 id="creator-videos" class="case-videos__title">Creator coverage</h2>
+          <div class="case-videos__grid">
+            {videos.map((video) => (
+              <figure class="case-video">
+                <div class="case-video__frame">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
+                    title={video.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  />
+                </div>
+                <figcaption class="case-video__cap">
+                  <span class="case-video__name">{video.title}</span>
+                  {video.note && <span class="case-video__note">{video.note}</span>}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {gallery && gallery.length > 0 && (
+      <div class="case-gallery" aria-label="Project gallery">
+        {gallery.map((src) => (
+          <figure class="case-gallery__item">
+            <img src={src} alt="" loading="lazy" decoding="async" />
+          </figure>
+        ))}
+      </div>
+    )}
 
     <div class="prose">
       <slot />

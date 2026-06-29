@@ -16,8 +16,39 @@ skills:
   - Team coordination
   - Distribution
 recruiter_takeaway: Demonstrates ownership from concept to cultural reach — product judgment, technical execution, and the ability to ship work that people share.
+highlight: "#1 trending on YouTube Gaming — partnered with FGTeeV, DenisDaily, LankyBox, and GravyCatMan."
+metrics:
+  - value: 78M+
+    label: Portfolio plays & views
+  - value: 9M+
+    label: DenisDaily video views
+  - value: 24M+
+    label: YouTube views (studio)
+  - value: 30+
+    label: Creators partnered
+demo:
+  youtubeId: ICKrc9I2npI
+  label: Escape Bruno gameplay
+videos:
+  - title: DenisDaily
+    youtubeId: XxteSlNAd2s
+    note: 9M+ views
+  - title: GravyCatMan
+    youtubeId: M2YAK8UDoaA
+    note: 4M+ views
+  - title: FGTeeV
+    youtubeId: gJBWB2fpCQ8
+    note: 3.2M+ views
+  - title: LankyBox
+    youtubeId: AocMjuPPjFE
+    note: 2.1M+ views
 featured: true
 flagship: true
+cover: /images/work/escape-bruno/cover.png
+gallery:
+  - /images/work/escape-bruno/gallery-1.png
+  - /images/work/escape-bruno/gallery-2.png
+  - /images/work/escape-bruno/gallery-3.png
 links:
   live: https://forestlygames.com
 ---
@@ -35,10 +66,11 @@ ForestlyGames needed a release that could earn attention beyond existing players
 - Scoped the core loop around tension, readability, and clip-friendly moments
 - Coordinated engineering, design, QA, and launch across the studio
 - Built live-ops and analytics feedback loops to improve session completion
+- Partnered with creators including FGTeeV, LankyBox, DenisDaily, and GravyCatMan — driving millions of views per video
 
 ## Evidence
 
-Media artifacts and analytics screenshots will be added in a follow-up pass. Metrics sourced from studio operations.
+Creator coverage drove breakout reach: DenisDaily (9M+ views), GravyCatMan (4M+), FGTeeV (3.2M+), LankyBox (2.1M+), and more across the portfolio's 24M+ YouTube views.
 
 ## Lessons
 
