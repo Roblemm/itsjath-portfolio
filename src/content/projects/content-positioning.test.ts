@@ -87,14 +87,20 @@ describe('portfolio content positioning', () => {
     expect(styles).not.toContain('.work-featured .work-card {\n  height: 100%;\n}');
   });
 
-  it('gives the Work hero lead a designed structure instead of a plain paragraph', () => {
+  it('makes the Work hero scannable with identity, roles, and quick facts', () => {
     const page = readSource('../../pages/work/index.astro');
     const styles = readSource('../../styles/work.css');
 
-    expect(page).toContain('work-hero__lead-context');
-    expect(page).toContain('work-hero__lead-main');
-    expect(styles).toContain('.work-hero__lead-context');
-    expect(styles).toContain('.work-hero__lead-main');
+    expect(page).toContain('Jathniel Ahonsi');
+    expect(page).toContain('Software engineer');
+    expect(page).toContain('Product founder');
+    expect(page).toContain('Game studio operator');
+    expect(page).toContain('At a glance');
+    expect(page).toContain('CS + Business Analytics');
+    expect(page).toContain('Games, platforms, community growth');
+    expect(page).not.toContain('turning messy ideas into shipped products');
+    expect(styles).toContain('.work-hero__roles');
+    expect(styles).toContain('.work-hero__snapshot');
     expect(styles).toContain('grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);');
   });
 
