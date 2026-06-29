@@ -105,6 +105,12 @@ describe('portfolio content positioning', () => {
     expect(page).toContain('Real users, teams, budgets, deadlines, production constraints, and measurable results');
     expect(page).not.toContain('Jathniel Ahonsi');
     expect(styles).toContain('.work-hero__pills');
+    expect(styles).toContain('.work-hero__pills li:hover');
+    expect(styles).toContain('.work-hero__pills li:focus-within');
+    expect(styles).toContain('border: 1px solid color-mix(in srgb, var(--white-500) 20%, transparent);');
+    expect(styles).toContain('color: var(--white-300);');
+    expect(styles).toContain('border-color: color-mix(in srgb, var(--gold-500) 42%, transparent);');
+    expect(styles).toContain('color: var(--gold-100);');
     expect(styles).toContain('.work-hero__bring');
     expect(styles).toContain('.work-hero__capabilities');
   });
