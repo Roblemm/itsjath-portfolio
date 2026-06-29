@@ -87,21 +87,26 @@ describe('portfolio content positioning', () => {
     expect(styles).not.toContain('.work-featured .work-card {\n  height: 100%;\n}');
   });
 
-  it('makes the Work hero scannable with identity, roles, and quick facts', () => {
+  it('uses the concise Work hero and What I Bring scan block', () => {
     const page = readSource('../../pages/work/index.astro');
     const styles = readSource('../../styles/work.css');
 
-    expect(page).toContain('Jathniel Ahonsi');
-    expect(page).toContain('Software engineer');
-    expect(page).toContain('Product founder');
-    expect(page).toContain('Game studio operator');
-    expect(page).toContain('At a glance');
-    expect(page).toContain('CS + Business Analytics');
-    expect(page).toContain('Games, platforms, community growth');
-    expect(page).not.toContain('turning messy ideas into shipped products');
-    expect(styles).toContain('.work-hero__roles');
-    expect(styles).toContain('.work-hero__snapshot');
-    expect(styles).toContain('grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);');
+    expect(page).toContain('Products that reach millions.');
+    expect(page).toContain('Software, platforms, and systems built for real users, teams, and outcomes.');
+    expect(page).toContain('SOFTWARE ENGINEER');
+    expect(page).toContain('PRODUCT BUILDER');
+    expect(page).toContain('FOUNDER &amp; OPERATOR');
+    expect(page).toContain('What I bring');
+    expect(page).toContain('Fast engineering execution');
+    expect(page).toContain('Backend systems, full-stack products, databases, APIs, and automation');
+    expect(page).toContain('Product ownership');
+    expect(page).toContain('Problem definition, product decisions, launch, iteration, and operations');
+    expect(page).toContain('Real-world experience');
+    expect(page).toContain('Real users, teams, budgets, deadlines, production constraints, and measurable results');
+    expect(page).not.toContain('Jathniel Ahonsi');
+    expect(styles).toContain('.work-hero__pills');
+    expect(styles).toContain('.work-hero__bring');
+    expect(styles).toContain('.work-hero__capabilities');
   });
 
   it('preserves ForestlyGames #1 trending copy in YAML frontmatter', () => {

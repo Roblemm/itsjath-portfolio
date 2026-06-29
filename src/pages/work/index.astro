@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/work/WorkCard.astro';
-import { EDUCATION } from '../../utils/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => {
   if (a.data.flagship !== b.data.flagship) return a.data.flagship ? -1 : 1;
@@ -47,37 +46,40 @@ const proof = [
 
 <BaseLayout
   title="Work"
-  description="Featured engineering and product work from Jathniel Ahonsi: studio operations, shipped games, communities, and full-stack systems."
+  description="Software, platforms, and systems built for real users, teams, and outcomes."
 >
   <div class="container section page-enter" data-page-content>
     <header class="work-hero">
       <p class="meta work-hero__eyebrow">Selected work</p>
       <div class="work-hero__layout">
-        <div class="work-hero__identity">
-          <h1 class="work-hero__title">Jathniel Ahonsi</h1>
-          <ul class="work-hero__roles" aria-label="Primary roles">
-            <li>Software engineer</li>
-            <li>Product founder</li>
-            <li>Game studio operator</li>
+        <div class="work-hero__statement">
+          <h1 class="work-hero__title">Products that reach millions.</h1>
+          <p class="work-hero__lead">
+            Software, platforms, and systems built for real users, teams, and outcomes.
+          </p>
+          <ul class="work-hero__pills" aria-label="Primary roles">
+            <li>SOFTWARE ENGINEER</li>
+            <li>PRODUCT BUILDER</li>
+            <li>FOUNDER &amp; OPERATOR</li>
           </ul>
         </div>
-        <div class="work-hero__snapshot" aria-label="At a glance">
-          <p class="work-hero__snapshot-title">At a glance</p>
-          <dl class="work-hero__facts">
-            <div>
-              <dt>Studying</dt>
-              <dd>{EDUCATION.school} &middot; CS + Business Analytics</dd>
-            </div>
-            <div>
-              <dt>Building</dt>
-              <dd>ForestlyGames &middot; ForestlyDevs</dd>
-            </div>
-            <div>
-              <dt>Focus</dt>
-              <dd>Games, platforms, community growth</dd>
-            </div>
-          </dl>
-        </div>
+        <section class="work-hero__bring" aria-labelledby="work-bring">
+          <h2 id="work-bring" class="work-hero__bring-label">What I bring</h2>
+          <div class="work-hero__capabilities">
+            <article class="work-hero__capability">
+              <h3>Fast engineering execution</h3>
+              <p>Backend systems, full-stack products, databases, APIs, and automation</p>
+            </article>
+            <article class="work-hero__capability">
+              <h3>Product ownership</h3>
+              <p>Problem definition, product decisions, launch, iteration, and operations</p>
+            </article>
+            <article class="work-hero__capability">
+              <h3>Real-world experience</h3>
+              <p>Real users, teams, budgets, deadlines, production constraints, and measurable results</p>
+            </article>
+          </div>
+        </section>
       </div>
     </header>
 
