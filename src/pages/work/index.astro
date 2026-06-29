@@ -52,13 +52,18 @@ const proof = [
   <div class="container section page-enter" data-page-content>
     <header class="work-hero">
       <p class="meta work-hero__eyebrow">Selected work</p>
-      <h1 class="work-hero__title">I build products people use, play, and keep coming back to.</h1>
-      <p class="work-hero__lead">
-        {EDUCATION.school} &middot; Computer Science &amp; Business Analytics &middot; founder of
-        ForestlyGames and ForestlyDevs. The thread across the work is simple:
-        turn messy ideas into shipped products with engineering, operations, community,
-        and distribution working together.
-      </p>
+      <div class="work-hero__layout">
+        <h1 class="work-hero__title">I build products people use, play, and keep coming back to.</h1>
+        <p class="work-hero__lead">
+          <span class="work-hero__lead-context">
+            {EDUCATION.school} &middot; Computer Science &amp; Business Analytics
+          </span>
+          <span class="work-hero__lead-main">
+            Founder of ForestlyGames and ForestlyDevs, turning messy ideas into shipped products
+            where engineering, operations, community, and distribution work together.
+          </span>
+        </p>
+      </div>
     </header>
 
     <div class="work-proof" aria-label="Career proof points">
@@ -84,7 +89,10 @@ const proof = [
         {
           featuredProduct && (
             <div class="work-featured work-featured--product">
-              <p class="work-featured__label">Featured product project</p>
+              <p class="work-featured__label">
+                <span class="work-featured__context">ForestlyGames</span>
+                <span class="work-featured__side-pill work-featured__side-pill--product">Product</span>
+              </p>
               <WorkCard project={featuredProduct} featured />
               <div class="work-product-chapters" aria-label="ForestlyGames game chapters">
                 {productChapters
@@ -113,7 +121,10 @@ const proof = [
         {
           featuredEngineering && (
             <div class="work-featured">
-              <p class="work-featured__label">Featured engineering project</p>
+              <p class="work-featured__label">
+                <span class="work-featured__context">ForestlyGames</span>
+                <span class="work-featured__side-pill work-featured__side-pill--software">Software</span>
+              </p>
               <WorkCard project={featuredEngineering} featured />
             </div>
           )

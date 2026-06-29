@@ -60,8 +60,8 @@ describe('portfolio content positioning', () => {
   it('keeps the featured product and game chapters visible on the Work page', () => {
     const content = readSource('../../pages/work/index.astro');
 
-    expect(content.indexOf('Featured product project')).toBeLessThan(
-      content.indexOf('Featured engineering project'),
+    expect(content.indexOf('work-featured__side-pill--product')).toBeLessThan(
+      content.indexOf('work-featured__side-pill--software'),
     );
     expect(content).toContain('productChapterIds');
     expect(content).toContain('work-product-chapters');
@@ -70,6 +70,32 @@ describe('portfolio content positioning', () => {
     expect(content).toContain('roempires');
     expect(content).toContain('encaved');
     expect(content).toContain('evil-pets');
+  });
+
+  it('labels the two ForestlyGames feature sides and keeps the columns top-aligned', () => {
+    const page = readSource('../../pages/work/index.astro');
+    const styles = readSource('../../styles/work.css');
+
+    expect(page.indexOf('work-featured__side-pill work-featured__side-pill--product')).toBeLessThan(
+      page.indexOf('work-featured__side-pill work-featured__side-pill--software'),
+    );
+    expect(page).toContain('work-featured__side-pill work-featured__side-pill--product');
+    expect(page).toContain('work-featured__side-pill work-featured__side-pill--software');
+    expect(page).toContain('Product');
+    expect(page).toContain('Software');
+    expect(styles).toContain('align-items: start;');
+    expect(styles).not.toContain('.work-featured .work-card {\n  height: 100%;\n}');
+  });
+
+  it('gives the Work hero lead a designed structure instead of a plain paragraph', () => {
+    const page = readSource('../../pages/work/index.astro');
+    const styles = readSource('../../styles/work.css');
+
+    expect(page).toContain('work-hero__lead-context');
+    expect(page).toContain('work-hero__lead-main');
+    expect(styles).toContain('.work-hero__lead-context');
+    expect(styles).toContain('.work-hero__lead-main');
+    expect(styles).toContain('grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);');
   });
 
   it('preserves ForestlyGames #1 trending copy in YAML frontmatter', () => {

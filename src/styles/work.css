@@ -2,24 +2,53 @@
 
 .work-hero {
   padding-block: clamp(3rem, 8vw, 5.5rem) clamp(2rem, 5vw, 3rem);
-  max-width: 48rem;
+  max-width: 68rem;
 }
 
 .work-hero__eyebrow {
   margin-bottom: 1rem;
 }
 
+.work-hero__layout {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: end;
+}
+
+@media (min-width: 820px) {
+  .work-hero__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
+  }
+}
+
 .work-hero__title {
   font-size: var(--text-xl);
   line-height: 1.05;
   letter-spacing: -0.02em;
+  max-width: 12ch;
 }
 
 .work-hero__lead {
-  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.65rem;
   color: var(--white-300);
-  font-size: var(--text-md);
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.62;
+  max-width: 45rem;
+  padding-left: 1rem;
+  border-left: 2px solid color-mix(in srgb, var(--gold-500) 55%, transparent);
+}
+
+.work-hero__lead-context {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.work-hero__lead-main {
+  color: var(--white-300);
 }
 
 .work-proof {
@@ -193,27 +222,56 @@
 @media (min-width: 900px) {
   .work-featured-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
+    align-items: start;
+    padding-top: 0.9rem;
+    border-top: 1px solid color-mix(in srgb, var(--gold-500) 20%, transparent);
   }
 }
 
 .work-featured {
   display: grid;
   gap: 0.75rem;
+  align-content: start;
   min-width: 0;
 }
 
-.work-featured .work-card {
-  height: 100%;
-}
-
 .work-featured__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 1.75rem;
   margin: 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold-500);
+}
+
+.work-featured__context {
+  color: var(--white-300);
+}
+
+.work-featured__side-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.7rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  color: var(--black-000);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.work-featured__side-pill--product {
+  background: var(--gold-300);
+}
+
+.work-featured__side-pill--software {
+  background: var(--purple-300);
 }
 
 .work-product-chapters {
