@@ -57,6 +57,21 @@ describe('portfolio content positioning', () => {
     expect(content).toContain('Encaved');
   });
 
+  it('keeps the featured product and game chapters visible on the Work page', () => {
+    const content = readSource('../../pages/work/index.astro');
+
+    expect(content.indexOf('Featured product project')).toBeLessThan(
+      content.indexOf('Featured engineering project'),
+    );
+    expect(content).toContain('productChapterIds');
+    expect(content).toContain('work-product-chapters');
+    expect(content).toContain('escape-bruno-head');
+    expect(content).toContain('boss-battles');
+    expect(content).toContain('roempires');
+    expect(content).toContain('encaved');
+    expect(content).toContain('evil-pets');
+  });
+
   it('preserves ForestlyGames #1 trending copy in YAML frontmatter', () => {
     const content = readProject('forestlygames.md');
     const outcome = content.split('\n').find((line) => line.startsWith('outcome:'));

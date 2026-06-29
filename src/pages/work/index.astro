@@ -13,11 +13,23 @@ const projects = (await getCollection('projects')).sort((a, b) => {
 const featuredEngineering = projects.find((p) => p.id === 'forestlygames-operations-platform');
 const featuredProduct = projects.find((p) => p.id === 'forestlygames');
 const featuredProjectIds = new Set([featuredEngineering?.id, featuredProduct?.id].filter(Boolean));
-const studioChapterIds = new Set([
-  'escape-bruno-head',
+const productChapterIds = [
   'boss-battles',
   'roempires',
   'encaved',
+  'escape-bruno-head',
+  'evil-pets',
+];
+const productChapters = productChapterIds
+  .map((id) => projects.find((project) => project.id === id))
+  .filter((project) => project !== undefined);
+const studioChapterIds = new Set(productChapterIds);
+
+const visibleProductChapterIds = new Set([
+  'boss-battles',
+  'roempires',
+  'encaved',
+  'escape-bruno-head',
   'evil-pets',
 ]);
 
@@ -70,18 +82,39 @@ const proof = [
 
       <div class="work-featured-grid">
         {
-          featuredEngineering && (
-            <div class="work-featured">
-              <p class="work-featured__label">Featured engineering project</p>
-              <WorkCard project={featuredEngineering} featured />
+          featuredProduct && (
+            <div class="work-featured work-featured--product">
+              <p class="work-featured__label">Featured product project</p>
+              <WorkCard project={featuredProduct} featured />
+              <div class="work-product-chapters" aria-label="ForestlyGames game chapters">
+                {productChapters
+                  .filter((chapter) => visibleProductChapterIds.has(chapter.id))
+                  .map((chapter) => (
+                    <a href={`/work/${chapter.id}/`} class="work-product-chapter">
+                      {chapter.data.cover && (
+                        <img
+                          src={chapter.data.cover}
+                          alt=""
+                          class="work-product-chapter__img"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
+                      <span class="work-product-chapter__body">
+                        <span class="work-product-chapter__title">{chapter.data.title}</span>
+                        <span class="work-product-chapter__meta">{chapter.data.status}</span>
+                      </span>
+                    </a>
+                  ))}
+              </div>
             </div>
           )
         }
         {
-          featuredProduct && (
+          featuredEngineering && (
             <div class="work-featured">
-              <p class="work-featured__label">Featured product project</p>
-              <WorkCard project={featuredProduct} featured />
+              <p class="work-featured__label">Featured engineering project</p>
+              <WorkCard project={featuredEngineering} featured />
             </div>
           )
         }

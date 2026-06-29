@@ -26,7 +26,6 @@ metrics:
     label: YouTube views
 featured: true
 flagship: false
-cover: /images/work/forestlygames/cover.png
 links:
   live: https://forestlygames.com
 ---

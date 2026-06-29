@@ -46,23 +46,23 @@ The important part is the repeatability: taking ideas from rough concepts into s
 
 ## Selected games
 
-### Escape Bruno Running Head
+### [Escape Bruno Running Head](/work/escape-bruno-head/)
 
 Escape Bruno Running Head was the breakout release. I programmed the game myself, and it became the project that pulled the widest creator coverage and the strongest public attention. It was not the most visually impressive ForestlyGames project, but it proved the studio could ship a simple, readable game loop that creators wanted to play on camera.
 
-### Boss Battles
+### [Boss Battles](/work/boss-battles/)
 
 Boss Battles shows the more systems-heavy side of the portfolio: combat pacing, encounter design, progression thinking, and the kind of moment-to-moment readability that keeps a multiplayer game understandable under pressure.
 
-### RoEmpires
+### [RoEmpires](/work/roempires/)
 
 RoEmpires is an alpha strategy project. It belongs in the portfolio as evidence of broader product ambition: economy loops, territory control, player motivation, and long-form systems design.
 
-### Encaved
+### [Encaved](/work/encaved/)
 
 Encaved represents the studio's moodier adventure and survival direction, with more emphasis on environment, pacing, and atmosphere than the breakout horror-obby format.
 
-### Evil Pets
+### [Evil Pets](/work/evil-pets/)
 
 Evil Pets added another angle to the portfolio: character-driven, collectible-style product thinking with a clearer marketing hook.
 
