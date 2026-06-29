@@ -99,14 +99,18 @@ describe('portfolio content positioning', () => {
     expect(page).toContain('FOUNDER &amp; OPERATOR');
     expect(page).toContain('What I bring');
     expect(page).toContain('Fast engineering execution');
+    expect(page).toContain('<span class="work-hero__capability-accent">Fast</span>');
     expect(page).toContain('Backend systems, full-stack products, databases, APIs, and automation');
     expect(page).toContain('Product ownership');
+    expect(page).toContain('<span class="work-hero__capability-accent">ownership</span>');
     expect(page).toContain('Problem definition, product decisions, launch, iteration, and operations');
     expect(page).toContain('Real-world experience');
+    expect(page).toContain('<span class="work-hero__capability-accent">experience</span>');
     expect(page).toContain('Real users, teams, budgets, deadlines, production constraints, and measurable results');
     expect(page).not.toContain('Jathniel Ahonsi');
     expect(styles).toContain('.work-hero__pills');
     expect(styles).toContain('.work-hero__title-accent');
+    expect(styles).toContain('.work-hero__capability-accent');
     expect(styles).toContain('color: var(--purple-300);');
     expect(styles).toContain('.work-hero__pills li:hover');
     expect(styles).toContain('.work-hero__pills li:focus-within');
