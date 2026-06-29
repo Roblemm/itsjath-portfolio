@@ -54,7 +54,7 @@ const proof = [
       <div class="work-hero__layout">
         <div class="work-hero__statement">
           <h1 class="work-hero__title" aria-label="Products that reach millions.">
-            Products that reach <span class="work-hero__title-accent">millions</span>.
+            Products that reach <span class="work-hero__title-accent">millions</span><span class="work-hero__title-period">.</span>
           </h1>
           <p class="work-hero__lead">
             Software, platforms, and systems built for real users, teams, and outcomes.
@@ -68,21 +68,48 @@ const proof = [
         <section class="work-hero__bring" aria-labelledby="work-bring">
           <h2 id="work-bring" class="work-hero__bring-label">What I bring</h2>
           <div class="work-hero__capabilities">
-            <article class="work-hero__capability">
+            <article class="work-hero__capability work-hero__capability--momentum reveal">
               <h3 aria-label="Fast engineering execution">
-                <span class="work-hero__capability-accent">Fast</span> engineering execution
+                <span class="work-hero__icon" aria-hidden="true">
+                  <lord-icon
+                    src="https://media.lordicon.com/icons/wired/gradient/2601-speed.li"
+                    colors="primary:#b88cff,secondary:#ffd76a"
+                    loading="lazy"
+                  >
+                    <img alt="" src="https://media.lordicon.com/icons/wired/gradient/2601-speed.svg" />
+                  </lord-icon>
+                </span>
+                Fast engineering execution
               </h3>
               <p>Backend systems, full-stack products, databases, APIs, and automation</p>
             </article>
-            <article class="work-hero__capability">
+            <article class="work-hero__capability work-hero__capability--ownership reveal">
               <h3 aria-label="Product ownership">
-                Product <span class="work-hero__capability-accent">ownership</span>
+                <span class="work-hero__icon" aria-hidden="true">
+                  <lord-icon
+                    src="https://media.lordicon.com/icons/wired/gradient/47-to-do-list.li"
+                    colors="primary:#b88cff,secondary:#ffd76a"
+                    loading="lazy"
+                  >
+                    <img alt="" src="https://media.lordicon.com/icons/wired/gradient/47-to-do-list.svg" />
+                  </lord-icon>
+                </span>
+                Product ownership
               </h3>
               <p>Problem definition, product decisions, launch, iteration, and operations</p>
             </article>
-            <article class="work-hero__capability">
+            <article class="work-hero__capability work-hero__capability--experience reveal">
               <h3 aria-label="Real-world experience">
-                Real-world <span class="work-hero__capability-accent">experience</span>
+                <span class="work-hero__icon" aria-hidden="true">
+                  <lord-icon
+                    src="https://media.lordicon.com/icons/wired/gradient/187-suitcase.li"
+                    colors="primary:#b88cff,secondary:#ffd76a"
+                    loading="lazy"
+                  >
+                    <img alt="" src="https://media.lordicon.com/icons/wired/gradient/187-suitcase.svg" />
+                  </lord-icon>
+                </span>
+                Real-world experience
               </h3>
               <p>Real users, teams, budgets, deadlines, production constraints, and measurable results</p>
             </article>
@@ -170,3 +197,63 @@ const proof = [
     </section>
   </div>
 </BaseLayout>
+
+<script is:inline src="https://cdn.lordicon.com/lordicon.js"></script>
+<script>
+  const playWorkHeroIcon = (icon: Element) => {
+    const player = icon as Element & {
+      playFromBeginning?: () => void;
+      playerInstance?: {
+        goToFirstFrame?: () => void;
+        play?: () => void;
+      };
+    };
+
+    if (typeof player.playFromBeginning === 'function') {
+      player.playFromBeginning();
+      return;
+    }
+
+    player.playerInstance?.goToFirstFrame?.();
+    player.playerInstance?.play?.();
+  };
+
+  const initWorkHeroIcons = () => {
+    const rows = Array.from(document.querySelectorAll<HTMLElement>('.work-hero__capability')).filter(
+      (row) => row.dataset.iconReady !== 'true',
+    );
+    if (!rows.length) return;
+
+    const playRow = (row: HTMLElement) => {
+      const icon = row.querySelector('lord-icon');
+      if (icon) playWorkHeroIcon(icon);
+    };
+
+    rows.forEach((row) => {
+      row.dataset.iconReady = 'true';
+      row.addEventListener('mouseenter', () => playRow(row));
+      row.addEventListener('focusin', () => playRow(row));
+    });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      rows.forEach(playRow);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          playRow(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.58, rootMargin: '0px 0px -8% 0px' },
+    );
+
+    rows.forEach((row) => observer.observe(row));
+  };
+
+  document.addEventListener('astro:page-load', initWorkHeroIcons);
+  if (document.readyState !== 'loading') initWorkHeroIcons();
+</script>
