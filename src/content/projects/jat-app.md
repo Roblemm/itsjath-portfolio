@@ -39,4 +39,4 @@ Built a full-stack productivity application for goals, tasks, and job applicatio
 
 ## Relevance
 
-Direct evidence of backend engineering fundamentals recruiters look for in internship and new-grad roles.
+Direct evidence of backend engineering fundamentals for internship and new-grad software roles.

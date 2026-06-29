@@ -1,23 +1,20 @@
 ---
-title: Purdue Dining Revamp
-one_line_summary: Student-led initiative to improve Purdue Dining through research, marketing, and admin collaboration.
+title: Purdue Dining Product Research
+one_line_summary: Student-led product research initiative around Purdue Dining app and service friction.
 category: platform
-status: Active
+status: Research archive
 year: "2024"
-role: Marketing & strategy lead
-timeline: Aug 2024 – present
+role: Product research & strategy lead
+timeline: Aug 2024
 problem: Purdue's dining app and services had friction students felt daily, but feedback was scattered and hard to act on.
-outcome: 100+ form submissions within 24 hours of a promotional push; ongoing collaboration with Purdue administration on data-informed improvements.
+outcome: Collected student feedback, analyzed recurring pain points, and prepared data-informed recommendations for Purdue administration.
 skills:
   - Consumer research
   - Marketing strategy
   - Data analysis
   - Stakeholder management
-recruiter_takeaway: Shows initiative outside class — leading research, campaigns, and executive conversations on a real campus product.
-highlight: 100+ submissions in 24 hours — student-led research driving admin collaboration on Purdue Dining.
-metrics:
-  - value: 100+
-    label: Submissions in 24h
+recruiter_takeaway: Shows product-minded research and stakeholder communication around a real campus service.
+highlight: Product research translating student dining feedback into clearer recommendations.
 featured: false
 flagship: false
 cover: /images/work/purdue-dining/cover.png
@@ -25,14 +22,14 @@ cover: /images/work/purdue-dining/cover.png
 
 ## Overview
 
-Revamping Purdue Dining services by analyzing consumer feedback, designing targeted marketing campaigns, and leading collaborative efforts with administration to enhance the dining app experience.
+Product research initiative focused on understanding student friction with Purdue Dining services and the dining app experience.
 
 ## Work
 
-- Designed and distributed promotional materials across social media, generating 100+ form submissions and engagement within 24 hours
 - Conducted consumer surveys to identify issues with the Purdue dining app
 - Coordinated meetings with Purdue administration to present data analytics and actionable insights
-- Led a team developing and implementing marketing strategies for outreach
+- Helped shape marketing and outreach strategy so more student feedback could be collected and understood
+- Turned scattered student feedback into clearer problem areas for service and app improvements
 
 ## Relevance
 

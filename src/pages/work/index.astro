@@ -10,31 +10,42 @@ const projects = (await getCollection('projects')).sort((a, b) => {
   return a.data.title.localeCompare(b.data.title);
 });
 
-const flagship = projects.find((p) => p.data.flagship);
-const builds = projects.filter((p) => p.data.category === 'software' || p.data.category === 'platform');
-const creative = projects.filter((p) => p.data.category === 'creative');
+const featuredEngineering = projects.find((p) => p.id === 'forestlygames-operations-platform');
+const featuredProduct = projects.find((p) => p.id === 'forestlygames');
+const featuredProjectIds = new Set([featuredEngineering?.id, featuredProduct?.id].filter(Boolean));
+const studioChapterIds = new Set([
+  'escape-bruno-head',
+  'boss-battles',
+  'roempires',
+  'encaved',
+  'evil-pets',
+]);
+
+const selectedProjects = projects.filter(
+  (project) => !featuredProjectIds.has(project.id) && !studioChapterIds.has(project.id),
+);
 
 const proof = [
-  { value: '78M+', label: 'Plays & views' },
-  { value: '1,200+', label: 'Platform users' },
-  { value: '30+', label: 'Creators led' },
-  { value: '500%', label: 'Onboarding lift' },
+  { value: '78M+', label: 'Portfolio plays & views' },
+  { value: '6', label: 'Games delivered' },
+  { value: '30+', label: 'Creator collaborations' },
+  { value: '4,000', label: 'Community members' },
 ];
 ---
 
 <BaseLayout
   title="Work"
-  description="Flagship games, production platforms, and full-stack systems — proof that Jath ships work people notice."
+  description="Featured engineering and product work from Jathniel Ahonsi: studio operations, shipped games, communities, and full-stack systems."
 >
   <div class="container section page-enter" data-page-content>
     <header class="work-hero">
       <p class="meta work-hero__eyebrow">Selected work</p>
-      <h1 class="work-hero__title">I ship work millions of people play — and the systems behind it.</h1>
+      <h1 class="work-hero__title">I build products people use, play, and keep coming back to.</h1>
       <p class="work-hero__lead">
-        {EDUCATION.school} · Computer Science &amp; Business Analytics · founder of
-        ForestlyGames and ForestlyDevs. Recruiters and founders should see one thread:
-        I take unclear problems from concept to production — creative reach, platform growth,
-        and full-stack engineering.
+        {EDUCATION.school} &middot; Computer Science &amp; Business Analytics &middot; founder of
+        ForestlyGames and ForestlyDevs. The thread across the work is simple:
+        turn messy ideas into shipped products with engineering, operations, community,
+        and distribution working together.
       </p>
     </header>
 
@@ -49,57 +60,43 @@ const proof = [
       }
     </div>
 
-    {
-      flagship && (
-        <a href={`/work/${flagship.id}/`} class="work-spotlight">
-          <div
-            class="work-spotlight__visual"
-            style={flagship.data.cover ? `background-image: url('${flagship.data.cover}')` : undefined}
-          />
-          <div class="work-spotlight__body">
-            <p class="work-spotlight__tag">Flagship · {flagship.data.status}</p>
-            <h2 class="work-spotlight__title">{flagship.data.title}</h2>
-            <p class="lead">{flagship.data.highlight ?? flagship.data.one_line_summary}</p>
-            {
-              flagship.data.metrics && (
-                <div class="work-spotlight__metrics">
-                  {flagship.data.metrics.map((m) => (
-                    <span class="work-spotlight__metric">
-                      <strong>{m.value}</strong> {m.label}
-                    </span>
-                  ))}
-                </div>
-              )
-            }
-            <span class="link-arrow">Read the full case study →</span>
-          </div>
-        </a>
-      )
-    }
-
-    <section class="work-section" aria-labelledby="work-creative">
+    <section class="work-section" aria-labelledby="featured-work">
       <div class="work-section__head">
-        <h2 id="work-creative" class="work-section__title">Games &amp; creative</h2>
+        <h2 id="featured-work" class="work-section__title">Featured work</h2>
         <p class="work-section__note">
-          Studio founder. Horror obbies, strategy builders, live co-op — shipped with creator
-          partnerships that drove breakout reach.
+          Two sides of the same portfolio: the product studio and the engineering system behind it.
         </p>
       </div>
-      <div class="work-grid">
-        {creative.filter((p) => !p.data.flagship).map((project) => <WorkCard project={project} />)}
+
+      <div class="work-featured-grid">
+        {
+          featuredEngineering && (
+            <div class="work-featured">
+              <p class="work-featured__label">Featured engineering project</p>
+              <WorkCard project={featuredEngineering} featured />
+            </div>
+          )
+        }
+        {
+          featuredProduct && (
+            <div class="work-featured">
+              <p class="work-featured__label">Featured product project</p>
+              <WorkCard project={featuredProduct} featured />
+            </div>
+          )
+        }
       </div>
     </section>
 
-    <section class="work-section" aria-labelledby="work-builds">
+    <section class="work-section" aria-labelledby="selected-work">
       <div class="work-section__head">
-        <h2 id="work-builds" class="work-section__title">Platforms &amp; engineering</h2>
+        <h2 id="selected-work" class="work-section__title">Selected supporting work</h2>
         <p class="work-section__note">
-          Production systems recruiters can verify — ops platforms, marketplaces, Spring Boot APIs,
-          and measurable growth outcomes.
+          Platform builds, community systems, product research, and brand work that fill in the range.
         </p>
       </div>
       <div class="work-grid">
-        {builds.map((project) => <WorkCard project={project} featured={project.data.featured} />)}
+        {selectedProjects.map((project) => <WorkCard project={project} />)}
       </div>
     </section>
   </div>

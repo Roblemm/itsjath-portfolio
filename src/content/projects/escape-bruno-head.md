@@ -1,31 +1,30 @@
 ---
 title: Escape Bruno Running Head
-one_line_summary: Led a Roblox horror-obby that spread to millions of plays and creator coverage.
+one_line_summary: Solo-programmed Roblox horror-obby that became ForestlyGames' breakout creator-covered release.
 category: creative
 status: Released
 year: "2023"
-role: Founder & Technical Lead, ForestlyGames
-team_size: Cross-functional studio team
+role: Solo programmer & founder, ForestlyGames
 timeline: Concept through viral spread
-problem: Turn a fast-paced obstacle horror concept into a release that could break beyond the studio's existing audience.
-outcome: 78M+ combined game plays and video views across the ForestlyGames portfolio, with Escape Bruno Head as the flagship creative breakthrough.
+problem: Turn a fast-paced obstacle horror concept into a readable Roblox release that creators could understand immediately and audiences could react to quickly.
+outcome: Became the ForestlyGames breakout release, drawing major creator coverage and helping the broader studio portfolio reach tens of millions of plays and views.
 skills:
-  - Product direction
+  - Lua programming
   - Game systems
-  - Live operations
-  - Team coordination
-  - Distribution
-recruiter_takeaway: Demonstrates ownership from concept to cultural reach — product judgment, technical execution, and the ability to ship work that people share.
-highlight: "#1 trending on YouTube Gaming — partnered with FGTeeV, DenisDaily, LankyBox, and GravyCatMan."
+  - Product direction
+  - Creator distribution
+  - Live iteration
+recruiter_takeaway: Shows solo technical ownership of a shipped entertainment product, plus the judgment to turn a simple loop into a widely shared release.
+highlight: Solo-programmed breakout release with creator coverage from DenisDaily, FGTeeV, LankyBox, and GravyCatMan.
 metrics:
-  - value: 78M+
-    label: Portfolio plays & views
   - value: 9M+
     label: DenisDaily video views
-  - value: 24M+
-    label: YouTube views (studio)
-  - value: 30+
-    label: Creators partnered
+  - value: 4M+
+    label: GravyCatMan video views
+  - value: 3.2M+
+    label: FGTeeV video views
+  - value: 2.1M+
+    label: LankyBox video views
 demo:
   youtubeId: ICKrc9I2npI
   label: Escape Bruno gameplay
@@ -42,8 +41,8 @@ videos:
   - title: LankyBox
     youtubeId: AocMjuPPjFE
     note: 2.1M+ views
-featured: true
-flagship: true
+featured: false
+flagship: false
 cover: /images/work/escape-bruno/cover.png
 gallery:
   - /images/work/escape-bruno/gallery-1.png
@@ -55,23 +54,25 @@ links:
 
 ## Context
 
-Escape Bruno Running Head is a Roblox obstacle horror game where players outrun Bruno across maps filled with traps and set pieces. For recruiters outside gaming, the closest analogy is a live multiplayer product with rapid iteration, analytics-driven onboarding, and community-led distribution.
+Escape Bruno Running Head is a Roblox obstacle horror game where players outrun Bruno across maps filled with traps and set pieces. I programmed the game myself, then ForestlyGames pushed it through the studio's launch, creator, and community channels.
 
-## The opportunity
+## The honest positioning
 
-ForestlyGames needed a release that could earn attention beyond existing players — something streamers and short-form creators would pick up organically.
+This was the biggest breakout release, not the most visually ambitious project in the portfolio. The strength was the product loop: simple, readable, fast to react to, and easy for creators to turn into a video.
+
+That is why it works best as a chapter in the broader ForestlyGames case study. It proves solo implementation and distribution instincts, while the studio page carries the full product, leadership, and portfolio story.
 
 ## Decisions and execution
 
-- Scoped the core loop around tension, readability, and clip-friendly moments
-- Coordinated engineering, design, QA, and launch across the studio
-- Built live-ops and analytics feedback loops to improve session completion
-- Partnered with creators including FGTeeV, LankyBox, DenisDaily, and GravyCatMan — driving millions of views per video
+- Programmed the core gameplay loop, obstacle pacing, and Roblox implementation
+- Scoped the experience around tension, readability, and clip-friendly moments
+- Used creator coverage as the distribution engine instead of relying only on platform discovery
+- Iterated around player and viewer response once the release started spreading
 
 ## Evidence
 
-Creator coverage drove breakout reach: DenisDaily (9M+ views), GravyCatMan (4M+), FGTeeV (3.2M+), LankyBox (2.1M+), and more across the portfolio's 24M+ YouTube views.
+Creator coverage included DenisDaily, GravyCatMan, FGTeeV, LankyBox, and other Roblox creators. The release helped ForestlyGames prove that a small, focused game could break through when the concept, implementation, and creator timing lined up.
 
 ## Lessons
 
-Entertainment products succeed when creative direction, technical reliability, and distribution timing align. The project reinforced how to lead cross-functional work under public scrutiny once a release starts spreading.
+Entertainment products do not always win because they are the most visually polished. They win when the loop is clear, the audience understands the joke or tension instantly, and the launch path matches the product.
