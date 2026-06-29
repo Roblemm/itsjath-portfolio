@@ -92,6 +92,7 @@ describe('portfolio content positioning', () => {
     const styles = readSource('../../styles/work.css');
 
     expect(page).toContain('Products that reach millions.');
+    expect(page).toContain('<span class="work-hero__title-accent">millions</span>');
     expect(page).toContain('Software, platforms, and systems built for real users, teams, and outcomes.');
     expect(page).toContain('SOFTWARE ENGINEER');
     expect(page).toContain('PRODUCT BUILDER');
@@ -105,6 +106,8 @@ describe('portfolio content positioning', () => {
     expect(page).toContain('Real users, teams, budgets, deadlines, production constraints, and measurable results');
     expect(page).not.toContain('Jathniel Ahonsi');
     expect(styles).toContain('.work-hero__pills');
+    expect(styles).toContain('.work-hero__title-accent');
+    expect(styles).toContain('color: var(--purple-300);');
     expect(styles).toContain('.work-hero__pills li:hover');
     expect(styles).toContain('.work-hero__pills li:focus-within');
     expect(styles).toContain('border: 1px solid color-mix(in srgb, var(--white-500) 20%, transparent);');

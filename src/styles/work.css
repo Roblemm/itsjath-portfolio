@@ -28,6 +28,10 @@
   max-width: 9.5ch;
 }
 
+.work-hero__title-accent {
+  color: var(--purple-300);
+}
+
 .work-hero__lead {
   margin-top: 1.35rem;
   max-width: 38rem;
