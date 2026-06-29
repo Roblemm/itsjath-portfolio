@@ -71,13 +71,7 @@ const proof = [
             <article class="work-hero__capability work-hero__capability--momentum reveal">
               <h3 aria-label="Fast engineering execution">
                 <span class="work-hero__icon" aria-hidden="true">
-                  <lord-icon
-                    src="/lordicon/update.json"
-                    colors="primary:#b88cff,secondary:#ffd76a"
-                    loading="lazy"
-                  >
-                    <img alt="" src="https://media.lordicon.com/icons/wired/gradient/2601-speed.svg" />
-                  </lord-icon>
+                  <img alt="" src="https://media.lordicon.com/icons/wired/gradient/2601-speed.svg" loading="lazy" />
                 </span>
                 Fast engineering execution
               </h3>
@@ -86,13 +80,7 @@ const proof = [
             <article class="work-hero__capability work-hero__capability--ownership reveal">
               <h3 aria-label="Product ownership">
                 <span class="work-hero__icon" aria-hidden="true">
-                  <lord-icon
-                    src="/lordicon/flag.json"
-                    colors="primary:#b88cff,secondary:#ffd76a"
-                    loading="lazy"
-                  >
-                    <img alt="" src="https://media.lordicon.com/icons/wired/gradient/47-to-do-list.svg" />
-                  </lord-icon>
+                  <img alt="" src="https://media.lordicon.com/icons/wired/gradient/47-to-do-list.svg" loading="lazy" />
                 </span>
                 Product ownership
               </h3>
@@ -101,13 +89,7 @@ const proof = [
             <article class="work-hero__capability work-hero__capability--experience reveal">
               <h3 aria-label="Real-world experience">
                 <span class="work-hero__icon" aria-hidden="true">
-                  <lord-icon
-                    src="/lordicon/copy.json"
-                    colors="primary:#b88cff,secondary:#ffd76a"
-                    loading="lazy"
-                  >
-                    <img alt="" src="https://media.lordicon.com/icons/wired/gradient/187-suitcase.svg" />
-                  </lord-icon>
+                  <img alt="" src="https://media.lordicon.com/icons/wired/gradient/187-suitcase.svg" loading="lazy" />
                 </span>
                 Real-world experience
               </h3>
@@ -197,79 +179,3 @@ const proof = [
     </section>
   </div>
 </BaseLayout>
-
-<script is:inline src="https://cdn.lordicon.com/lordicon.js"></script>
-<script>
-  const playWorkHeroIcon = (icon: Element) => {
-    const player = icon as Element & {
-      isReady?: boolean;
-      refresh?: () => void;
-      playerInstance?: {
-        playFromStart?: () => void;
-        playFromBeginning?: () => void;
-        play?: () => void;
-      };
-    };
-
-    if (!player.isReady) {
-      player.refresh?.();
-      return;
-    }
-
-    if (typeof player.playerInstance?.playFromStart === 'function') {
-      player.playerInstance.playFromStart();
-      return;
-    }
-
-    if (typeof player.playerInstance?.playFromBeginning === 'function') {
-      player.playerInstance.playFromBeginning();
-      return;
-    }
-
-    player.playerInstance?.play?.();
-  };
-
-  const initWorkHeroIcons = () => {
-    const rows = Array.from(document.querySelectorAll<HTMLElement>('.work-hero__capability')).filter(
-      (row) => row.dataset.iconReady !== 'true',
-    );
-    if (!rows.length) return;
-
-    const playRow = (row: HTMLElement) => {
-      const icon = row.querySelector('lord-icon');
-      if (icon) playWorkHeroIcon(icon);
-    };
-
-    rows.forEach((row) => {
-      row.dataset.iconReady = 'true';
-      const icon = row.querySelector('lord-icon');
-      icon?.addEventListener('ready', () => {
-        if (row.dataset.iconEntered === 'true') playRow(row);
-      });
-      row.addEventListener('mouseenter', () => playRow(row));
-      row.addEventListener('focusin', () => playRow(row));
-    });
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-      rows.forEach(playRow);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          (entry.target as HTMLElement).dataset.iconEntered = 'true';
-          playRow(entry.target as HTMLElement);
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.58, rootMargin: '0px 0px -8% 0px' },
-    );
-
-    rows.forEach((row) => observer.observe(row));
-  };
-
-  document.addEventListener('astro:page-load', initWorkHeroIcons);
-  if (document.readyState !== 'loading') initWorkHeroIcons();
-</script>
