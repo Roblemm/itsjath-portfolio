@@ -99,13 +99,13 @@ describe('portfolio content positioning', () => {
     expect(page).toContain('FOUNDER &amp; OPERATOR');
     expect(page).toContain('What I bring');
     expect(page).toContain('Fast engineering execution');
-    expect(page).toContain('2601-speed.li');
+    expect(page).toContain('/lordicon/update.json');
     expect(page).toContain('Backend systems, full-stack products, databases, APIs, and automation');
     expect(page).toContain('Product ownership');
-    expect(page).toContain('47-to-do-list.li');
+    expect(page).toContain('/lordicon/flag.json');
     expect(page).toContain('Problem definition, product decisions, launch, iteration, and operations');
     expect(page).toContain('Real-world experience');
-    expect(page).toContain('187-suitcase.li');
+    expect(page).toContain('/lordicon/copy.json');
     expect(page).toContain('Real users, teams, budgets, deadlines, production constraints, and measurable results');
     expect(page).not.toContain('Jathniel Ahonsi');
     expect(styles).toContain('.work-hero__pills');

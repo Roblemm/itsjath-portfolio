@@ -72,7 +72,7 @@ const proof = [
               <h3 aria-label="Fast engineering execution">
                 <span class="work-hero__icon" aria-hidden="true">
                   <lord-icon
-                    src="https://media.lordicon.com/icons/wired/gradient/2601-speed.li"
+                    src="/lordicon/update.json"
                     colors="primary:#b88cff,secondary:#ffd76a"
                     loading="lazy"
                   >
@@ -87,7 +87,7 @@ const proof = [
               <h3 aria-label="Product ownership">
                 <span class="work-hero__icon" aria-hidden="true">
                   <lord-icon
-                    src="https://media.lordicon.com/icons/wired/gradient/47-to-do-list.li"
+                    src="/lordicon/flag.json"
                     colors="primary:#b88cff,secondary:#ffd76a"
                     loading="lazy"
                   >
@@ -102,7 +102,7 @@ const proof = [
               <h3 aria-label="Real-world experience">
                 <span class="work-hero__icon" aria-hidden="true">
                   <lord-icon
-                    src="https://media.lordicon.com/icons/wired/gradient/187-suitcase.li"
+                    src="/lordicon/copy.json"
                     colors="primary:#b88cff,secondary:#ffd76a"
                     loading="lazy"
                   >
@@ -202,19 +202,30 @@ const proof = [
 <script>
   const playWorkHeroIcon = (icon: Element) => {
     const player = icon as Element & {
-      playFromBeginning?: () => void;
+      isReady?: boolean;
+      refresh?: () => void;
       playerInstance?: {
-        goToFirstFrame?: () => void;
+        playFromStart?: () => void;
+        playFromBeginning?: () => void;
         play?: () => void;
       };
     };
 
-    if (typeof player.playFromBeginning === 'function') {
-      player.playFromBeginning();
+    if (!player.isReady) {
+      player.refresh?.();
       return;
     }
 
-    player.playerInstance?.goToFirstFrame?.();
+    if (typeof player.playerInstance?.playFromStart === 'function') {
+      player.playerInstance.playFromStart();
+      return;
+    }
+
+    if (typeof player.playerInstance?.playFromBeginning === 'function') {
+      player.playerInstance.playFromBeginning();
+      return;
+    }
+
     player.playerInstance?.play?.();
   };
 
@@ -231,6 +242,10 @@ const proof = [
 
     rows.forEach((row) => {
       row.dataset.iconReady = 'true';
+      const icon = row.querySelector('lord-icon');
+      icon?.addEventListener('ready', () => {
+        if (row.dataset.iconEntered === 'true') playRow(row);
+      });
       row.addEventListener('mouseenter', () => playRow(row));
       row.addEventListener('focusin', () => playRow(row));
     });
@@ -244,6 +259,7 @@ const proof = [
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
+          (entry.target as HTMLElement).dataset.iconEntered = 'true';
           playRow(entry.target as HTMLElement);
           observer.unobserve(entry.target);
         });
