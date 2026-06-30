@@ -3,6 +3,7 @@ import { initHome } from './home';
 import { initPageIntro } from './page-intro';
 import { initReveals } from './reveal';
 import { getLenis, initSmoothScroll } from './smooth-scroll';
+import { initWorkIconMotion } from './work-icons';
 
 function isHome(): boolean {
   const path = window.location.pathname;
@@ -17,6 +18,7 @@ function boot(): () => void {
   } else {
     cleanups.push(initPageIntro());
     cleanups.push(initReveals());
+    cleanups.push(initWorkIconMotion());
   }
 
   return () => cleanups.forEach((fn) => fn());

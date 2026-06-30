@@ -137,7 +137,11 @@
   height: 100%;
   display: block;
   transform-origin: 50% 58%;
+  transform: translate3d(0, -0.1rem, 0) rotate(0deg);
   will-change: transform;
+}
+
+.work-hero__icon img.is-floating {
   animation: work-hero-icon-float 6s linear infinite;
 }
 
@@ -182,7 +186,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .work-hero__icon img {
+  .work-hero__icon img,
+  .work-hero__icon img.is-floating {
     animation: none;
     transform: none;
   }

@@ -90,6 +90,7 @@ describe('portfolio content positioning', () => {
   it('uses the concise Work hero and What I Bring scan block', () => {
     const page = readSource('../../pages/work/index.astro');
     const styles = readSource('../../styles/work.css');
+    const motionController = readSource('../../scripts/motion/controller.ts');
 
     expect(page).toContain('Products that reach millions.');
     expect(page).toContain('<span class="work-hero__title-accent">millions</span>');
@@ -111,6 +112,7 @@ describe('portfolio content positioning', () => {
     expect(styles).toContain('.work-hero__pills');
     expect(styles).toContain('.work-hero__title-accent');
     expect(styles).toContain('.work-hero__icon img');
+    expect(styles).toContain('.work-hero__icon img.is-floating');
     expect(styles).toContain('animation: work-hero-icon-float 6s linear infinite');
     expect(styles).toContain('@keyframes work-hero-icon-float');
     expect(styles).not.toContain('animation-duration: 3.2s;');
@@ -126,6 +128,7 @@ describe('portfolio content positioning', () => {
     expect(styles).toContain('color: var(--gold-100);');
     expect(styles).toContain('.work-hero__bring');
     expect(styles).toContain('.work-hero__capabilities');
+    expect(motionController).toContain('initWorkIconMotion');
   });
 
   it('preserves ForestlyGames #1 trending copy in YAML frontmatter', () => {
