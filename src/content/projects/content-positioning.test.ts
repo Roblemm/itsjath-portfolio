@@ -111,8 +111,9 @@ describe('portfolio content positioning', () => {
     expect(styles).toContain('.work-hero__pills');
     expect(styles).toContain('.work-hero__title-accent');
     expect(styles).toContain('.work-hero__icon img');
-    expect(styles).toContain('animation: work-hero-icon-float');
+    expect(styles).toContain('animation: work-hero-icon-float 6s linear infinite');
     expect(styles).toContain('@keyframes work-hero-icon-float');
+    expect(styles).not.toContain('animation-duration: 3.2s;');
     expect(styles).toContain('.work-hero__capability--ownership .work-hero__icon img');
     expect(styles).toContain('.work-hero__capability--experience .work-hero__icon img');
     expect(styles).toContain('@media (prefers-reduced-motion: reduce)');

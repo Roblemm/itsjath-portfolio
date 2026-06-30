@@ -138,37 +138,46 @@
   display: block;
   transform-origin: 50% 58%;
   will-change: transform;
-  animation: work-hero-icon-float 4.8s var(--ease-cinematic) infinite;
+  animation: work-hero-icon-float 6s linear infinite;
 }
 
 .work-hero__capability--ownership .work-hero__icon img {
-  animation-duration: 5.4s;
-  animation-delay: -1.2s;
+  animation-duration: 6.6s;
+  animation-delay: -2.2s;
 }
 
 .work-hero__capability--experience .work-hero__icon img {
-  animation-duration: 5.8s;
-  animation-delay: -2.1s;
-}
-
-.work-hero__capability:hover .work-hero__icon img,
-.work-hero__capability:focus-within .work-hero__icon img {
-  animation-duration: 3.2s;
+  animation-duration: 7.2s;
+  animation-delay: -4.1s;
 }
 
 @keyframes work-hero-icon-float {
-  0%,
+  0% {
+    transform: translate3d(0, -0.1rem, 0) rotate(0deg);
+  }
+  12.5% {
+    transform: translate3d(0.06rem, -0.07rem, 0) rotate(1.8deg);
+  }
+  25% {
+    transform: translate3d(0.08rem, 0, 0) rotate(2.6deg);
+  }
+  37.5% {
+    transform: translate3d(0.05rem, 0.08rem, 0) rotate(1.3deg);
+  }
+  50% {
+    transform: translate3d(0, 0.1rem, 0) rotate(0deg);
+  }
+  62.5% {
+    transform: translate3d(-0.05rem, 0.08rem, 0) rotate(-1.3deg);
+  }
+  75% {
+    transform: translate3d(-0.08rem, 0, 0) rotate(-2.6deg);
+  }
+  87.5% {
+    transform: translate3d(-0.06rem, -0.07rem, 0) rotate(-1.8deg);
+  }
   100% {
-    transform: translate3d(0, 0, 0) rotate(-2deg) scale(1);
-  }
-  28% {
-    transform: translate3d(0.06rem, -0.18rem, 0) rotate(4deg) scale(1.015);
-  }
-  58% {
-    transform: translate3d(-0.04rem, 0.1rem, 0) rotate(-5deg) scale(0.995);
-  }
-  78% {
-    transform: translate3d(0.05rem, -0.08rem, 0) rotate(2deg) scale(1.008);
+    transform: translate3d(0, -0.1rem, 0) rotate(0deg);
   }
 }
 
