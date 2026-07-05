@@ -31,6 +31,7 @@ Open [http://localhost:4321](http://localhost:4321).
 | `npm run build` | Production build         |
 | `npm run preview` | Preview production build |
 | `npm run check` | TypeScript + Astro check |
+| `npm run release:check` | Run tests and production build |
 | `npm test`      | Run unit tests           |
 
 ## Project structure
@@ -49,6 +50,14 @@ src/
 ## Deployment
 
 Configured for [Vercel](https://vercel.com). Push to `main` to deploy, or run `npm run build` locally and serve `dist/`.
+
+## Release workflow
+
+Use `dev` for the evolving portfolio. Push ongoing page experiments, longer case studies, and unfinished polish there so Vercel can keep a preview deployment without changing the public site.
+
+Use `main` for the recruiter-ready production site. Only move finished, honest, public-safe changes to `main`.
+
+Run `npm run release:check` before pushing `main`.
 
 ## License
 

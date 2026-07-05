@@ -149,4 +149,14 @@ describe('portfolio content positioning', () => {
     expect(content).not.toMatch(/recruiters? can verify/i);
     expect(content).not.toContain('Why this matters to recruiters');
   });
+
+  it('documents the low-friction dev branch and release check workflow', () => {
+    const readme = readSource('../../../README.md');
+    const packageJson = readSource('../../../package.json');
+
+    expect(packageJson).toContain('"release:check": "npm test && npm run build"');
+    expect(readme).toContain('Use `dev` for the evolving portfolio');
+    expect(readme).toContain('Use `main` for the recruiter-ready production site');
+    expect(readme).toContain('Run `npm run release:check` before pushing `main`');
+  });
 });

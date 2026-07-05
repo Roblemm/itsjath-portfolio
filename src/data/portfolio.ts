@@ -150,6 +150,8 @@ export interface PortfolioExperience {
   links?: PortfolioLinks;
   featured?: boolean;
   flagship?: boolean;
+  /** Set to false to keep a project in data without showing it on /work. Defaults to visible. */
+  showOnWork?: boolean;
   /** Set to false when an experience should stay in data but not publish a /work/[slug] page. */
   publishCaseStudy?: boolean;
   layout?: PortfolioLayoutOptions;
@@ -410,6 +412,8 @@ export const portfolioExperiences = [
     ],
     featured: true,
     flagship: true,
+    showOnWork: true,
+    publishCaseStudy: true,
     cover: '/images/work/forestlygames/cover.png',
     gallery: [
       { src: '/images/work/boss-battles/cover.png' },
@@ -532,6 +536,8 @@ export const portfolioExperiences = [
     ],
     featured: true,
     flagship: false,
+    showOnWork: true,
+    publishCaseStudy: false,
     links: {
       live: 'https://forestlygames.com',
     },
@@ -603,6 +609,7 @@ export const portfolioExperiences = [
     ],
     featured: true,
     flagship: false,
+    showOnWork: false,
     cover: '/images/work/boss-battles/cover.png',
     gallery: [
       { src: '/images/work/boss-battles/gallery-1.png' },
@@ -674,6 +681,7 @@ export const portfolioExperiences = [
     ],
     featured: true,
     flagship: false,
+    showOnWork: false,
     cover: '/images/work/roempires/cover.png',
     gallery: [
       { src: '/images/work/roempires/gallery-1.png' },
@@ -745,6 +753,7 @@ export const portfolioExperiences = [
     ],
     featured: true,
     flagship: false,
+    showOnWork: false,
     cover: '/images/work/encaved/cover.png',
     gallery: [
       { src: '/images/work/encaved/gallery-1.png' },
@@ -836,6 +845,7 @@ export const portfolioExperiences = [
     ],
     featured: false,
     flagship: false,
+    showOnWork: false,
     cover: '/images/work/escape-bruno/cover.png',
     gallery: [
       { src: '/images/work/escape-bruno/gallery-1.png' },
@@ -925,6 +935,7 @@ export const portfolioExperiences = [
     highlight: 'Pet-powered tycoon with build acceleration and wave defense â€” built for clip-friendly sessions.',
     featured: false,
     flagship: false,
+    showOnWork: false,
     cover: '/images/work/evil-pets/cover.png',
     gallery: [{ src: '/images/work/evil-pets/gallery-1.png' }],
     links: {
@@ -980,6 +991,8 @@ export const portfolioExperiences = [
     ],
     featured: true,
     flagship: false,
+    showOnWork: true,
+    publishCaseStudy: false,
     cover: '/images/work/forestlydevs/cover.png',
     caseStudy: {
       sections: [
@@ -1042,6 +1055,8 @@ export const portfolioExperiences = [
     highlight: 'Product research translating student dining feedback into clearer recommendations.',
     featured: false,
     flagship: false,
+    showOnWork: true,
+    publishCaseStudy: false,
     cover: '/images/work/purdue-dining/cover.png',
     caseStudy: {
       sections: [
@@ -1105,6 +1120,8 @@ export const portfolioExperiences = [
     ],
     featured: false,
     flagship: false,
+    showOnWork: true,
+    publishCaseStudy: false,
     caseStudy: {
       sections: [
         {
@@ -1164,6 +1181,8 @@ export const portfolioExperiences = [
     metrics: [{ value: '200', label: 'Members in 3 months' }],
     featured: false,
     flagship: false,
+    showOnWork: true,
+    publishCaseStudy: false,
     cover: '/images/work/project-ignite/cover.png',
     caseStudy: {
       sections: [
@@ -1212,9 +1231,14 @@ export function getPublishedPortfolioExperiences(): PortfolioExperience[] {
   return portfolioExperiences.filter((project) => project.publishCaseStudy !== false);
 }
 
+export function getWorkPortfolioExperiences(): PortfolioExperience[] {
+  return portfolioExperiences.filter((project) => project.showOnWork !== false);
+}
+
 export function getPortfolioWorkGroups() {
-  const featuredProduct = getPortfolioExperienceBySlug('forestlygames');
-  const featuredEngineering = getPortfolioExperienceBySlug('forestlygames-operations-platform');
+  const workExperiences = getWorkPortfolioExperiences();
+  const featuredProduct = workExperiences.find((project) => project.slug === 'forestlygames');
+  const featuredEngineering = workExperiences.find((project) => project.slug === 'forestlygames-operations-platform');
   const featuredSlugs = new Set(
     [featuredProduct?.slug, featuredEngineering?.slug].filter((slug): slug is string => Boolean(slug)),
   );
@@ -1222,10 +1246,10 @@ export function getPortfolioWorkGroups() {
     .map((slug) => getPortfolioExperienceBySlug(slug))
     .filter((project): project is PortfolioExperience => {
       if (!project) return false;
-      return project.publishCaseStudy !== false;
+      return project.showOnWork !== false && project.publishCaseStudy !== false;
     });
   const chapterSlugs = new Set<string>(productChapterSlugs);
-  const selectedProjects = getPublishedPortfolioExperiences().filter(
+  const selectedProjects = workExperiences.filter(
     (project) => !featuredSlugs.has(project.slug) && !chapterSlugs.has(project.slug),
   );
 

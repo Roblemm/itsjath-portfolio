@@ -4,6 +4,7 @@ import {
   getPublishedPortfolioExperiences,
   getPortfolioExperienceBySlug,
   getPortfolioWorkGroups,
+  getWorkPortfolioExperiences,
   portfolioExperiences,
 } from './portfolio';
 
@@ -45,14 +46,26 @@ describe('portfolio data source', () => {
     ]);
   });
 
-  it('keeps individual ForestlyGames game entries out of published case-study routes', () => {
+  it('keeps only ForestlyGames routable in the publish-now configuration', () => {
     const publishedSlugs = getPublishedPortfolioExperiences().map((project) => project.slug);
 
-    expect(publishedSlugs).not.toContain('boss-battles');
-    expect(publishedSlugs).not.toContain('roempires');
-    expect(publishedSlugs).not.toContain('encaved');
-    expect(publishedSlugs).not.toContain('escape-bruno-head');
-    expect(publishedSlugs).not.toContain('evil-pets');
+    expect(publishedSlugs).toEqual(['forestlygames']);
+  });
+
+  it('keeps non-routable Work projects visible when showOnWork is enabled', () => {
+    expect(getWorkPortfolioExperiences().map((project) => project.slug)).toEqual([
+      'forestlygames',
+      'forestlygames-operations-platform',
+      'forestlydevs-marketplace',
+      'purdue-dining-revamp',
+      'jat-app',
+      'frontera',
+    ]);
+
+    expect(getPortfolioExperienceBySlug('forestlygames')?.showOnWork).toBe(true);
+    expect(getPortfolioExperienceBySlug('forestlygames')?.publishCaseStudy).toBe(true);
+    expect(getPortfolioExperienceBySlug('forestlygames-operations-platform')?.showOnWork).toBe(true);
+    expect(getPortfolioExperienceBySlug('forestlygames-operations-platform')?.publishCaseStudy).toBe(false);
   });
 
   it('allows optional media and metrics fields to be omitted per project', () => {

@@ -11,6 +11,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "release:check": "npm test && npm run build",
     "test": "vitest run",
     "test:watch": "vitest"
   },

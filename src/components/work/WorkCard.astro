@@ -8,10 +8,12 @@ interface Props {
 
 const { project, featured = false } = Astro.props;
 const { title, shortSummary, category, dates, role, cover, metrics, highlight, status, demo } = project;
+const isPublishedCaseStudy = project.publishCaseStudy !== false;
+const CardTag = isPublishedCaseStudy ? 'a' : 'article';
 ---
 
-<a
-  href={`/work/${project.slug}/`}
+<CardTag
+  href={isPublishedCaseStudy ? `/work/${project.slug}/` : undefined}
   class:list={['work-card', { 'work-card--flagship': featured, 'work-card--no-media': !cover }]}
 >
   {
@@ -66,6 +68,6 @@ const { title, shortSummary, category, dates, role, cover, metrics, highlight, s
         <strong>Role</strong> {role}
       </p>
     )}
-    <span class="link-arrow">View case study →</span>
+    {isPublishedCaseStudy && <span class="link-arrow">View case study →</span>}
   </div>
-</a>
+</CardTag>
