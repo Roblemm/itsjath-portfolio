@@ -45,6 +45,16 @@ function markPlayedThisSession() {
   }
 }
 
+function shouldForceReplay(): boolean {
+  const params = new URLSearchParams(window.location.search);
+  return (
+    params.get('intro') === 'replay' ||
+    params.get('intro') === '1' ||
+    params.has('replayIntro') ||
+    window.location.hash === '#intro'
+  );
+}
+
 /**
  * Short cinematic opening: signal scans proof fragments, shows fast reel slices,
  * then lands in the hero.
@@ -64,7 +74,9 @@ export function initHomeIntro(deps: HomeIntroDeps): () => void {
     return () => undefined;
   }
 
-  if (hasPlayedThisSession()) {
+  const forceReplay = shouldForceReplay();
+
+  if (!forceReplay && hasPlayedThisSession()) {
     intro.remove();
     home.removeAttribute('data-intro-pending');
     deps.onComplete(true);
@@ -119,7 +131,7 @@ export function initHomeIntro(deps: HomeIntroDeps): () => void {
     gsap.set(core.querySelectorAll('.intro__ring'), { scale: 0.62, opacity: 0 });
     gsap.set(core.querySelector('.intro__spark'), { scale: 0.2, opacity: 0 });
     gsap.set(fragments, { opacity: 0, x: -28, filter: 'blur(7px)' });
-    gsap.set(panels, { opacity: 0, x: 52, clipPath: 'inset(0 100% 0 0)' });
+    gsap.set(panels, { opacity: 0, x: 72, scale: 0.96, clipPath: 'inset(0 100% 0 0)' });
     gsap.set(lock, { opacity: 0, y: 18, filter: 'blur(10px)' });
     gsap.set(skip, { opacity: 0 });
     gsap.set(signal, {
@@ -135,33 +147,38 @@ export function initHomeIntro(deps: HomeIntroDeps): () => void {
     signal.style.setProperty('--signal-gold', '0');
     signal.style.setProperty('--signal-energy', '0.12');
 
+    intro.querySelectorAll<HTMLVideoElement>('video').forEach((video) => {
+      video.play().catch(() => undefined);
+    });
+
     const flyTarget = heroRestPosition();
 
     tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.to(signal, { opacity: 1, duration: 0.35, ease: 'power2.out' }, 0.15)
-      .to(core, { opacity: 1, scale: 1, rotation: 0, duration: 0.65 }, 0.12)
-      .to(core.querySelectorAll('.intro__ring'), { opacity: 1, scale: 1, duration: 0.72, stagger: 0.08 }, 0.18)
-      .to(core.querySelector('.intro__spark'), { opacity: 1, scale: 1, duration: 0.32 }, 0.28)
+    tl.to(signal, { opacity: 1, duration: 0.45, ease: 'power2.out' }, 0.15)
+      .to(core, { opacity: 1, scale: 1, rotation: 0, duration: 0.8 }, 0.12)
+      .to(core.querySelectorAll('.intro__ring'), { opacity: 1, scale: 1, duration: 0.9, stagger: 0.1 }, 0.18)
+      .to(core.querySelector('.intro__spark'), { opacity: 1, scale: 1, duration: 0.4 }, 0.32)
       .to(skip, { opacity: 0.45, duration: 0.35 }, 0.55)
-      .to(fragments, { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.36, stagger: 0.08 }, 0.62)
-      .to(panels, { opacity: 0.84, x: 0, clipPath: 'inset(0 0% 0 0)', duration: 0.46, stagger: 0.12 }, 1.05)
-      .to(fragments, { opacity: 0.28, x: 18, duration: 0.32, stagger: 0.025, ease: 'power2.in' }, 1.85)
-      .to(panels, { opacity: 0.18, x: -24, clipPath: 'inset(0 0 0 32%)', duration: 0.42, stagger: 0.05, ease: 'power2.in' }, 1.95)
-      .to(lock, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.58 }, 2.1)
-      .to(core, { scale: 0.82, opacity: 0.45, duration: 0.5 }, 2.28)
-      .to(lock, { opacity: 0, y: -12, filter: 'blur(5px)', duration: 0.34, ease: 'power2.in' }, 2.92)
+      .to(fragments, { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.45, stagger: 0.12 }, 0.85)
+      .to(panels, { opacity: 0.9, x: 0, scale: 1, clipPath: 'inset(0 0% 0 0)', duration: 0.72, stagger: 0.22 }, 1.35)
+      .to(panels, { x: -10, scale: 1.025, duration: 1.8, stagger: 0.05, ease: 'none' }, 2.05)
+      .to(fragments, { opacity: 0.26, x: 18, duration: 0.5, stagger: 0.035, ease: 'power2.in' }, 3.35)
+      .to(panels, { opacity: 0.42, x: -28, clipPath: 'inset(0 0 0 18%)', duration: 0.62, stagger: 0.08, ease: 'power2.inOut' }, 3.55)
+      .to(lock, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.75 }, 3.95)
+      .to(core, { scale: 0.82, opacity: 0.5, duration: 0.7 }, 4.15)
+      .to(lock, { opacity: 0, y: -12, filter: 'blur(5px)', duration: 0.45, ease: 'power2.in' }, 5.05)
       .add(() => {
         const t = heroRestPosition();
         flyTarget.x = t.x;
         flyTarget.y = t.y;
-      }, 3.02)
+      }, 5.2)
       .to(
         signal,
         {
           x: () => flyTarget.x,
           y: () => flyTarget.y,
-          duration: 0.9,
+          duration: 1.0,
           ease: 'power2.inOut',
           onUpdate: () => {
             const sx = gsap.getProperty(signal, 'x') as number;
@@ -174,11 +191,12 @@ export function initHomeIntro(deps: HomeIntroDeps): () => void {
             signal.style.setProperty('--signal-energy', String(0.12 + progress * 0.33));
           },
         },
-        3.02,
+        5.2,
       )
-      .to(core, { opacity: 0, scale: 0.55, duration: 0.36, ease: 'power2.in' }, 3.08)
-      .to(intro, { opacity: 0, duration: 0.48, ease: 'power2.inOut' }, 3.76)
-      .add(finish, 4.25);
+      .to(core, { opacity: 0, scale: 0.55, duration: 0.45, ease: 'power2.in' }, 5.28)
+      .to(panels, { opacity: 0, duration: 0.45, ease: 'power2.in' }, 5.45)
+      .to(intro, { opacity: 0, duration: 0.55, ease: 'power2.inOut' }, 6.05)
+      .add(finish, 6.65);
   };
 
   if (document.fonts?.ready) {
