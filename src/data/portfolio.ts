@@ -148,6 +148,8 @@ export interface PortfolioExperience {
   contribution?: string;
   outcome?: string;
   technologies?: string[];
+  /** Short, recruiter-facing chips for Work cards. Keep these concrete and skimmable. */
+  cardSignals?: string[];
   /** Small Work-card pills used to make the reader's takeaway obvious at a glance. */
   disciplines?: PortfolioDiscipline[];
   takeaway?: string;
@@ -454,10 +456,16 @@ export const portfolioExperiences = [
     technologies: [
       "Product direction",
       "Lua game programming",
-      "Team leadership",
       "Creator partnerships",
       "Marketing strategy",
       "Live operations",
+    ],
+    cardSignals: [
+      "Lua systems",
+      "Product roadmaps",
+      "QA/release ops",
+      "Creator launches",
+      "Paid ads",
     ],
     takeaway:
       "Shows technical product leadership across engineering, launch strategy, marketing, team leadership, and live community operations.",
@@ -467,7 +475,7 @@ export const portfolioExperiences = [
       { value: "54M+", label: "Total game visits" },
       { value: "6.3M+", label: "Hours played" },
       { value: "24M+", label: "YouTube views" },
-      { value: "100+", label: "Developers collaborated" },
+      { value: "100+", label: "Collaborators led" },
     ],
     featured: true,
     flagship: true,
@@ -1084,6 +1092,13 @@ export const portfolioExperiences = [
       "Community growth",
       "Product iteration",
     ],
+    cardSignals: [
+      "Marketplace ops",
+      "Onboarding funnels",
+      "Developer platform",
+      "Growth analytics",
+      "Community growth",
+    ],
     takeaway:
       "Built and operated a real marketplace - growth, onboarding optimization, and facilitating transactions between developers.",
     highlight:
@@ -1157,7 +1172,15 @@ export const portfolioExperiences = [
     outcome:
       "Collected student feedback, analyzed recurring pain points, and prepared data-informed recommendations for Purdue administration.",
     technologies: [
+      "Product research",
       "Consumer research",
+      "Marketing strategy",
+      "Data analysis",
+      "Stakeholder management",
+    ],
+    cardSignals: [
+      "Product research",
+      "Customer research",
       "Marketing strategy",
       "Data analysis",
       "Stakeholder management",
@@ -1232,6 +1255,13 @@ export const portfolioExperiences = [
       "Docker",
       "Automated testing",
     ],
+    cardSignals: [
+      "Java/Spring Boot",
+      "Next.js/React",
+      "PostgreSQL",
+      "Docker",
+      "JUnit tests",
+    ],
     takeaway:
       "Classic full-stack delivery - API design, persistence, front end, tests, and containerization.",
     highlight:
@@ -1291,7 +1321,7 @@ export const portfolioExperiences = [
       display: "2024-2025",
       timeline: "Aug 2024 - Apr 2025",
     },
-    role: "Marketing Lead",
+    role: "Marketing & Community Operations Lead",
     shortSummary:
       "Marketing and community operations for a Purdue student entrepreneurship organization.",
     problem:
@@ -1300,7 +1330,13 @@ export const portfolioExperiences = [
       "Supported Frontera marketing initiatives, improved team engagement, and helped scale an online community from 0 to 200 members in three months.",
     technologies: [
       "Community growth",
-      "Marketing operations",
+      "Marketing strategy",
+      "Team coordination",
+      "Process improvement",
+    ],
+    cardSignals: [
+      "Community growth",
+      "Marketing strategy",
       "Team coordination",
       "Process improvement",
     ],
@@ -1374,6 +1410,13 @@ export const portfolioExperiences = [
       "Docker",
       "Git",
     ],
+    cardSignals: [
+      "Python/Java/C#",
+      "JavaScript/TypeScript",
+      "SQL/Lua",
+      "HTML/CSS",
+      "Docker/Git",
+    ],
     disciplines: ["engineering"],
     highlight: "Finds the errors that convincing code hides.",
     metrics: [
@@ -1397,13 +1440,20 @@ export const portfolioExperiences = [
     },
     role: "ICT Associate",
     shortSummary:
-      "Support e-commerce operations through troubleshooting, workflow improvement, inventory analysis, platform research, and decision modeling across Amazon, Shopify, and related sales channels.",
+      "Support e-commerce operations through troubleshooting, workflow improvement, inventory analysis, platform research, and decision modeling across sales channels.",
     technologies: [
-      "E-commerce analytics",
+      "Inventory analysis",
       "Decision modeling",
-      "Amazon",
-      "Shopify",
-      "Process improvement",
+      "Workflow improvement",
+      "Troubleshooting",
+      "Platform research",
+    ],
+    cardSignals: [
+      "Inventory analysis",
+      "Decision modeling",
+      "Workflow improvement",
+      "Troubleshooting",
+      "Platform research",
     ],
     disciplines: ["operations", "research"],
     highlight: "Turned e-commerce inventory data into operational decisions.",
@@ -1490,13 +1540,19 @@ export const portfolioExperiences = [
       "Desktop UI",
       "Software testing",
     ],
+    cardSignals: [
+      "Java",
+      "Client-server",
+      "Networking",
+      "Persistence",
+      "Automated tests",
+    ],
     disciplines: ["engineering"],
-    highlight:
-      "Performed most of the implementation and final integration work.",
+    highlight: "Built core Java client-server features and final integration.",
     metrics: [
       { value: "274", label: "Repo commits" },
       { value: "6", label: "Test suites" },
-      { value: "Majority", label: "Implementation" },
+      { value: "Java", label: "Client-server app" },
     ],
     showOnWork: true,
     publishCaseStudy: false,
@@ -1509,12 +1565,12 @@ export const portfolioExperiences = [
     slug: "convergence-msu-neuralgrid",
     title: "MSU NeuralGrid",
     category: "software",
-    status: "Competition proposal",
+    status: "Hackathon proposal",
     dates: {
       display: "2026",
       timeline: "March 2026",
     },
-    role: "Software and Product Strategy Contributor",
+    role: "Software Engineering and Strategy Contributor",
     shortSummary:
       "Convergence 2026 campus energy proposal combining targeted metering, virtual profiles, fault detection, HVAC controls, lab retrofits, and ROI prioritization under a fixed budget.",
     technologies: [
@@ -1524,14 +1580,16 @@ export const portfolioExperiences = [
       "Product strategy",
       "Financial analysis",
     ],
+    cardSignals: [
+      "Hackathon",
+      "ROI modeling",
+      "Budget prioritization",
+      "Energy systems",
+      "Product strategy",
+    ],
     disciplines: ["engineering", "research"],
     highlight:
-      "Projected campus energy investments through software, engineering, and finance.",
-    metrics: [
-      { value: "$10.5M", label: "Projected portfolio" },
-      { value: "58M kWh", label: "Projected savings" },
-      { value: "16 mo.", label: "Projected payback" },
-    ],
+      "Hackathon proposal for campus energy decisions using software, engineering, and finance.",
     showOnWork: true,
     publishCaseStudy: false,
     cover: "/images/work/neuralgrid/cover.png",
@@ -1557,6 +1615,7 @@ export const portfolioExperiences = [
       "C++",
       "Embedded systems",
     ],
+    cardSignals: ["TypeScript", "Kotlin", "C++ firmware", "Firebase", "ESP32"],
     disciplines: ["engineering"],
     highlight: "Connected a mobile sleep app to a physical alarm clock.",
     metrics: [
@@ -1586,13 +1645,14 @@ export const portfolioExperiences = [
       "Bukkit",
       "Spigot",
       "Plugin development",
-      "Product iteration",
+      "Public releases",
     ],
+    cardSignals: ["Java", "Bukkit", "Spigot", "Plugin config", "Public releases"],
     disciplines: ["engineering", "product"],
     highlight: "My first publicly released software project.",
     metrics: [
       { value: "1,557", label: "CurseForge downloads" },
-      { value: "4.7/5", label: "Spigot rating" },
+      { value: "701", label: "Spigot downloads" },
       { value: "12", label: "Public updates" },
     ],
     showOnWork: true,
@@ -1607,20 +1667,27 @@ export const portfolioExperiences = [
     title: "ForestlyGames Discord Bot",
     category: "software",
     organization: "ForestlyGames",
-    status: "Internal workflow",
+    status: "Workflow automation",
     dates: {
-      display: "Date TBD",
-      timeline: "Date to confirm",
+      display: "2026",
+      timeline: "2026",
     },
     role: "Bot Developer and Workflow Designer",
     shortSummary:
       "Designed Discord hiring workflow automation for ticket naming, accept and decline actions, ratings, tiers, reviews, panels, status indicators, and reviewer permissions.",
     technologies: [
       "Discord API",
-      "Workflow automation",
-      "Internal tools",
-      "Hiring operations",
-      "Bot development",
+      "Bot workflows",
+      "Review queues",
+      "Permission gates",
+      "Status panels",
+    ],
+    cardSignals: [
+      "Discord API",
+      "Bot workflows",
+      "Review queues",
+      "Permission gates",
+      "Status panels",
     ],
     disciplines: ["engineering", "operations"],
     highlight:
@@ -1642,18 +1709,21 @@ export const portfolioExperiences = [
     shortSummary:
       "Structured Roblox market and LiveOps research process using concurrency, visits, ratings, retention, monetization, update cadence, gameplay teardowns, and validated AI-assisted synthesis.",
     technologies: [
-      "Game analytics",
       "Market research",
+      "Game analytics",
       "Live operations",
       "Product strategy",
       "Roblox",
+      "AI-assisted synthesis",
+    ],
+    cardSignals: [
+      "Market research",
+      "Game analytics",
+      "LiveOps",
+      "Roblox",
+      "AI-assisted synthesis",
     ],
     highlight: "Finds game opportunities through player evidence.",
-    metrics: [
-      { value: "17,825", label: "Players snapshot" },
-      { value: "10.50M", label: "Visits studied" },
-      { value: "96.13%", label: "Rating snapshot" },
-    ],
     showOnWork: true,
     publishCaseStudy: false,
     cover: "/images/work/roscouts/cover.svg",
@@ -1671,18 +1741,20 @@ export const portfolioExperiences = [
     shortSummary:
       "Research-backed product, brand, website, and guest-experience strategy for repositioning a historic Illinois estate as a premium multi-day destination.",
     technologies: [
-      "Market research",
+      "Product research",
+      "Product strategy",
+      "Brand strategy",
+      "Customer journey",
+      "Competitive analysis",
+    ],
+    cardSignals: [
+      "Product research",
       "Product strategy",
       "Brand strategy",
       "Customer journey",
       "Competitive analysis",
     ],
     highlight: "Repositioned a historic estate as a destination experience.",
-    metrics: [
-      { value: "100-150", label: "Guest vision" },
-      { value: "24", label: "Overnight guests" },
-      { value: "Multi-day", label: "Private estate" },
-    ],
     showOnWork: true,
     publishCaseStudy: false,
     cover: "/images/work/the-livingston/cover.svg",

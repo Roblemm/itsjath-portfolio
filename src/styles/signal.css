@@ -158,27 +158,27 @@
 
 .signal-waypoint--manifesto-in {
   left: 8%;
-  top: 42%;
+  top: 60%;
 }
 
 .signal-waypoint--manifesto-out {
   left: 72%;
-  top: 64%;
+  top: 70%;
 }
 
 .signal-waypoint--stats {
   left: 18%;
-  top: 78%;
+  top: 82%;
 }
 
 .signal-waypoint--featured {
   left: 50%;
-  top: 68%;
+  top: 84%;
 }
 
 .signal-waypoint--caps {
   right: 24%;
-  top: 62%;
+  top: 86%;
 }
 
 .signal-waypoint--cta {
@@ -194,25 +194,25 @@
 
   .signal-waypoint--manifesto-in {
     left: 6%;
-    top: 38%;
+    top: 58%;
   }
 
   .signal-waypoint--manifesto-out {
     left: 78%;
-    top: 58%;
+    top: 68%;
   }
 
   .signal-waypoint--stats {
     left: 22%;
-    top: 74%;
+    top: 80%;
   }
 
   .signal-waypoint--featured {
-    top: 72%;
+    top: 82%;
   }
 
   .signal-waypoint--caps {
-    top: 68%;
+    top: 84%;
   }
 
   .signal__reach {

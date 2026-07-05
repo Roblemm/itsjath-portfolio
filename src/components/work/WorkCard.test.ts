@@ -21,7 +21,7 @@ describe("WorkCard publish affordance", () => {
       "href={isPublishedCaseStudy ? `/work/${project.slug}/` : undefined}",
     );
     expect(component).toContain("work-card__discipline");
-    expect(component).toContain("work-card__tech");
+    expect(component).toContain("work-card__signal");
     expect(component).toContain(
       '{isPublishedCaseStudy && <span class="link-arrow">View case study',
     );

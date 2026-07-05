@@ -35,7 +35,7 @@ export function calculateStatGlowValues(input: StatGlowInput): number[] {
   if (count <= 0) return [];
 
   const rowProgress = smoothstep(
-    viewportHeight * 0.9,
+    viewportHeight * 1.4,
     viewportHeight * 0.13,
     rowTop,
   );

@@ -13,8 +13,8 @@ describe("calculateStatGlowValues", () => {
   it("keeps the stats dark before the row enters the viewport", () => {
     const glow = calculateStatGlowValues({
       ...base,
-      rowTop: 830,
-      rowBottom: 1010,
+      rowTop: 1120,
+      rowBottom: 1300,
     });
 
     expect(Math.max(...glow)).toBe(0);
@@ -44,8 +44,8 @@ describe("calculateStatGlowValues", () => {
   it("starts the proof glow as the stats section enters the viewport", () => {
     const glow = calculateStatGlowValues({
       ...base,
-      rowTop: 690,
-      rowBottom: 870,
+      rowTop: 940,
+      rowBottom: 1050,
       signalX: 40,
     });
 

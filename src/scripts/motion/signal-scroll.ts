@@ -82,6 +82,19 @@ function readPoint(el: HTMLElement, energy: number, gold: number, chapter: strin
   return { x, y, energy, gold, chapter };
 }
 
+function shouldRemeasureWaypoint(el: HTMLElement): boolean {
+  return Boolean(el.closest('[data-signal-live-waypoints]'));
+}
+
+function readConfigPoint(config: WaypointConfig): DocumentPoint {
+  return readPoint(
+    config.el,
+    resolveEnergy(config.el, config.energy),
+    config.gold,
+    config.chapter,
+  );
+}
+
 function resolveEnergy(el: HTMLElement, fallback: number): number {
   const mobile = window.matchMedia('(max-width: 768px)').matches;
   if (mobile && el.dataset.energyMobile) {
@@ -183,6 +196,10 @@ function updateHeroDot(gold: number) {
   dot.style.setProperty('--dot-gold', String(Math.min(1, (gold - 0.55) * 2.2)));
 }
 
+function holdsDownwardPath(chapter: string): boolean {
+  return chapter === 'approach' || chapter === 'proof' || chapter === 'flagship';
+}
+
 export function initSignalScroll(
   options: { initialProgress?: number } = {},
 ): () => void {
@@ -218,9 +235,7 @@ export function initSignalScroll(
     const lastRect = last?.getBoundingClientRect();
 
     return {
-      points: configs.map((c) =>
-        readPoint(c.el, resolveEnergy(c.el, c.energy), c.gold, c.chapter),
-      ),
+      points: configs.map((c) => readConfigPoint(c)),
       stats:
         rowRect && firstRect && lastRect
           ? {
@@ -236,18 +251,28 @@ export function initSignalScroll(
   };
 
   const layoutCache = createSignalLayoutCache(readLayout);
+  let lastAppliedProgress = options.initialProgress ?? 0;
+  let lastScreenY: number | null = null;
 
   const apply = (progress: number) => {
     const layout = layoutCache.read();
-    const points = layout.points.map((point) => ({
-      ...point,
-      ...viewportFromDocumentPoint(point, {
-        scrollX: window.scrollX,
-        scrollY: window.scrollY,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      }),
-    }));
+    const points = layout.points.map((cachedPoint, i) => {
+      const config = configs[i];
+      const point =
+        config && shouldRemeasureWaypoint(config.el)
+          ? readConfigPoint(config)
+          : cachedPoint;
+
+      return {
+        ...point,
+        ...viewportFromDocumentPoint(point, {
+          scrollX: window.scrollX,
+          scrollY: window.scrollY,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        }),
+      };
+    });
     const segments = points.length - 1;
     const scaled = Math.min(Math.max(progress, 0), 1) * segments;
     const index = Math.min(Math.floor(scaled), segments - 1);
@@ -258,27 +283,40 @@ export function initSignalScroll(
     const x = lerp(a.x, b.x, t);
     const y = lerp(a.y, b.y, t);
     const clamped = clampViewport(x, y);
+    const gold = lerp(a.gold, b.gold, t);
+    const energy = lerp(a.energy, b.energy, t);
+    const chapter = t < 0.5 ? a.chapter : b.chapter;
+    const scrollingDown = progress >= lastAppliedProgress - 0.001;
+    let signalY = clamped.y;
+
+    if (
+      scrollingDown &&
+      holdsDownwardPath(chapter) &&
+      lastScreenY !== null &&
+      signalY < lastScreenY
+    ) {
+      signalY = lastScreenY;
+    }
 
     gsap.set(signal, {
       x: clamped.x,
-      y: clamped.y,
+      y: signalY,
       xPercent: -50,
       yPercent: -50,
       scale: 1,
       force3D: true,
     });
 
-    const gold = lerp(a.gold, b.gold, t);
-    const energy = lerp(a.energy, b.energy, t);
-    const chapter = t < 0.5 ? a.chapter : b.chapter;
-
     signal.style.setProperty('--signal-gold', String(gold));
     signal.style.setProperty('--signal-energy', String(energy));
     signal.dataset.chapter = chapter;
 
     updateHeroDot(gold);
-    updateStatGlow(layout.stats, clamped.x, clamped.y, chapter);
-    updateCtaGlow(chapter, t, gold, progress, clamped.y);
+    updateStatGlow(layout.stats, clamped.x, signalY, chapter);
+    updateCtaGlow(chapter, t, gold, progress, signalY);
+
+    lastAppliedProgress = progress;
+    lastScreenY = signalY;
   };
 
   const start = () => {
@@ -321,6 +359,7 @@ export function initSignalScroll(
 
   const onResize = () => {
     layoutCache.invalidate();
+    lastScreenY = null;
     ScrollTrigger.refresh();
     apply(st.progress);
   };

@@ -149,6 +149,13 @@ describe("portfolio data source", () => {
     ).toBe(false);
 
     const dataAnnotation = getPortfolioExperienceBySlug("dataannotation");
+    expect(dataAnnotation?.cardSignals).toEqual([
+      "Python/Java/C#",
+      "JavaScript/TypeScript",
+      "SQL/Lua",
+      "HTML/CSS",
+      "Docker/Git",
+    ]);
     expect(dataAnnotation?.technologies).toEqual(
       expect.arrayContaining([
         "Python",
@@ -170,6 +177,7 @@ describe("portfolio data source", () => {
 
     const bleep = getPortfolioExperienceBySlug("bleep");
     expect(bleep?.role).not.toContain("Lead");
+    expect(JSON.stringify(bleep)).not.toContain("Majority");
     expect(bleep?.technologies).toEqual(
       expect.arrayContaining([
         "Java",
@@ -181,6 +189,13 @@ describe("portfolio data source", () => {
     );
 
     const rise = getPortfolioExperienceBySlug("rise-n-grind-smart-alarm");
+    expect(rise?.cardSignals).toEqual([
+      "TypeScript",
+      "Kotlin",
+      "C++ firmware",
+      "Firebase",
+      "ESP32",
+    ]);
     expect(rise?.technologies).toEqual(
       expect.arrayContaining([
         "TypeScript",
@@ -191,6 +206,29 @@ describe("portfolio data source", () => {
         "C++",
       ]),
     );
+
+    const discord = getPortfolioExperienceBySlug("forestlygames-discord-bot");
+    expect(discord?.dates.display).toBe("2026");
+    expect(discord?.cardSignals).toEqual([
+      "Discord API",
+      "Bot workflows",
+      "Review queues",
+      "Permission gates",
+      "Status panels",
+    ]);
+
+    expect(getPortfolioExperienceBySlug("roscouts")?.metrics).toBeUndefined();
+    expect(
+      getPortfolioExperienceBySlug("the-livingston")?.metrics,
+    ).toBeUndefined();
+    expect(
+      getPortfolioExperienceBySlug("convergence-msu-neuralgrid")?.metrics,
+    ).toBeUndefined();
+    expect(getPortfolioExperienceBySlug("give-me-dirt")?.metrics).toEqual([
+      { value: "1,557", label: "CurseForge downloads" },
+      { value: "701", label: "Spigot downloads" },
+      { value: "12", label: "Public updates" },
+    ]);
   });
 
   it("renders high-level work-card focus pills from data", () => {
@@ -236,7 +274,7 @@ describe("portfolio data source", () => {
       { value: "54M+", label: "Total game visits" },
       { value: "6.3M+", label: "Hours played" },
       { value: "24M+", label: "YouTube views" },
-      { value: "100+", label: "Developers collaborated" },
+      { value: "100+", label: "Collaborators led" },
     ]);
 
     expect(
