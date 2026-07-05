@@ -3,6 +3,7 @@ import { initHome } from './home';
 import { initPageIntro } from './page-intro';
 import { initReveals } from './reveal';
 import { getLenis, initSmoothScroll } from './smooth-scroll';
+import { createStartupGate } from './startup-gate';
 import { initWorkIconMotion } from './work-icons';
 
 function isHome(): boolean {
@@ -25,8 +26,10 @@ function boot(): () => void {
 }
 
 let cleanup: (() => void) | undefined;
+const startupGate = createStartupGate();
 
 function start() {
+  if (!startupGate.claim()) return;
   cleanup?.();
   window.scrollTo(0, 0);
   getLenis()?.scrollTo(0, { immediate: true });
@@ -37,6 +40,7 @@ document.addEventListener('astro:page-load', start);
 document.addEventListener('astro:before-swap', () => {
   cleanup?.();
   cleanup = undefined;
+  startupGate.reset();
 });
 
 if (document.readyState !== 'loading') {

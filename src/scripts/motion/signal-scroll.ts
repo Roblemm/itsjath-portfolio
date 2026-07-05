@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { createSignalLayoutCache } from './signal-scroll-cache';
 import { calculateStatGlowValues } from './signal-scroll-math';
 import { prefersReducedMotion } from './reduced-motion';
 
@@ -10,6 +11,28 @@ interface WaypointConfig {
   energy: number;
   gold: number;
   chapter: string;
+}
+
+interface DocumentPoint {
+  x: number;
+  y: number;
+  energy: number;
+  gold: number;
+  chapter: string;
+}
+
+interface StatLayout {
+  sorted: HTMLElement[];
+  rowTop: number;
+  rowBottom: number;
+  rowLeft: number;
+  rowRight: number;
+  count: number;
+}
+
+interface SignalLayout {
+  points: DocumentPoint[];
+  stats: StatLayout | null;
 }
 
 function lerp(a: number, b: number, t: number): number {
@@ -46,8 +69,16 @@ function readWaypointPosition(el: HTMLElement): { x: number; y: number } {
   return clampViewport(rect.left + rect.width / 2, rect.top + rect.height / 2);
 }
 
-function readPoint(el: HTMLElement, energy: number, gold: number, chapter: string) {
+function readWaypointDocumentPosition(el: HTMLElement): { x: number; y: number } {
   const { x, y } = readWaypointPosition(el);
+  return {
+    x: x + window.scrollX,
+    y: y + window.scrollY,
+  };
+}
+
+function readPoint(el: HTMLElement, energy: number, gold: number, chapter: string): DocumentPoint {
+  const { x, y } = readWaypointDocumentPosition(el);
   return { x, y, energy, gold, chapter };
 }
 
@@ -69,20 +100,15 @@ function sortStatValues(statValues: HTMLElement[]): HTMLElement[] {
 }
 
 function updateStatGlow(
-  statValues: HTMLElement[],
+  statLayout: StatLayout | null,
   signalX: number,
   _signalY: number,
   chapter: string,
 ) {
-  const section = document.querySelector<HTMLElement>('[data-stats]');
-  if (!section || !statValues.length) return;
-
-  const sorted = sortStatValues(statValues);
-  const n = sorted.length;
-  const row = section.querySelector<HTMLElement>('.stats-grid') ?? section;
+  if (!statLayout) return;
 
   const reset = () => {
-    sorted.forEach((el) => {
+    statLayout.sorted.forEach((el) => {
       const stat = el.closest('.stat') as HTMLElement | null;
       el.style.setProperty('--stat-glow', '0');
       el.classList.remove('is-lit');
@@ -91,17 +117,14 @@ function updateStatGlow(
     });
   };
 
-  const rowLeft = sorted[0]!.getBoundingClientRect().left;
-  const rowRight = sorted[n - 1]!.getBoundingClientRect().right;
-  const rowRect = row.getBoundingClientRect();
   const glows = calculateStatGlowValues({
     viewportHeight: window.innerHeight,
-    rowTop: rowRect.top,
-    rowBottom: rowRect.bottom,
-    rowLeft,
-    rowRight,
+    rowTop: statLayout.rowTop - window.scrollY,
+    rowBottom: statLayout.rowBottom - window.scrollY,
+    rowLeft: statLayout.rowLeft - window.scrollX,
+    rowRight: statLayout.rowRight - window.scrollX,
     signalX,
-    count: n,
+    count: statLayout.count,
   });
 
   if (chapter !== 'proof' && Math.max(...glows) <= 0) {
@@ -109,7 +132,7 @@ function updateStatGlow(
     return;
   }
 
-  sorted.forEach((el, i) => {
+  statLayout.sorted.forEach((el, i) => {
     const glow = glows[i] ?? 0;
     const lit = glow > 0.025;
 
@@ -184,10 +207,43 @@ export function initSignalScroll(
     home.querySelectorAll<HTMLElement>('[data-stats] [data-count]'),
   );
 
+  const readLayout = (): SignalLayout => {
+    const section = document.querySelector<HTMLElement>('[data-stats]');
+    const row = section?.querySelector<HTMLElement>('.stats-grid') ?? section;
+    const sorted = statValues.length > 0 ? sortStatValues(statValues) : [];
+    const first = sorted[0];
+    const last = sorted[sorted.length - 1];
+    const rowRect = row?.getBoundingClientRect();
+    const firstRect = first?.getBoundingClientRect();
+    const lastRect = last?.getBoundingClientRect();
+
+    return {
+      points: configs.map((c) =>
+        readPoint(c.el, resolveEnergy(c.el, c.energy), c.gold, c.chapter),
+      ),
+      stats:
+        rowRect && firstRect && lastRect
+          ? {
+              sorted,
+              rowTop: rowRect.top + window.scrollY,
+              rowBottom: rowRect.bottom + window.scrollY,
+              rowLeft: firstRect.left + window.scrollX,
+              rowRight: lastRect.right + window.scrollX,
+              count: sorted.length,
+            }
+          : null,
+    };
+  };
+
+  const layoutCache = createSignalLayoutCache(readLayout);
+
   const apply = (progress: number) => {
-    const points = configs.map((c) =>
-      readPoint(c.el, resolveEnergy(c.el, c.energy), c.gold, c.chapter),
-    );
+    const layout = layoutCache.read();
+    const points = layout.points.map((point) => ({
+      ...point,
+      x: point.x - window.scrollX,
+      y: point.y - window.scrollY,
+    }));
     const segments = points.length - 1;
     const scaled = Math.min(Math.max(progress, 0), 1) * segments;
     const index = Math.min(Math.floor(scaled), segments - 1);
@@ -217,7 +273,7 @@ export function initSignalScroll(
     signal.dataset.chapter = chapter;
 
     updateHeroDot(gold);
-    updateStatGlow(statValues, clamped.x, clamped.y, chapter);
+    updateStatGlow(layout.stats, clamped.x, clamped.y, chapter);
     updateCtaGlow(chapter, t, gold, progress, clamped.y);
   };
 
@@ -242,7 +298,10 @@ export function initSignalScroll(
   }
 
   if (document.fonts?.ready) {
-    document.fonts.ready.then(start);
+    document.fonts.ready.then(() => {
+      layoutCache.invalidate();
+      start();
+    });
   } else {
     start();
   }
@@ -252,10 +311,12 @@ export function initSignalScroll(
     start: 'top top',
     end: 'bottom bottom',
     scrub: 0.45,
+    onRefresh: () => layoutCache.invalidate(),
     onUpdate: (self) => apply(self.progress),
   });
 
   const onResize = () => {
+    layoutCache.invalidate();
     ScrollTrigger.refresh();
     apply(st.progress);
   };
