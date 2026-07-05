@@ -56,26 +56,6 @@ function formatReach(value: number): string {
   return `${Math.round(value).toLocaleString('en-US')}+`;
 }
 
-function typeText(target: HTMLElement | null) {
-  if (!target) return;
-  const text = target.dataset.introTypeText ?? target.textContent ?? '';
-  const proxy = { length: 0 };
-  target.dataset.typing = 'true';
-  target.textContent = '';
-  gsap.to(proxy, {
-    length: text.length,
-    duration: 1.35,
-    ease: 'none',
-    onUpdate: () => {
-      target.textContent = text.slice(0, Math.round(proxy.length));
-    },
-    onComplete: () => {
-      target.textContent = text;
-      target.removeAttribute('data-typing');
-    },
-  });
-}
-
 function setBeatVisibility(beats: HTMLElement[], activeIndex: number) {
   beats.forEach((beat, index) => {
     beat.setAttribute('aria-hidden', index === activeIndex ? 'false' : 'true');
@@ -139,7 +119,6 @@ export function initHomeIntro(deps: HomeIntroDeps): () => void {
   const videos = Array.from(intro.querySelectorAll<HTMLVideoElement>('[data-intro-video]'));
   const count = intro.querySelector<HTMLElement>('[data-intro-count]');
   const purpleDot = intro.querySelector<HTMLElement>('[data-intro-purple-dot]');
-  const finalType = intro.querySelector<HTMLElement>('[data-intro-type="final"]');
   const skip = intro.querySelector<HTMLButtonElement>('[data-intro-skip]');
 
   let finished = false;
@@ -155,10 +134,6 @@ export function initHomeIntro(deps: HomeIntroDeps): () => void {
     gsap.set(panels, { autoAlpha: 0, y: 18, scale: 1.025 });
     gsap.set(purpleDot, { autoAlpha: 0, scale: 0, rotate: -18, transformOrigin: '50% 70%' });
     if (count) count.textContent = '0';
-    if (finalType) {
-      finalType.textContent = '';
-      finalType.removeAttribute('data-typing');
-    }
   };
 
   const finish = (instant = false) => {
@@ -238,7 +213,6 @@ export function initHomeIntro(deps: HomeIntroDeps): () => void {
 
     tl.to(purpleDot, { autoAlpha: 1, scale: 1.36, rotate: 0, duration: 0.2, ease: 'back.out(4)' }, 18.58)
       .to(purpleDot, { scale: 1, duration: 0.14, ease: 'power2.out' }, 18.8)
-      .add(() => typeText(finalType), 18.9)
       .to(intro, { autoAlpha: 0, duration: 0.65, ease: 'power2.inOut' }, duration)
       .add(() => finish(false), duration + 0.7);
   };

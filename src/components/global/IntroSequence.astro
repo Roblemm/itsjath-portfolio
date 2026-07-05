@@ -161,15 +161,7 @@ const isPurplePart = (part: IntroLinePart) => 'purple' in part && part.purple ==
               0
             </p>
           )}
-          {'caption' in beat && (
-            <p
-              class="intro__caption"
-              data-intro-type={beat.id === 'final' ? 'final' : undefined}
-              data-intro-type-text={beat.id === 'final' ? beat.caption : undefined}
-            >
-              {beat.caption}
-            </p>
-          )}
+          {'caption' in beat && <p class="intro__caption">{beat.caption}</p>}
         </section>
       ))
     }
@@ -352,20 +344,6 @@ const isPurplePart = (part: IntroLinePart) => 'purple' in part && part.purple ==
     line-height: 1.5;
     color: var(--white-300);
     text-transform: lowercase;
-  }
-
-  .intro__caption[data-intro-type="final"] {
-    min-height: 1.5em;
-  }
-
-  .intro__caption[data-typing="true"]::after {
-    content: "";
-    display: inline-block;
-    width: 0.48em;
-    height: 1em;
-    margin-left: 0.22em;
-    border-right: 1px solid var(--purple-300);
-    transform: translateY(0.14em);
   }
 
   .intro__count {
