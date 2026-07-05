@@ -1,25 +1,17 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { categoryLabels, type PortfolioExperience } from '../../data/portfolio';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  project: PortfolioExperience;
   featured?: boolean;
 }
 
 const { project, featured = false } = Astro.props;
-const { title, one_line_summary, category, year, role, cover, metrics, highlight, status, demo } =
-  project.data;
-
-const categoryLabel: Record<string, string> = {
-  creative: 'Games & creative',
-  platform: 'Platform',
-  software: 'Software',
-  studio: 'Studio',
-};
+const { title, shortSummary, category, dates, role, cover, metrics, highlight, status, demo } = project;
 ---
 
 <a
-  href={`/work/${project.id}/`}
+  href={`/work/${project.slug}/`}
   class:list={['work-card', { 'work-card--flagship': featured, 'work-card--no-media': !cover }]}
 >
   {
@@ -49,14 +41,14 @@ const categoryLabel: Record<string, string> = {
   }
   <div class="work-card__body">
     <div class="work-card__meta">
-      <span class="meta">{categoryLabel[category] ?? category}</span>
-      <span class="meta">{year}</span>
-      <span class="meta work-card__status">{status}</span>
+      <span class="meta">{categoryLabels[category] ?? category}</span>
+      <span class="meta">{dates.display}</span>
+      {status && <span class="meta work-card__status">{status}</span>}
       {featured && <span class="meta work-card__flag">Featured</span>}
     </div>
     <h2 class="work-card__title">{title}</h2>
     {highlight && <p class="work-card__highlight">{highlight}</p>}
-    <p class="work-card__summary">{one_line_summary}</p>
+    <p class="work-card__summary">{shortSummary}</p>
     {
       metrics && metrics.length > 0 && (
         <ul class="work-card__metrics">
@@ -69,9 +61,11 @@ const categoryLabel: Record<string, string> = {
         </ul>
       )
     }
-    <p class="work-card__role">
-      <strong>Role</strong> {role}
-    </p>
+    {role && (
+      <p class="work-card__role">
+        <strong>Role</strong> {role}
+      </p>
+    )}
     <span class="link-arrow">View case study →</span>
   </div>
 </a>

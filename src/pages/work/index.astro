@@ -1,40 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/work/WorkCard.astro';
+import { getPortfolioWorkGroups } from '../../data/portfolio';
 
-const projects = (await getCollection('projects')).sort((a, b) => {
-  if (a.data.flagship !== b.data.flagship) return a.data.flagship ? -1 : 1;
-  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
-  return a.data.title.localeCompare(b.data.title);
-});
-
-const featuredEngineering = projects.find((p) => p.id === 'forestlygames-operations-platform');
-const featuredProduct = projects.find((p) => p.id === 'forestlygames');
-const featuredProjectIds = new Set([featuredEngineering?.id, featuredProduct?.id].filter(Boolean));
-const productChapterIds = [
-  'boss-battles',
-  'roempires',
-  'encaved',
-  'escape-bruno-head',
-  'evil-pets',
-];
-const productChapters = productChapterIds
-  .map((id) => projects.find((project) => project.id === id))
-  .filter((project) => project !== undefined);
-const studioChapterIds = new Set(productChapterIds);
-
-const visibleProductChapterIds = new Set([
-  'boss-battles',
-  'roempires',
-  'encaved',
-  'escape-bruno-head',
-  'evil-pets',
-]);
-
-const selectedProjects = projects.filter(
-  (project) => !featuredProjectIds.has(project.id) && !studioChapterIds.has(project.id),
-);
+const { featuredEngineering, featuredProduct, productChapters, selectedProjects } =
+  getPortfolioWorkGroups();
 
 const proof = [
   { value: '78M+', label: 'Portfolio plays & views' },
@@ -128,14 +98,13 @@ const proof = [
                 <span class="work-featured__side-pill work-featured__side-pill--product">Product</span>
               </p>
               <WorkCard project={featuredProduct} featured />
-              <div class="work-product-chapters" aria-label="ForestlyGames game chapters">
-                {productChapters
-                  .filter((chapter) => visibleProductChapterIds.has(chapter.id))
-                  .map((chapter) => (
-                    <a href={`/work/${chapter.id}/`} class="work-product-chapter">
-                      {chapter.data.cover && (
+              {productChapters.length > 0 && (
+                <div class="work-product-chapters" aria-label="ForestlyGames game chapters">
+                  {productChapters.map((chapter) => (
+                    <a href={`/work/${chapter.slug}/`} class="work-product-chapter">
+                      {chapter.cover && (
                         <img
-                          src={chapter.data.cover}
+                          src={chapter.cover}
                           alt=""
                           class="work-product-chapter__img"
                           loading="lazy"
@@ -143,12 +112,13 @@ const proof = [
                         />
                       )}
                       <span class="work-product-chapter__body">
-                        <span class="work-product-chapter__title">{chapter.data.title}</span>
-                        <span class="work-product-chapter__meta">{chapter.data.status}</span>
+                        <span class="work-product-chapter__title">{chapter.title}</span>
+                        {chapter.status && <span class="work-product-chapter__meta">{chapter.status}</span>}
                       </span>
                     </a>
                   ))}
-              </div>
+                </div>
+              )}
             </div>
           )
         }

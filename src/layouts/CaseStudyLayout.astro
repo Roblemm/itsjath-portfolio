@@ -1,44 +1,49 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import type { CollectionEntry } from 'astro:content';
+import ForestlyGamesCaseStudy from '../components/work/ForestlyGamesCaseStudy.astro';
 import { caseStudyIntro } from '../utils/page-intros';
+import { categoryLabels, type PortfolioExperience, type PortfolioText } from '../data/portfolio';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  project: PortfolioExperience;
 }
 
 const { project } = Astro.props;
 const {
   title,
   role,
-  timeline,
+  dates,
   problem,
   outcome,
-  skills,
-  recruiter_takeaway,
+  technologies,
+  takeaway,
   cover,
   gallery,
   metrics,
   demo,
   videos,
   status,
-  year,
   category,
-} = project.data;
+  shortSummary,
+  caseStudy,
+} = project;
 
-const categoryLabel: Record<string, string> = {
-  creative: 'Games & creative',
-  platform: 'Platform',
-  software: 'Software',
-  studio: 'Studio',
-};
+const textParts = (text: PortfolioText) => (Array.isArray(text) ? text : [text]);
+const isForestlyGamesStudio = project.layout?.caseStudyVariant === 'forestlygames-studio';
+const summaryRows = [
+  { label: 'Role', value: role },
+  { label: 'Timeline', value: dates.timeline },
+  { label: 'Problem', value: problem },
+  { label: 'Outcome', value: outcome },
+  { label: 'Skills demonstrated', value: technologies?.join(' Â· ') },
+].filter((row): row is { label: string; value: string } => Boolean(row.value));
 ---
 
-<BaseLayout
-  title={title}
-  description={project.data.one_line_summary}
-  intro={caseStudyIntro(title)}
->
+{
+  isForestlyGamesStudio ? (
+    <ForestlyGamesCaseStudy project={project} />
+  ) : (
+<BaseLayout title={title} description={shortSummary} intro={caseStudyIntro(title)}>
   <article class="container section page-enter" data-page-content>
     {cover && (
       <figure class="case-hero">
@@ -48,10 +53,10 @@ const categoryLabel: Record<string, string> = {
 
     <header class="page-header" style="padding-top: 0;">
       <p class="meta page-header__eyebrow">
-        {categoryLabel[category] ?? category} · {status} · {year}
+        {categoryLabels[category] ?? category}{status ? ` Â· ${status}` : ''} Â· {dates.display}
       </p>
       <h1>{title}</h1>
-      <p class="lead" style="margin-top: 1rem;">{project.data.one_line_summary}</p>
+      <p class="lead" style="margin-top: 1rem;">{shortSummary}</p>
     </header>
 
     {
@@ -67,10 +72,12 @@ const categoryLabel: Record<string, string> = {
       )
     }
 
-    <blockquote class="case-pull">
-      <strong>What this shows</strong>
-      {recruiter_takeaway}
-    </blockquote>
+    {takeaway && (
+      <blockquote class="case-pull">
+        <strong>What this shows</strong>
+        {takeaway}
+      </blockquote>
+    )}
 
     {
       demo && (
@@ -89,22 +96,18 @@ const categoryLabel: Record<string, string> = {
       )
     }
 
-    <dl class="case-summary">
-      <dt>Role</dt>
-      <dd>{role}</dd>
-      {timeline && (
-        <>
-          <dt>Timeline</dt>
-          <dd>{timeline}</dd>
-        </>
-      )}
-      <dt>Problem</dt>
-      <dd>{problem}</dd>
-      <dt>Outcome</dt>
-      <dd>{outcome}</dd>
-      <dt>Skills demonstrated</dt>
-      <dd>{skills.join(' · ')}</dd>
-    </dl>
+    {
+      summaryRows.length > 0 && (
+        <dl class="case-summary">
+          {summaryRows.map((row) => (
+            <>
+              <dt>{row.label}</dt>
+              <dd>{row.value}</dd>
+            </>
+          ))}
+        </dl>
+      )
+    }
 
     {
       videos && videos.length > 0 && (
@@ -135,16 +138,59 @@ const categoryLabel: Record<string, string> = {
 
     {gallery && gallery.length > 0 && (
       <div class="case-gallery" aria-label="Project gallery">
-        {gallery.map((src) => (
+        {gallery.map((image) => (
           <figure class="case-gallery__item">
-            <img src={src} alt="" loading="lazy" decoding="async" />
+            <img src={image.src} alt={image.alt ?? ''} loading="lazy" decoding="async" />
           </figure>
         ))}
       </div>
     )}
 
-    <div class="prose">
-      <slot />
-    </div>
+    {caseStudy?.sections && caseStudy.sections.length > 0 && (
+      <div class="prose">
+        {caseStudy.sections.map((section) => (
+          <section>
+            <h2>{section.title}</h2>
+            {section.blocks.map((block) =>
+              block.type === 'paragraph' ? (
+                <p>
+                  {textParts(block.text).map((part) =>
+                    typeof part === 'string' ? (
+                      part
+                    ) : part.href ? (
+                      <a href={part.href}>{part.text}</a>
+                    ) : part.emphasis ? (
+                      <em>{part.text}</em>
+                    ) : (
+                      part.text
+                    ),
+                  )}
+                </p>
+              ) : (
+                <ul>
+                  {block.items.map((item) => (
+                    <li>
+                      {textParts(item).map((part) =>
+                        typeof part === 'string' ? (
+                          part
+                        ) : part.href ? (
+                          <a href={part.href}>{part.text}</a>
+                        ) : part.emphasis ? (
+                          <em>{part.text}</em>
+                        ) : (
+                          part.text
+                        ),
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ),
+            )}
+          </section>
+        ))}
+      </div>
+    )}
   </article>
 </BaseLayout>
+  )
+}

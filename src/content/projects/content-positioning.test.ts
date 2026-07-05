@@ -22,6 +22,7 @@ function readSource(relativePath: string): string {
 
 function readPublicPortfolioCopy(): string {
   return [
+    readSource('../../data/portfolio.ts'),
     readAllProjectContent(),
     readSource('../../layouts/CaseStudyLayout.astro'),
     readSource('../../pages/work/index.astro'),
@@ -57,19 +58,22 @@ describe('portfolio content positioning', () => {
     expect(content).toContain('Encaved');
   });
 
-  it('keeps the featured product and game chapters visible on the Work page', () => {
-    const content = readSource('../../pages/work/index.astro');
+  it('keeps the featured product visible without publishing individual game case-study links', () => {
+    const page = readSource('../../pages/work/index.astro');
+    const data = readSource('../../data/portfolio.ts');
 
-    expect(content.indexOf('work-featured__side-pill--product')).toBeLessThan(
-      content.indexOf('work-featured__side-pill--software'),
+    expect(page.indexOf('work-featured__side-pill--product')).toBeLessThan(
+      page.indexOf('work-featured__side-pill--software'),
     );
-    expect(content).toContain('productChapterIds');
-    expect(content).toContain('work-product-chapters');
-    expect(content).toContain('escape-bruno-head');
-    expect(content).toContain('boss-battles');
-    expect(content).toContain('roempires');
-    expect(content).toContain('encaved');
-    expect(content).toContain('evil-pets');
+    expect(page).toContain('getPortfolioWorkGroups');
+    expect(page).toContain('productChapters.length > 0');
+    expect(data).toContain('productChapterSlugs');
+    expect(data).toContain('publishCaseStudy: false');
+    expect(data).toContain('escape-bruno-head');
+    expect(data).toContain('boss-battles');
+    expect(data).toContain('roempires');
+    expect(data).toContain('encaved');
+    expect(data).toContain('evil-pets');
   });
 
   it('labels the two ForestlyGames feature sides and keeps the columns top-aligned', () => {
@@ -131,11 +135,10 @@ describe('portfolio content positioning', () => {
     expect(motionController).toContain('initWorkIconMotion');
   });
 
-  it('preserves ForestlyGames #1 trending copy in YAML frontmatter', () => {
-    const content = readProject('forestlygames.md');
-    const outcome = content.split('\n').find((line) => line.startsWith('outcome:'));
+  it('preserves ForestlyGames #1 trending copy in portfolio data', () => {
+    const content = readSource('../../data/portfolio.ts');
+    const outcome = content.split('\n').find((line) => line.includes('#1 trending on YouTube Gaming'));
 
-    expect(outcome).toContain('"');
     expect(outcome).toContain('#1 trending on YouTube Gaming');
   });
 
