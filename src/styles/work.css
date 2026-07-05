@@ -518,6 +518,23 @@
   border-color: color-mix(in srgb, var(--gold-500) 38%, transparent);
 }
 
+.work-card--clickable {
+  cursor: pointer;
+}
+
+.work-card--clickable:hover,
+.work-card--clickable:focus-visible {
+  border-color: color-mix(in srgb, var(--gold-500) 58%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--gold-500) 22%, transparent),
+    0 1.25rem 3rem color-mix(in srgb, var(--purple-700) 16%, transparent);
+}
+
+.work-card--clickable:focus-visible {
+  outline: 2px solid var(--gold-300);
+  outline-offset: 5px;
+}
+
 .work-card--no-media .work-card__media--code {
   display: grid;
   place-items: center;
@@ -556,12 +573,79 @@
   height: 0.75rem;
 }
 
+.work-card__media-cue {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.9rem;
+  padding: 0.42rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--gold-500) 56%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--gold-500) 20%, transparent), transparent),
+    color-mix(in srgb, var(--black-000) 78%, transparent);
+  color: var(--gold-100);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0.75rem 2rem color-mix(in srgb, var(--black-000) 28%, transparent);
+}
+
 .work-card__status {
   text-transform: capitalize;
 }
 
 .work-card__flag {
   color: var(--gold-500);
+}
+
+.work-card__case-cue {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 0.5rem;
+  max-width: 100%;
+  min-height: 2.05rem;
+  padding: 0.48rem 0.78rem;
+  border: 1px solid color-mix(in srgb, var(--gold-500) 52%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--gold-500) 24%, transparent), transparent 65%),
+    color-mix(in srgb, var(--black-200) 88%, transparent);
+  color: var(--gold-100);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition:
+    border-color 180ms var(--ease-standard),
+    color 180ms var(--ease-standard),
+    transform 180ms var(--ease-standard);
+}
+
+.work-card__case-cue span {
+  color: var(--purple-300);
+  transition: transform 180ms var(--ease-standard);
+}
+
+.work-card--clickable:hover .work-card__case-cue,
+.work-card--clickable:focus-visible .work-card__case-cue {
+  border-color: var(--gold-300);
+  color: var(--white-000);
+  transform: translateY(-1px);
+}
+
+.work-card--clickable:hover .work-card__case-cue span,
+.work-card--clickable:focus-visible .work-card__case-cue span {
+  transform: translateX(0.18rem);
 }
 
 .work-card__disciplines {

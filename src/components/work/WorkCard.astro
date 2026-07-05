@@ -36,7 +36,11 @@ const visibleSignals = (cardSignals ?? technologies)?.slice(0, 5) ?? [];
   href={isPublishedCaseStudy ? `/work/${project.slug}/` : undefined}
   class:list={[
     'work-card',
-    { 'work-card--flagship': featured, 'work-card--no-media': !cover },
+    {
+      'work-card--flagship': featured,
+      'work-card--no-media': !cover,
+      'work-card--clickable': isPublishedCaseStudy,
+    },
   ]}
 >
   {
@@ -57,6 +61,11 @@ const visibleSignals = (cardSignals ?? technologies)?.slice(0, 5) ?? [];
             Demo
           </span>
         )}
+        {isPublishedCaseStudy && (
+          <span class="work-card__media-cue" aria-hidden="true">
+            Case study
+          </span>
+        )}
       </div>
     ) : (
       <div class="work-card__media work-card__media--code" aria-hidden="true">
@@ -71,6 +80,11 @@ const visibleSignals = (cardSignals ?? technologies)?.slice(0, 5) ?? [];
       {status && <span class="meta work-card__status">{status}</span>}
       {featured && <span class="meta work-card__flag">Featured</span>}
     </div>
+    {isPublishedCaseStudy && (
+      <span class="work-card__case-cue" aria-hidden="true">
+        Open case study <span>-></span>
+      </span>
+    )}
     <div class="work-card__disciplines" aria-label="Project focus">
       {
         disciplines.map((discipline) => (
