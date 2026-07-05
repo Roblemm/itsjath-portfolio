@@ -1,16 +1,14 @@
 ---
 /*
-  Intro sequence editing notes:
-  - Change copy in introBeats.
-  - Change placeholder stats in introEditableStats when real figures are ready.
-  - Add or remove ForestlyGames media in introMedia. Missing media simply falls
-    back to the texture layer because the animation targets whatever exists.
+  Edit these arrays to tune the intro. Placeholder stats stay explicit until
+  real figures are ready.
 */
-
 const introEditableStats = {
   productsShipped: '{N}',
   creatorsOrOpsMetric: '{creators scouted / ops metric}',
 } as const;
+
+const dot = ' · ';
 
 const introBeats = [
   {
@@ -28,14 +26,14 @@ const introBeats = [
       [{ text: 'I BUILD SYSTEMS' }],
       [{ text: 'PEOPLE ACTUALLY ' }, { text: 'USE.', accent: true }],
     ],
-    caption: 'software · products · operations',
+    caption: `software${dot}products${dot}operations`,
   },
   {
     id: 'stack',
     start: 5.5,
     end: 9.5,
     lines: [[{ text: 'BACKEND. PRODUCT. ' }, { text: 'OPERATIONS.', accent: true }]],
-    caption: 'stack types in: java · spring boot · postgresql · next.js · docker',
+    caption: `stack types in: java${dot}spring boot${dot}postgresql${dot}next.js${dot}docker`,
   },
   {
     id: 'reach',
@@ -53,7 +51,7 @@ const introBeats = [
     start: 14,
     end: 18,
     lines: [[{ text: 'SHIPPED THE CODE. ' }, { text: 'RAN THE STUDIO.', accent: true }]],
-    caption: `${introEditableStats.productsShipped} products shipped · ${introEditableStats.creatorsOrOpsMetric} · live operations`,
+    caption: `${introEditableStats.productsShipped} products shipped${dot}${introEditableStats.creatorsOrOpsMetric}${dot}live operations`,
   },
   {
     id: 'final',
@@ -61,18 +59,10 @@ const introBeats = [
     end: 22,
     lines: [
       [{ text: 'BUILDING SYSTEMS' }],
-      [{ text: 'THAT ' }, { text: 'MOVE.', accent: true }],
+      [{ text: 'THAT ' }, { text: 'MOVE', accent: true }, { text: '.', purple: true }],
     ],
-    caption: 'JATH · engineer · product · operator',
+    caption: `JATH${dot}engineer${dot}product${dot}operator`,
   },
-] as const;
-
-const capabilityChips = [
-  { id: 'backend', title: 'BACKEND SYSTEMS', detail: 'java · spring · postgres' },
-  { id: 'fullstack', title: 'FULL-STACK PRODUCTS', detail: 'next.js · rest apis · docker' },
-  { id: 'product', title: 'PRODUCT OWNERSHIP', detail: 'define · ship · iterate' },
-  { id: 'reach', title: '78M+ REACH', detail: 'across shipped products' },
-  { id: 'studio', title: 'STUDIO OPERATIONS', detail: 'teams · budgets · delivery' },
 ] as const;
 
 const introMedia = [
@@ -80,32 +70,27 @@ const introMedia = [
     type: 'video',
     src: '/images/work/forestlygames/studio/fg-showcase-260129-v003.mp4',
     poster: '/images/work/forestlygames/studio/fg-showcase-poster.jpg',
-    label: 'ForestlyGames studio reel',
     className: 'intro-media--primary',
     startAt: 12,
   },
   {
     type: 'image',
     src: '/images/work/forestlygames/studio/escape-bruno-mirabel-glow.png',
-    label: 'Escape Bruno cinematic still',
     className: 'intro-media--bruno',
   },
   {
     type: 'image',
     src: '/images/work/forestlygames/studio/roempires-gameplay-village.jpg',
-    label: 'RoEmpires village still',
     className: 'intro-media--roempires',
   },
   {
     type: 'image',
     src: '/images/work/forestlygames/studio/encaved-cave-entrance.png',
-    label: 'Encaved cave entrance',
     className: 'intro-media--encaved',
   },
   {
     type: 'image',
     src: '/images/work/forestlygames/studio/boss-battles-thumbnail.png',
-    label: 'Boss Battles hero still',
     className: 'intro-media--boss',
   },
 ] as const;
@@ -115,26 +100,17 @@ type IntroLinePart = IntroBeat['lines'][number][number];
 
 const isInitBeat = (beat: IntroBeat) => 'init' in beat && beat.init === true;
 const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent === true;
+const isPurplePart = (part: IntroLinePart) => 'purple' in part && part.purple === true;
 ---
 
 <div class="intro" data-intro data-intro-duration="22" aria-label="Intro sequence">
   <div class="intro__texture" aria-hidden="true"></div>
   <div class="intro__vignette" aria-hidden="true"></div>
 
-  <div class="intro__hud" aria-hidden="true">
-    <span class="intro__rec"><span></span> REC</span>
-    <span data-intro-seq>SEQ INIT</span>
-    <span data-intro-timecode>00:00</span>
-  </div>
-
   <div class="intro__media" aria-hidden="true">
     {
       introMedia.map((media, index) => (
-        <figure
-          class:list={['intro__panel', media.className]}
-          data-intro-media
-          data-media-index={index}
-        >
+        <figure class:list={['intro__panel', media.className]} data-intro-media data-media-index={index}>
           {media.type === 'video' ? (
             <video
               data-intro-video
@@ -169,7 +145,13 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
             {beat.lines.map((line) => (
               <span class="intro__headline-line">
                 {line.map((part) =>
-                  isAccentPart(part) ? <em>{part.text}</em> : <span>{part.text}</span>,
+                  isAccentPart(part) ? (
+                    <em>{part.text}</em>
+                  ) : isPurplePart(part) ? (
+                    <span class="intro__purple">{part.text}</span>
+                  ) : (
+                    <span>{part.text}</span>
+                  ),
                 )}
               </span>
             ))}
@@ -185,29 +167,7 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     }
   </div>
 
-  <div class="intro__chips" data-intro-chips aria-hidden="true">
-    {
-      capabilityChips.map((chip) => (
-        <div class="intro__chip" data-intro-chip data-chip-id={chip.id}>
-          <span>{chip.title}</span>
-          <small>{chip.detail}</small>
-        </div>
-      ))
-    }
-  </div>
-
-  <div class="intro__timeline" aria-hidden="true">
-    <span class="intro__timeline-fill" data-intro-progress></span>
-    {introBeats.map((beat) => <i style={`left: ${(beat.start / 22) * 100}%`}></i>)}
-    <i style="left: 100%"></i>
-  </div>
-
   <button type="button" class="intro__skip" data-intro-skip>Skip intro</button>
-
-  <div class="intro__actions" data-intro-actions>
-    <button type="button" class="intro__enter" data-intro-enter>Enter site</button>
-    <button type="button" class="intro__replay" data-intro-replay>Replay</button>
-  </div>
 </div>
 
 <style>
@@ -218,8 +178,9 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     overflow: hidden;
     color: var(--white-000);
     background:
-      radial-gradient(circle at 78% 22%, color-mix(in srgb, var(--purple-700) 38%, transparent), transparent 42%),
-      radial-gradient(circle at 16% 86%, color-mix(in srgb, var(--gold-700) 18%, transparent), transparent 44%),
+      radial-gradient(circle at 82% 20%, color-mix(in srgb, var(--purple-500) 44%, transparent), transparent 46%),
+      radial-gradient(circle at 60% 72%, color-mix(in srgb, var(--purple-700) 42%, transparent), transparent 52%),
+      radial-gradient(circle at 12% 86%, color-mix(in srgb, var(--gold-700) 15%, transparent), transparent 42%),
       var(--black-000);
     font-family: var(--font-display);
     isolation: isolate;
@@ -235,50 +196,20 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
 
   .intro__texture {
     z-index: 0;
-    opacity: 0.5;
+    opacity: 0.64;
     background-image:
       linear-gradient(color-mix(in srgb, var(--white-500) 8%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--white-500) 8%, transparent) 1px, transparent 1px);
+      linear-gradient(90deg, color-mix(in srgb, var(--purple-300) 14%, transparent) 1px, transparent 1px);
     background-size: 4rem 4rem;
-    mask-image: radial-gradient(circle at 50% 48%, black 0%, transparent 70%);
+    mask-image: radial-gradient(circle at 54% 48%, black 0%, transparent 72%);
   }
 
   .intro__vignette {
     z-index: 3;
     background:
-      linear-gradient(90deg, color-mix(in srgb, var(--black-000) 92%, transparent) 0%, transparent 46%, color-mix(in srgb, var(--black-000) 68%, transparent) 100%),
-      radial-gradient(circle at 52% 48%, transparent 0%, color-mix(in srgb, var(--black-000) 76%, transparent) 72%),
-      linear-gradient(180deg, color-mix(in srgb, var(--black-000) 80%, transparent), transparent 30%, color-mix(in srgb, var(--black-000) 84%, transparent));
-  }
-
-  .intro__hud {
-    position: absolute;
-    z-index: 7;
-    top: var(--content-pad);
-    left: var(--content-pad);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--white-300);
-  }
-
-  .intro__rec {
-    color: var(--gold-300);
-  }
-
-  .intro__rec span {
-    display: inline-block;
-    width: 0.48rem;
-    height: 0.48rem;
-    margin-right: 0.35rem;
-    border-radius: 999px;
-    background: var(--gold-500);
-    box-shadow: 0 0 1.1rem var(--gold-500);
+      linear-gradient(90deg, color-mix(in srgb, var(--black-000) 90%, transparent) 0%, transparent 50%, color-mix(in srgb, var(--purple-700) 22%, transparent) 100%),
+      radial-gradient(circle at 52% 48%, transparent 0%, color-mix(in srgb, var(--black-000) 60%, transparent) 78%),
+      linear-gradient(180deg, color-mix(in srgb, var(--black-000) 70%, transparent), transparent 36%, color-mix(in srgb, var(--black-000) 70%, transparent));
   }
 
   .intro__media {
@@ -289,7 +220,7 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     position: absolute;
     margin: 0;
     overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--white-300) 16%, transparent);
+    border: 1px solid color-mix(in srgb, var(--purple-300) 32%, transparent);
     border-radius: 8px;
     background: var(--black-100);
     box-shadow: 0 1.5rem 5rem color-mix(in srgb, var(--black-000) 70%, transparent);
@@ -302,8 +233,8 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, color-mix(in srgb, var(--black-000) 12%, transparent), color-mix(in srgb, var(--black-000) 58%, transparent)),
-      radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--gold-300) 14%, transparent), transparent 34%);
+      linear-gradient(180deg, color-mix(in srgb, var(--black-000) 4%, transparent), color-mix(in srgb, var(--black-000) 32%, transparent)),
+      radial-gradient(circle at 22% 18%, color-mix(in srgb, var(--purple-300) 26%, transparent), transparent 38%);
   }
 
   .intro__panel video,
@@ -311,43 +242,43 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(0.72) saturate(0.48) brightness(0.46) contrast(1.08);
+    filter: grayscale(0.22) saturate(0.9) brightness(0.74) contrast(1.08);
     transform: scale(1.04);
   }
 
   .intro-media--primary {
-    right: min(5vw, 5rem);
-    top: 12vh;
-    width: min(62rem, 62vw);
-    height: min(34rem, 52vh);
+    right: min(4vw, 4rem);
+    top: 10vh;
+    width: min(70rem, 66vw);
+    height: min(39rem, 58vh);
   }
 
   .intro-media--bruno {
-    right: 8vw;
-    bottom: 12vh;
-    width: min(22rem, 30vw);
-    height: min(16rem, 24vh);
+    right: 7vw;
+    bottom: 9vh;
+    width: min(25rem, 32vw);
+    height: min(18rem, 26vh);
   }
 
   .intro-media--roempires {
     left: 47vw;
-    bottom: 13vh;
-    width: min(18rem, 25vw);
-    height: min(12rem, 18vh);
+    bottom: 12vh;
+    width: min(20rem, 27vw);
+    height: min(13rem, 19vh);
   }
 
   .intro-media--encaved {
     right: 20vw;
-    top: 7vh;
-    width: min(19rem, 24vw);
-    height: min(12rem, 17vh);
+    top: 6vh;
+    width: min(21rem, 25vw);
+    height: min(13rem, 18vh);
   }
 
   .intro-media--boss {
-    left: 55vw;
+    left: 56vw;
     top: 38vh;
-    width: min(15rem, 20vw);
-    height: min(10rem, 15vh);
+    width: min(16rem, 21vw);
+    height: min(11rem, 16vh);
   }
 
   .intro__beats {
@@ -355,7 +286,7 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     z-index: 5;
     display: grid;
     min-height: 100%;
-    padding: calc(var(--nav-height) + var(--content-pad)) var(--content-pad) calc(var(--content-pad) * 4);
+    padding: calc(var(--nav-height) + var(--content-pad)) var(--content-pad) calc(var(--content-pad) * 3);
     place-items: center start;
   }
 
@@ -386,7 +317,6 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     font-size: var(--text-md);
     font-weight: 500;
     line-height: 1.4;
-    letter-spacing: 0.12em;
     color: var(--gold-300);
   }
 
@@ -400,13 +330,17 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     text-shadow: 0 0 2.5rem color-mix(in srgb, var(--gold-500) 32%, transparent);
   }
 
+  .intro__purple {
+    color: var(--purple-300);
+    text-shadow: 0 0 2.2rem color-mix(in srgb, var(--purple-500) 64%, transparent);
+  }
+
   .intro__caption {
     max-width: 48rem;
     margin: 1.3rem 0 0;
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     line-height: 1.5;
-    letter-spacing: 0.06em;
     color: var(--white-300);
     text-transform: lowercase;
   }
@@ -422,147 +356,33 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     text-shadow: 0 0 4rem color-mix(in srgb, var(--gold-500) 40%, transparent);
   }
 
-  .intro__chips {
-    position: absolute;
-    z-index: 6;
-    bottom: calc(var(--content-pad) + 4rem);
-    left: var(--content-pad);
-    display: grid;
-    width: min(26rem, calc(100vw - (var(--content-pad) * 2)));
-    gap: 0.55rem;
-  }
-
-  .intro__chip {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.7rem;
-    align-items: baseline;
-    width: max-content;
-    max-width: 100%;
-    padding: 0.48rem 0.7rem;
-    border: 1px solid color-mix(in srgb, var(--gold-500) 26%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--black-200) 74%, transparent);
-    color: var(--white-100);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    opacity: 0;
-    transform: translateX(-0.9rem);
-    backdrop-filter: blur(12px);
-  }
-
-  .intro__chip span {
-    color: var(--gold-300);
-    font-weight: 500;
-  }
-
-  .intro__chip small {
-    min-width: 0;
-    color: var(--white-300);
-    font-size: inherit;
-    white-space: normal;
-  }
-
-  .intro__chip[data-chip-active="true"] {
-    border-color: color-mix(in srgb, var(--gold-300) 70%, transparent);
-    box-shadow: 0 0 1.7rem color-mix(in srgb, var(--gold-500) 22%, transparent);
-  }
-
-  .intro__skip,
-  .intro__enter,
-  .intro__replay {
-    border: 1px solid color-mix(in srgb, var(--gold-500) 38%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--black-200) 68%, transparent);
-    color: var(--white-100);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    backdrop-filter: blur(14px);
-  }
-
-  .intro__skip:focus-visible,
-  .intro__enter:focus-visible,
-  .intro__replay:focus-visible {
-    outline: 2px solid var(--gold-300);
-    outline-offset: 4px;
-  }
-
   .intro__skip {
     position: absolute;
     z-index: 8;
     bottom: var(--content-pad);
     left: var(--content-pad);
     padding: 0.72rem 1rem;
-    opacity: 0.76;
-  }
-
-  .intro__actions {
-    position: absolute;
-    z-index: 8;
-    right: var(--content-pad);
-    bottom: var(--content-pad);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .intro__actions[data-ready="true"] {
-    pointer-events: auto;
-  }
-
-  .intro__enter {
-    padding: 0.9rem 1.18rem;
-    background: var(--gradient-gold);
-    color: var(--black-000);
-    font-weight: 500;
-  }
-
-  .intro__replay {
-    padding: 0.72rem 0.95rem;
-  }
-
-  .intro__timeline {
-    position: absolute;
-    z-index: 7;
-    right: var(--content-pad);
-    bottom: calc(var(--content-pad) + 4.5rem);
-    left: var(--content-pad);
-    height: 1px;
-    background: color-mix(in srgb, var(--white-300) 16%, transparent);
-  }
-
-  .intro__timeline-fill {
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 0%;
-    background: var(--gold-500);
-    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--gold-500) 60%, transparent);
-  }
-
-  .intro__timeline i {
-    position: absolute;
-    top: 50%;
-    width: 0.38rem;
-    height: 0.38rem;
+    border: 1px solid color-mix(in srgb, var(--gold-500) 38%, transparent);
     border-radius: 999px;
-    background: var(--white-300);
-    transform: translate(-50%, -50%);
+    background: color-mix(in srgb, var(--black-200) 68%, transparent);
+    color: var(--white-100);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0.76;
+    backdrop-filter: blur(14px);
+  }
+
+  .intro__skip:focus-visible {
+    outline: 2px solid var(--gold-300);
+    outline-offset: 4px;
   }
 
   @media (max-width: 840px) {
-    .intro__hud {
-      right: var(--content-pad);
-      gap: 0.55rem;
-    }
-
     .intro__beats {
       padding-top: calc(var(--nav-height) + (var(--content-pad) * 1.6));
-      padding-bottom: 13rem;
+      padding-bottom: 9rem;
       align-items: center;
     }
 
@@ -580,45 +400,23 @@ const isAccentPart = (part: IntroLinePart) => 'accent' in part && part.accent ==
     }
 
     .intro-media--primary {
-      right: -22vw;
-      top: 18vh;
-      width: 92vw;
-      height: 42vh;
+      right: -18vw;
+      top: 16vh;
+      width: 96vw;
+      height: 44vh;
     }
 
     .intro-media--bruno {
       right: 4vw;
-      bottom: 19vh;
-      width: 48vw;
-      height: 21vh;
+      bottom: 16vh;
+      width: 52vw;
+      height: 23vh;
     }
 
     .intro-media--roempires,
     .intro-media--encaved,
     .intro-media--boss {
       display: none;
-    }
-
-    .intro__chips {
-      bottom: calc(var(--content-pad) + 4.6rem);
-      gap: 0.42rem;
-    }
-
-    .intro__chip {
-      grid-template-columns: 1fr;
-      gap: 0.15rem;
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    .intro__actions {
-      right: auto;
-      left: var(--content-pad);
-      bottom: calc(var(--content-pad) + 3.2rem);
-    }
-
-    .intro__timeline {
-      bottom: calc(var(--content-pad) + 8rem);
     }
   }
 </style>
