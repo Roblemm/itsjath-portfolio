@@ -1,10 +1,18 @@
-/* ── Signal, concentrated point, large reactions ────────── */
+/* -- Signal, concentrated point, large reactions -- */
 
 .signal {
   --signal-gold: 0;
   --signal-energy: 0.5;
-  --signal-color: color-mix(in srgb, var(--gold-500) calc(var(--signal-gold) * 100%), var(--purple-500));
-  --signal-hot: color-mix(in srgb, var(--gold-300) calc(var(--signal-gold) * 100%), var(--white-000));
+  --signal-color: color-mix(
+    in srgb,
+    var(--gold-500) calc(var(--signal-gold) * 100%),
+    var(--purple-500)
+  );
+  --signal-hot: color-mix(
+    in srgb,
+    var(--gold-300) calc(var(--signal-gold) * 100%),
+    var(--white-000)
+  );
 
   position: fixed;
   top: 0;
@@ -99,37 +107,37 @@
     0 0 28px 4px color-mix(in srgb, var(--signal-color) 35%, transparent);
 }
 
-/* ── Chapter modes ───────────────────────────────────────── */
+/* -- Chapter modes -- */
 
-.signal[data-chapter='hero'] .signal__cross {
+.signal[data-chapter="hero"] .signal__cross {
   opacity: 0.2;
 }
 
-.signal[data-chapter='approach'] .signal__reach {
+.signal[data-chapter="approach"] .signal__reach {
   width: clamp(220px, 38vw, 480px);
   height: clamp(220px, 38vw, 480px);
 }
 
-.signal[data-chapter='approach'] .signal__cross--v {
+.signal[data-chapter="approach"] .signal__cross--v {
   height: clamp(28px, 6vw, 44px);
 }
 
-.signal[data-chapter='approach'] .signal__cross--h {
+.signal[data-chapter="approach"] .signal__cross--h {
   width: clamp(28px, 6vw, 44px);
 }
 
-.signal[data-chapter='proof'] .signal__reach {
+.signal[data-chapter="proof"] .signal__reach {
   opacity: calc(var(--signal-energy) * 0.42);
 }
 
-.signal[data-chapter='proof'] .signal__point {
+.signal[data-chapter="proof"] .signal__point {
   box-shadow:
     0 0 4px 1px var(--gold-300),
     0 0 10px 2px color-mix(in srgb, var(--gold-500) 40%, transparent),
     0 0 18px 3px color-mix(in srgb, var(--gold-500) 14%, transparent);
 }
 
-.signal[data-chapter='connect'] .signal__pulse {
+.signal[data-chapter="connect"] .signal__pulse {
   animation-duration: 1.8s;
 }
 
@@ -160,7 +168,7 @@
 
 .signal-waypoint--stats {
   left: 18%;
-  top: 62%;
+  top: 78%;
 }
 
 .signal-waypoint--featured {
@@ -196,7 +204,7 @@
 
   .signal-waypoint--stats {
     left: 22%;
-    top: 58%;
+    top: 74%;
   }
 
   .signal-waypoint--featured {
@@ -212,7 +220,7 @@
     height: clamp(120px, 36vw, 220px);
   }
 
-  .signal[data-chapter='approach'] .signal__reach {
+  .signal[data-chapter="approach"] .signal__reach {
     width: clamp(160px, 48vw, 280px);
     height: clamp(160px, 48vw, 280px);
   }

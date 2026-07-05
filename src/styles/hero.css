@@ -1,4 +1,4 @@
-/* ── Cinematic scroll-driven home ────────────────────────── */
+/* -- Cinematic scroll-driven home -------------------------- */
 
 .home {
   position: relative;
@@ -34,7 +34,7 @@
     );
 }
 
-/* ── Scene scaffolding ───────────────────────────────────── */
+/* -- Scene scaffolding ------------------------------------- */
 
 .scene {
   position: relative;
@@ -55,7 +55,7 @@
   will-change: transform, opacity;
 }
 
-/* ── Scene 1 · Hero ──────────────────────────────────────── */
+/* -- Scene 1 - Hero ---------------------------------------- */
 
 .scene--hero {
   min-height: 100svh;
@@ -79,7 +79,7 @@
   pointer-events: none;
 }
 
-/* ── Cinematic intro (~6s) ───────────────────────────────── */
+/* -- Cinematic intro (~6s) --------------------------------- */
 
 .intro {
   position: fixed;
@@ -157,8 +157,15 @@
 }
 
 @keyframes hero-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
 }
 
 .hero__title {
@@ -182,7 +189,11 @@
 }
 
 .hero__title-its {
-  background: linear-gradient(135deg, var(--purple-300) 0%, var(--purple-500) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--purple-300) 0%,
+    var(--purple-500) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -207,8 +218,18 @@
     180deg,
     var(--white-000) 0%,
     var(--white-000) 42%,
-    color-mix(in srgb, var(--gold-500) calc(var(--dot-gold) * 100%), var(--purple-300)) 78%,
-    color-mix(in srgb, var(--gold-500) calc(var(--dot-gold) * 100%), var(--purple-500)) 100%
+    color-mix(
+        in srgb,
+        var(--gold-500) calc(var(--dot-gold) * 100%),
+        var(--purple-300)
+      )
+      78%,
+    color-mix(
+        in srgb,
+        var(--gold-500) calc(var(--dot-gold) * 100%),
+        var(--purple-500)
+      )
+      100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -251,7 +272,9 @@
   color: var(--white-000);
   padding-bottom: 0.55rem;
   border-bottom: 1px solid color-mix(in srgb, var(--gold-500) 55%, transparent);
-  transition: color 200ms var(--ease-standard), border-color 200ms var(--ease-standard);
+  transition:
+    color 200ms var(--ease-standard),
+    border-color 200ms var(--ease-standard);
 }
 
 .hero__cta:hover {
@@ -304,9 +327,18 @@
 }
 
 @keyframes cue-scroll {
-  0% { transform: translate(-50%, 0); opacity: 1; }
-  70% { transform: translate(-50%, 12px); opacity: 0; }
-  100% { transform: translate(-50%, 0); opacity: 0; }
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, 12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
 }
 
 .hero__cue-label {
@@ -317,7 +349,7 @@
   color: var(--white-500);
 }
 
-/* ── Scene 2 · Manifesto (pinned word reveal) ────────────── */
+/* -- Scene 2 - Manifesto (pinned word reveal) -------------- */
 
 .scene--manifesto {
   height: 240vh;
@@ -354,7 +386,7 @@
   color: var(--gold-300);
 }
 
-/* ── Scene 3 · Stats ─────────────────────────────────────── */
+/* -- Scene 3 - Stats --------------------------------------- */
 
 .scene--stats {
   padding-block: clamp(5rem, 14vh, 11rem);
@@ -410,16 +442,28 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: color-mix(in srgb, var(--gold-300) calc(var(--stat-glow) * 100%), var(--white-500));
+  color: color-mix(
+    in srgb,
+    var(--gold-300) calc(var(--stat-glow) * 100%),
+    var(--white-500)
+  );
   text-shadow: 0 0 calc(18px * var(--stat-glow))
-    color-mix(in srgb, var(--gold-500) calc(var(--stat-glow) * 32%), transparent);
+    color-mix(
+      in srgb,
+      var(--gold-500) calc(var(--stat-glow) * 32%),
+      transparent
+    );
   transition:
     color 0.65s var(--ease-cinematic),
     text-shadow 0.65s var(--ease-cinematic);
 }
 
 .stat.is-lit .stat__icon {
-  color: color-mix(in srgb, var(--gold-300) calc(var(--stat-glow) * 100%), var(--gold-300));
+  color: color-mix(
+    in srgb,
+    var(--gold-300) calc(var(--stat-glow) * 100%),
+    var(--gold-300)
+  );
   background: color-mix(
     in srgb,
     var(--gold-500) calc(12% + var(--stat-glow) * 10%),
@@ -431,11 +475,19 @@
     transparent
   );
   box-shadow: 0 0 calc(12px * var(--stat-glow))
-    color-mix(in srgb, var(--gold-500) calc(var(--stat-glow) * 16%), transparent);
+    color-mix(
+      in srgb,
+      var(--gold-500) calc(var(--stat-glow) * 16%),
+      transparent
+    );
 }
 
 .stat:nth-child(3).is-lit .stat__icon {
-  color: color-mix(in srgb, var(--gold-300) calc(var(--stat-glow) * 100%), var(--purple-300));
+  color: color-mix(
+    in srgb,
+    var(--gold-300) calc(var(--stat-glow) * 100%),
+    var(--purple-300)
+  );
   background: color-mix(
     in srgb,
     var(--gold-500) calc(var(--stat-glow) * 14%),
@@ -456,7 +508,7 @@
   line-height: 1.35;
 }
 
-/* ── Scene 4 · Featured (pinned reveal) ──────────────────── */
+/* -- Scene 4 - Featured (pinned reveal) -------------------- */
 
 .scene--featured {
   height: 210vh;
@@ -484,7 +536,11 @@
 .featured__visual-glow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 35%, color-mix(in srgb, var(--black-000) 78%, transparent));
+  background: linear-gradient(
+    180deg,
+    transparent 35%,
+    color-mix(in srgb, var(--black-000) 78%, transparent)
+  );
 }
 
 .featured__overlay {
@@ -512,7 +568,7 @@
   max-width: 34rem;
 }
 
-/* ── Scene 5 · Capabilities marquee ──────────────────────── */
+/* -- Scene 5 - Capabilities marquee ------------------------ */
 
 .scene--caps {
   padding-block: clamp(5rem, 12vh, 9rem) clamp(4rem, 10vh, 7rem);
@@ -527,8 +583,20 @@
 .marquee {
   margin-top: clamp(2.5rem, 6vh, 5rem);
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
 }
 
 .marquee__track {
@@ -545,7 +613,9 @@
   color: transparent;
   -webkit-text-stroke: 1px color-mix(in srgb, var(--white-500) 40%, transparent);
   white-space: nowrap;
-  transition: color 250ms var(--ease-standard), -webkit-text-stroke-color 250ms var(--ease-standard);
+  transition:
+    color 250ms var(--ease-standard),
+    -webkit-text-stroke-color 250ms var(--ease-standard);
 }
 
 .marquee__item:hover {
@@ -554,11 +624,15 @@
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-/* ── Scene 6 · CTA ───────────────────────────────────────── */
+/* -- Scene 6 - CTA ----------------------------------------- */
 
 .scene--cta {
   --cta-glow: 0;
@@ -615,12 +689,18 @@
   justify-content: center;
 }
 
-/* ── Responsive ──────────────────────────────────────────── */
+/* -- Responsive -------------------------------------------- */
 
 @media (max-width: 760px) {
-  .scene--manifesto { height: 200vh; }
-  .scene--featured { height: 180vh; }
-  .featured__sticky { align-items: flex-end; }
+  .scene--manifesto {
+    height: 200vh;
+  }
+  .scene--featured {
+    height: 180vh;
+  }
+  .featured__sticky {
+    align-items: flex-end;
+  }
 
   .stats-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -637,7 +717,7 @@
   }
 }
 
-/* ── Reduced motion ──────────────────────────────────────── */
+/* -- Reduced motion ---------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   .hero__eyebrow-dot,

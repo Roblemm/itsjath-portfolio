@@ -1,73 +1,106 @@
 ---
-import { categoryLabels, type PortfolioExperience } from '../../data/portfolio';
+import {
+ categoryLabels,
+ disciplineLabels,
+ getPortfolioDisciplines,
+ type PortfolioExperience,
+} from '../../data/portfolio';
 
 interface Props {
-  project: PortfolioExperience;
-  featured?: boolean;
+ project: PortfolioExperience;
+ featured?: boolean;
 }
 
 const { project, featured = false } = Astro.props;
-const { title, shortSummary, category, dates, role, cover, metrics, highlight, status, demo } = project;
+const {
+ title,
+ shortSummary,
+ category,
+ dates,
+ role,
+ cover,
+ metrics,
+ highlight,
+ status,
+ demo,
+ technologies,
+} = project;
 const isPublishedCaseStudy = project.publishCaseStudy !== false;
 const CardTag = isPublishedCaseStudy ? 'a' : 'article';
+const disciplines = getPortfolioDisciplines(project);
+const visibleTechnologies = technologies?.slice(0, 5) ?? [];
 ---
 
 <CardTag
-  href={isPublishedCaseStudy ? `/work/${project.slug}/` : undefined}
-  class:list={['work-card', { 'work-card--flagship': featured, 'work-card--no-media': !cover }]}
+ href={isPublishedCaseStudy ? `/work/${project.slug}/` : undefined}
+ class:list={['work-card', { 'work-card--flagship': featured, 'work-card--no-media': !cover }]}
 >
-  {
-    cover ? (
-      <div class="work-card__media">
-        <img
-          src={cover}
-          alt=""
-          class="work-card__img"
-          loading="lazy"
-          decoding="async"
-        />
-        {demo && (
-          <span class="work-card__play" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5.5v13l11-6.5-11-6.5Z" />
-            </svg>
-            Demo
-          </span>
-        )}
-      </div>
-    ) : (
-      <div class="work-card__media work-card__media--code" aria-hidden="true">
-        <span class="work-card__code-mark">{`</>`}</span>
-      </div>
-    )
-  }
-  <div class="work-card__body">
-    <div class="work-card__meta">
-      <span class="meta">{categoryLabels[category] ?? category}</span>
-      <span class="meta">{dates.display}</span>
-      {status && <span class="meta work-card__status">{status}</span>}
-      {featured && <span class="meta work-card__flag">Featured</span>}
-    </div>
-    <h2 class="work-card__title">{title}</h2>
-    {highlight && <p class="work-card__highlight">{highlight}</p>}
-    <p class="work-card__summary">{shortSummary}</p>
-    {
-      metrics && metrics.length > 0 && (
-        <ul class="work-card__metrics">
-          {metrics.map((m) => (
-            <li class="work-card__metric">
-              <span class="work-card__metric-value">{m.value}</span>
-              <span class="work-card__metric-label">{m.label}</span>
-            </li>
-          ))}
-        </ul>
-      )
-    }
-    {role && (
-      <p class="work-card__role">
-        <strong>Role</strong> {role}
-      </p>
-    )}
-    {isPublishedCaseStudy && <span class="link-arrow">View case study →</span>}
-  </div>
+ {
+ cover ? (
+ <div class="work-card__media">
+ <img
+ src={cover}
+ alt=""
+ class="work-card__img"
+ loading="lazy"
+ decoding="async"
+ />
+ {demo && (
+ <span class="work-card__play" aria-hidden="true">
+ <svg viewBox="0 0 24 24" fill="currentColor">
+ <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+ </svg>
+ Demo
+ </span>
+ )}
+ </div>
+ ) : (
+ <div class="work-card__media work-card__media--code" aria-hidden="true">
+ <span class="work-card__code-mark">{`</>`}</span>
+ </div>
+ )
+ }
+ <div class="work-card__body">
+ <div class="work-card__meta">
+ <span class="meta">{categoryLabels[category] ?? category}</span>
+ <span class="meta">{dates.display}</span>
+ {status && <span class="meta work-card__status">{status}</span>}
+ {featured && <span class="meta work-card__flag">Featured</span>}
+ </div>
+ <div class="work-card__disciplines" aria-label="Project focus">
+ {disciplines.map((discipline) => (
+ <span class:list={['work-card__discipline', `work-card__discipline--${discipline}`]}>
+ {disciplineLabels[discipline]}
+ </span>
+ ))}
+ </div>
+ <h2 class="work-card__title">{title}</h2>
+ {highlight && <p class="work-card__highlight">{highlight}</p>}
+ <p class="work-card__summary">{shortSummary}</p>
+ {visibleTechnologies.length > 0 && (
+ <ul class="work-card__tech-list" aria-label="Technologies and skills">
+ {visibleTechnologies.map((technology) => (
+ <li class="work-card__tech">{technology}</li>
+ ))}
+ </ul>
+ )}
+ {
+ metrics && metrics.length > 0 && (
+ <ul class="work-card__metrics">
+ {metrics.map((m) => (
+ <li class="work-card__metric">
+ <span class="work-card__metric-value">{m.value}</span>
+ <span class="work-card__metric-label">{m.label}</span>
+ </li>
+ ))}
+ </ul>
+ )
+ }
+ {role && (
+ <p class="work-card__role">
+ <strong>Role</strong> {role}
+ </p>
+ )}
+ {isPublishedCaseStudy && <span class="link-arrow">View case study -></span>}
+ </div>
 </CardTag>

@@ -1,4 +1,4 @@
-/* ── Work index ─────────────────────────────────────────── */
+/* -- Work index -- */
 
 .work-hero {
   padding-block: clamp(3rem, 8vw, 5.5rem) clamp(2rem, 5vw, 3rem);
@@ -512,7 +512,7 @@
   max-width: 40rem;
 }
 
-/* ── Work cards (extended) ──────────────────────────────── */
+/* -- Work cards (extended) -- */
 
 .work-card--flagship {
   border-color: color-mix(in srgb, var(--gold-500) 38%, transparent);
@@ -564,11 +564,80 @@
   color: var(--gold-500);
 }
 
+.work-card__disciplines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: -0.15rem;
+}
+
+.work-card__discipline {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.45rem;
+  padding: 0.28rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--white-500) 14%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--white-500) 5%, transparent);
+  color: var(--white-300);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.work-card__discipline--engineering {
+  border-color: color-mix(in srgb, var(--purple-300) 38%, transparent);
+  background: color-mix(in srgb, var(--purple-300) 11%, transparent);
+  color: var(--purple-100);
+}
+
+.work-card__discipline--product,
+.work-card__discipline--research {
+  border-color: color-mix(in srgb, var(--gold-500) 36%, transparent);
+  background: color-mix(in srgb, var(--gold-500) 9%, transparent);
+  color: var(--gold-100);
+}
+
+.work-card__discipline--operations,
+.work-card__discipline--leadership,
+.work-card__discipline--growth {
+  border-color: color-mix(in srgb, var(--success) 30%, transparent);
+  background: color-mix(in srgb, var(--success) 7%, transparent);
+  color: color-mix(in srgb, var(--success) 72%, var(--white-000));
+}
+
 .work-card__highlight {
   color: var(--gold-300);
   font-size: var(--text-sm);
   font-weight: 600;
   line-height: 1.45;
+}
+
+.work-card__tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.work-card__tech {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.35rem;
+  padding: 0.22rem 0.48rem;
+  border: 1px solid color-mix(in srgb, var(--white-500) 12%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--black-300) 64%, transparent);
+  color: var(--white-300);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .work-card__metrics {
@@ -609,7 +678,7 @@
   position: relative;
 }
 
-/* ── Case study extensions ──────────────────────────────── */
+/* -- Case study extensions -- */
 
 .case-metrics {
   display: grid;

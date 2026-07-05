@@ -25,26 +25,26 @@ Open [http://localhost:4321](http://localhost:4321).
 
 ## Scripts
 
-| Command         | Description              |
-| --------------- | ------------------------ |
-| `npm run dev`   | Start development server |
-| `npm run build` | Production build         |
-| `npm run preview` | Preview production build |
-| `npm run check` | TypeScript + Astro check |
+| Command                 | Description                    |
+| ----------------------- | ------------------------------ |
+| `npm run dev`           | Start development server       |
+| `npm run build`         | Production build               |
+| `npm run preview`       | Preview production build       |
+| `npm run check`         | TypeScript + Astro check       |
 | `npm run release:check` | Run tests and production build |
-| `npm test`      | Run unit tests           |
+| `npm test`              | Run unit tests                 |
 
 ## Project structure
 
 ```text
 src/
-├── components/   # UI components by route
-├── content/      # Markdown content collections
-├── layouts/      # Page layouts
-├── pages/        # File-based routes
-├── scripts/      # Client-side motion and utilities
-├── styles/       # Global CSS and tokens
-└── utils/        # Shared constants and helpers
++-- components/   # UI components by route
++-- content/      # Markdown content collections
++-- layouts/      # Page layouts
++-- pages/        # File-based routes
++-- scripts/      # Client-side motion and utilities
++-- styles/       # Global CSS and tokens
++-- utils/        # Shared constants and helpers
 ```
 
 ## Deployment

@@ -35,7 +35,7 @@ const summaryRows = [
   { label: 'Timeline', value: dates.timeline },
   { label: 'Problem', value: problem },
   { label: 'Outcome', value: outcome },
-  { label: 'Skills demonstrated', value: technologies?.join(' Â· ') },
+  { label: 'Skills demonstrated', value: technologies?.join(' - ') },
 ].filter((row): row is { label: string; value: string } => Boolean(row.value));
 ---
 
@@ -53,7 +53,7 @@ const summaryRows = [
 
     <header class="page-header" style="padding-top: 0;">
       <p class="meta page-header__eyebrow">
-        {categoryLabels[category] ?? category}{status ? ` Â· ${status}` : ''} Â· {dates.display}
+        {categoryLabels[category] ?? category}{status ? ` - ${status}` : ''} - {dates.display}
       </p>
       <h1>{title}</h1>
       <p class="lead" style="margin-top: 1rem;">{shortSummary}</p>
