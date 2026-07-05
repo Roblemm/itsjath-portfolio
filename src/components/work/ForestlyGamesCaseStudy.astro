@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { forestlyGamesCaseStudy, type PortfolioExperience } from '../../data/portfolio';
+import { caseStudyIntro } from '../../utils/page-intros';
+import '../../styles/forestlygames-case.css';
+
+interface Props {
+  project: PortfolioExperience;
+}
+
+const { project } = Astro.props;
+const lifecycleTitle = 'Across the Product Lifecycle';
+const selectedGamesTitle = 'Selected Games';
+const operationsTitle = 'Leadership and Studio Operations';
+const skillsTitle = 'Skills and Tools';
+---
+
+<BaseLayout title={project.title} description={project.shortSummary} intro={caseStudyIntro(project.title)}>
+  <article class="fg-case page-enter" data-page-content>
+    <section class="fg-hero" aria-labelledby="forestlygames-title">
+      <div class="fg-hero__media fg-hero__media-fill" aria-label="ForestlyGames studio reel">
+        <div class="fg-hero__video-shell" aria-label="Studio reel">
+          <video
+            class="fg-hero__video"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            poster={forestlyGamesCaseStudy.heroReel.poster}
+            src={forestlyGamesCaseStudy.heroReel.src}
+            aria-hidden="true"
+            tabindex="-1"
+          ></video>
+          <div class="fg-hero__video-label">
+            <span>{forestlyGamesCaseStudy.heroReel.label}</span>
+            <strong>{forestlyGamesCaseStudy.heroReel.title}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="fg-hero__content">
+        <div class="fg-hero__copy">
+          <p class="fg-kicker">Studio case study</p>
+          <h1 id="forestlygames-title" aria-label="ForestlyGames">ForestlyGames</h1>
+          <p class="fg-hero__subtitle">Building Roblox games from concept to launch</p>
+          <div class="fg-roleline" aria-label="Role and timeline">
+            <span>{project.role}</span>
+            <span>{project.dates.timeline}</span>
+          </div>
+          {project.links?.live && (
+            <div class="fg-hero__actions">
+              <a href={project.links.live} class="fg-primary-link" target="_blank" rel="noreferrer">
+                Visit ForestlyGames
+              </a>
+            </div>
+          )}
+          <p class="fg-hero__lead">
+            I founded ForestlyGames in 2020 and have since helped deliver 15+ Roblox game projects. I work
+            across engineering, product development, team leadership, marketing, and business operations to turn ideas
+            into playable releases, with our games and creator campaigns reaching more than 78 million combined plays
+            and video views.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="fg-showcase" aria-labelledby="fg-showcase-title">
+      <div class="fg-section-head fg-section-head--compact">
+        <p class="fg-kicker">Studio media</p>
+        <h2 id="fg-showcase-title">Featured footage</h2>
+      </div>
+      <div class="fg-showcase__grid">
+        {forestlyGamesCaseStudy.mediaHighlights.map((video) => (
+          <article class="fg-video-card">
+            <div class="fg-video-card__head">
+              <span>{video.label}</span>
+              <h3>{video.title}</h3>
+            </div>
+            <video
+              controls
+              preload="metadata"
+              playsinline
+              poster={video.poster}
+              src={video.src}
+            ></video>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {project.metrics && project.metrics.length > 0 && (
+      <section class="fg-proof" aria-label="ForestlyGames proof points">
+        {project.metrics.map((metric) => (
+          <div class="fg-proof__item">
+            <span class="fg-proof__value">{metric.value}</span>
+            <span class="fg-proof__label">{metric.label}</span>
+          </div>
+        ))}
+      </section>
+    )}
+
+    <section class="fg-lifecycle fg-band" aria-labelledby="fg-lifecycle-title">
+      <div class="fg-section-head">
+        <p class="fg-kicker">Studio role</p>
+        <h2 id="fg-lifecycle-title">{lifecycleTitle}</h2>
+        <p>
+          My role changes based on what each project needs, from directly programming game systems to leading the
+          teams, strategy, and operations required to bring a game to release.
+        </p>
+      </div>
+
+      <div class="fg-lifecycle__grid">
+        {forestlyGamesCaseStudy.lifecycle.map((area) => (
+          <article class="fg-lifecycle__item">
+            <div class="fg-lifecycle__topline">
+              <h3>{area.title}</h3>
+              <div class="fg-lifecycle__chips" aria-label={`${area.title} scan points`}>
+                {area.points.map((point) => (
+                  <span class="fg-lifecycle__chip">{point.label}</span>
+                ))}
+              </div>
+            </div>
+            <ul class="fg-scan-list">
+              {area.points.map((point) => (
+                <li>
+                  <strong class="fg-scan-label">{point.label}</strong>
+                  <span class="fg-scan-text">{point.text}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <div class="fg-launch-note">
+        <p class="fg-launch-note__inner">
+          One coordinated launch reached <strong>#1 trending on YouTube Gaming</strong>, and ForestlyGames grew into a
+          community of more than <strong>4,000 members</strong>.
+        </p>
+      </div>
+    </section>
+
+    <section class="fg-games fg-band" aria-labelledby="fg-games-title">
+      <div class="fg-section-head">
+        <p class="fg-kicker">Portfolio depth</p>
+        <h2 id="fg-games-title">{selectedGamesTitle}</h2>
+      </div>
+
+      <div class="fg-featured-games" aria-label="Larger technical highlights">
+        {forestlyGamesCaseStudy.featuredGames.map((game) => (
+          <article class="fg-featured-game">
+            <figure class="fg-featured-game__media">
+              <img src={game.image.src} alt={game.image.alt ?? ''} loading="lazy" decoding="async" />
+            </figure>
+            <div class="fg-featured-game__body">
+              <p class="fg-kicker">{game.eyebrow}</p>
+              <h3>{game.title}</h3>
+              <p class="fg-featured-game__focus">{game.focus}</p>
+              <ul class="fg-scan-list fg-scan-list--chips">
+                {game.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+              <p class="fg-featured-game__statement">{game.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="fg-gallery" aria-label="Visual game gallery">
+        {forestlyGamesCaseStudy.galleryGames.map((game) => (
+          <article class="fg-gallery-card">
+            <figure>
+              <img src={game.image.src} alt={game.image.alt ?? ''} loading="lazy" decoding="async" />
+            </figure>
+            <div class="fg-gallery-card__body">
+              <h3>{game.title}</h3>
+              <p class="fg-gallery-card__role">{game.role}</p>
+              <p class="fg-gallery-card__proof">{game.contribution}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="fg-ops fg-band" aria-labelledby="fg-ops-title">
+      <div class="fg-section-head">
+        <p class="fg-kicker">Operating layer</p>
+        <h2 id="fg-ops-title">{operationsTitle}</h2>
+      </div>
+      <div class="fg-ops__grid" aria-label="Studio operating layer">
+        {forestlyGamesCaseStudy.operations.map((item) => (
+          <article class="fg-ops-card">
+            <h3>{item.label}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="fg-skills" aria-labelledby="fg-skills-title">
+      <div class="fg-section-head">
+        <p class="fg-kicker">Capabilities</p>
+        <h2 id="fg-skills-title">{skillsTitle}</h2>
+      </div>
+      <div class="fg-skills__grid">
+        {forestlyGamesCaseStudy.skillGroups.map((group) => (
+          <article class="fg-skill-group">
+            <h3>{group.title}</h3>
+            <div class="fg-skill-group__tokens" aria-label={`${group.title} skills`}>
+              {group.skills.map((skill) => (
+                <span class="fg-skill-token">{skill}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>
