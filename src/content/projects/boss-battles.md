@@ -13,7 +13,7 @@ skills:
   - Game systems
   - Live events
   - Team coordination
-recruiter_takeaway: Led a shipped multiplayer product with progression systems and event-driven retention — relevant to any live service or platform product.
+recruiter_takeaway: Led a shipped multiplayer product with progression systems and event-driven retention, relevant to any live service or platform product.
 highlight: Co-op dungeon fighter with class builds, boss raids, and FNAF-themed live events.
 metrics:
   - value: Released
@@ -42,4 +42,4 @@ Boss Battles is a dungeon combat co-op game where players upgrade gear, optimize
 
 ## Relevance
 
-Evidence of operating a live game product — not a one-time launch, but ongoing content and systems players return to.
+Evidence of operating a live game product, not a one-time launch, but ongoing content and systems players return to.

@@ -20,7 +20,7 @@ const {
   intro: introOverride,
 } = Astro.props;
 
-const pageTitle = title === SITE.title ? `${SITE.name} — ${SITE.title}` : `${title} — ${SITE.name}`;
+const pageTitle = title === SITE.title ? `${SITE.name}, ${SITE.title}` : `${title}, ${SITE.name}`;
 const currentPath = Astro.url.pathname;
 const intro = getPageIntro(currentPath, introOverride);
 ---

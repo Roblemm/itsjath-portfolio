@@ -7,13 +7,13 @@ year: "2024"
 role: Founder & Product Lead, ForestlyGames
 timeline: Live development
 problem: Stand out in the Roblox tycoon genre with a hook that combines base-building and combat pressure.
-outcome: Active title with pet allies that speed construction and defend bases against waves — positioned for repeat sessions and short-form clips.
+outcome: Active title with pet allies that speed construction and defend bases against waves, positioned for repeat sessions and short-form clips.
 skills:
   - Product direction
   - Game loops
   - Live iteration
-recruiter_takeaway: Shows range across genres within one studio — horror, strategy, and tycoon-action hybrids.
-highlight: Pet-powered tycoon with build acceleration and wave defense — built for clip-friendly sessions.
+recruiter_takeaway: Shows range across genres within one studio, horror, strategy, and tycoon-action hybrids.
+highlight: Pet-powered tycoon with build acceleration and wave defense, built for clip-friendly sessions.
 featured: false
 flagship: false
 cover: /images/work/evil-pets/cover.png

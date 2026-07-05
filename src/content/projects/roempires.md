@@ -1,6 +1,6 @@
 ---
 title: RoEmpires
-one_line_summary: Real-time strategy kingdom builder in alpha — villages, troops, and multiplayer combat.
+one_line_summary: Real-time strategy kingdom builder in alpha, villages, troops, and multiplayer combat.
 category: creative
 status: Alpha
 year: "2024"
@@ -13,8 +13,8 @@ skills:
   - Game systems design
   - Live operations
   - Team leadership
-recruiter_takeaway: Shows ability to scope and ship a complex multiplayer product category — strategy, economy, and combat systems under studio constraints.
-highlight: RTS kingdom builder in alpha — villages, troops, PvP/PvE, and live progression systems.
+recruiter_takeaway: Shows ability to scope and ship a complex multiplayer product category, strategy, economy, and combat systems under studio constraints.
+highlight: RTS kingdom builder in alpha, villages, troops, PvP/PvE, and live progression systems.
 metrics:
   - value: Alpha
     label: Shipped stage
@@ -42,4 +42,4 @@ RoEmpires is a real-time strategy builder where players construct villages, trai
 
 ## Relevance
 
-Demonstrates product thinking for systems-heavy games — economy, progression, and multiplayer balance — not just one-off experiences.
+Demonstrates product thinking for systems-heavy games, economy, progression, and multiplayer balance, not just one-off experiences.

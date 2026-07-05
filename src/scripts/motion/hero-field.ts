@@ -68,7 +68,7 @@ export function initHeroField(canvas: HTMLCanvasElement): HeroField {
   let running = true;
   let time = 0;
 
-  // Pointer parallax — the ribbon leans toward the cursor a touch.
+  // Pointer parallax, the ribbon leans toward the cursor a touch.
   let pointerX = 0.5;
   let pointerY = 0.5;
   let targetPointerX = 0.5;
@@ -126,7 +126,7 @@ export function initHeroField(canvas: HTMLCanvasElement): HeroField {
     return 0.55 + tilt + w1 + w2 + lean - drift;
   }
 
-  /** Overall brightness of the field — vivid in the hero, calm deeper down. */
+  /** Overall brightness of the field, vivid in the hero, calm deeper down. */
   function vividness(): number {
     return Math.max(0.1, 1 - scroll * 1.5);
   }
@@ -143,7 +143,7 @@ export function initHeroField(canvas: HTMLCanvasElement): HeroField {
     return 0.04 + Math.pow(d, 1.35) * 0.42;
   }
 
-  /** Brightness envelope — peaks at the focal point, fades at the edges. */
+  /** Brightness envelope, peaks at the focal point, fades at the edges. */
   function focusEnvelope(xNorm: number): number {
     const d = Math.abs(xNorm - focalX());
     return Math.max(0, 1 - Math.pow(d * 1.55, 1.6));

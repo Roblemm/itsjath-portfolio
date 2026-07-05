@@ -1,13 +1,13 @@
 # itsjath
 
-Personal site for [Jathniel Ahonsi](https://github.com/Roblemm) — built with Astro, TypeScript, and GSAP.
+Personal site for [Jathniel Ahonsi](https://github.com/Roblemm), built with Astro, TypeScript, and GSAP.
 
 ## Stack
 
-- [Astro](https://astro.build) — static site generation with selective hydration
-- TypeScript — strict mode
-- GSAP — motion and route transitions
-- Custom CSS — design tokens, no utility framework
+- [Astro](https://astro.build), static site generation with selective hydration
+- TypeScript, strict mode
+- GSAP, motion and route transitions
+- Custom CSS, design tokens, no utility framework
 
 ## Requirements
 
@@ -61,4 +61,4 @@ Run `npm run release:check` before pushing `main`.
 
 ## License
 
-Private — all rights reserved.
+Private, all rights reserved.

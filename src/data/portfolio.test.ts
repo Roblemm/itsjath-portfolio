@@ -69,12 +69,17 @@ describe('portfolio data source', () => {
   });
 
   it('allows optional media and metrics fields to be omitted per project', () => {
-    const jat = getPortfolioExperienceBySlug('jat-app');
     const purdue = getPortfolioExperienceBySlug('purdue-dining-revamp');
 
-    expect(jat?.cover).toBeUndefined();
     expect(purdue?.metrics).toBeUndefined();
     expect(purdue?.gallery).toBeUndefined();
+  });
+
+  it('provides cover art for Work cards that previously fell back to the code placeholder', () => {
+    expect(getPortfolioExperienceBySlug('forestlygames-operations-platform')?.cover).toBe(
+      '/images/work/operations-platform/cover.svg',
+    );
+    expect(getPortfolioExperienceBySlug('jat-app')?.cover).toBe('/images/work/jat-app/cover.svg');
   });
 
   it('uses a custom ForestlyGames case-study payload with the requested section order', () => {

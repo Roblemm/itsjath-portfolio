@@ -3,7 +3,7 @@ export type PageIntroVariant = 'fade' | 'slide' | 'type' | 'split';
 export interface PageIntroConfig {
   lines: string[];
   variant: PageIntroVariant;
-  /** Accent line index — gets purple/gold gradient treatment */
+  /** Accent line index, gets purple/gold gradient treatment */
   accent?: number;
 }
 
@@ -12,11 +12,6 @@ const DEFAULTS: Record<string, PageIntroConfig> = {
     lines: ['Proof.', 'Selected work.'],
     variant: 'slide',
     accent: 1,
-  },
-  '/about/': {
-    lines: ['Person.', 'Background & direction.'],
-    variant: 'type',
-    accent: 0,
   },
   '/contact/': {
     lines: ['Connection.', 'Open channel.'],

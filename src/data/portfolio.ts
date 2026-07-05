@@ -538,6 +538,7 @@ export const portfolioExperiences = [
     flagship: false,
     showOnWork: true,
     publishCaseStudy: false,
+    cover: '/images/work/operations-platform/cover.svg',
     links: {
       live: 'https://forestlygames.com',
     },
@@ -1122,6 +1123,7 @@ export const portfolioExperiences = [
     flagship: false,
     showOnWork: true,
     publishCaseStudy: false,
+    cover: '/images/work/jat-app/cover.svg',
     caseStudy: {
       sections: [
         {

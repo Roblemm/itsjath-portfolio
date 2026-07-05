@@ -1,6 +1,6 @@
 ---
 title: Encaved
-one_line_summary: Horror survival adventure set in ancient mines — co-op, crafting, and minecart traversal.
+one_line_summary: Horror survival adventure set in ancient mines, co-op, crafting, and minecart traversal.
 category: creative
 status: In development
 year: "2025"
@@ -13,8 +13,8 @@ skills:
   - Systems design
   - Narrative worldbuilding
   - Production leadership
-recruiter_takeaway: Shows current creative leadership on a flagship title — scoping ambition, art direction, and multi-system gameplay before public launch.
-highlight: Horror survival in ancient mines — co-op, crafting, minecarts, and a flagship in-development title.
+recruiter_takeaway: Shows current creative leadership on a flagship title, scoping ambition, art direction, and multi-system gameplay before public launch.
+highlight: Horror survival in ancient mines, co-op, crafting, minecarts, and a flagship in-development title.
 metrics:
   - value: In dev
     label: Flagship title
@@ -32,14 +32,14 @@ links:
 
 ## Overview
 
-Encaved is a horror survival adventure through ancient mines filled with monsters, secrets, and unpredictable events. Players ride minecarts, mine resources, upgrade tools, and fight spirits — blending horror with simulator-style progression.
+Encaved is a horror survival adventure through ancient mines filled with monsters, secrets, and unpredictable events. Players ride minecarts, mine resources, upgrade tools, and fight spirits, blending horror with simulator-style progression.
 
 ## Direction
 
 - Built a cohesive world around the mine setting, character cast, and escalating threat
-- Prototyped core loops — exploration, mining stations, upgrades, and co-op survival
+- Prototyped core loops, exploration, mining stations, upgrades, and co-op survival
 - Featured as a primary showcase title on the ForestlyGames studio site
 
 ## Relevance
 
-Demonstrates forward-looking product leadership — shaping a multi-system game before launch, not only shipping what already exists.
+Demonstrates forward-looking product leadership, shaping a multi-system game before launch, not only shipping what already exists.

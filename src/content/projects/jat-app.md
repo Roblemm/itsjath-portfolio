@@ -6,7 +6,7 @@ status: Shipped
 year: "2026"
 role: Solo full-stack engineer
 timeline: "2026"
-problem: Needed a personal system to track goals, tasks, and job applications with proper domain modeling and test coverage — not another untyped side project.
+problem: Needed a personal system to track goals, tasks, and job applications with proper domain modeling and test coverage, not another untyped side project.
 outcome: Shipped a Spring Boot REST API and Next.js front end with JUnit tests, DTOs, centralized exception handling, and Docker deployment.
 skills:
   - Java
@@ -15,7 +15,7 @@ skills:
   - PostgreSQL
   - Docker
   - Automated testing
-recruiter_takeaway: Classic full-stack delivery — API design, persistence, front end, tests, and containerization.
+recruiter_takeaway: Classic full-stack delivery, API design, persistence, front end, tests, and containerization.
 highlight: Spring Boot + Next.js productivity stack with JUnit coverage and Docker deployment.
 metrics:
   - value: Full-stack

@@ -137,7 +137,7 @@ function initScrollChoreography(field: ReturnType<typeof initHeroField> | null) 
       const proxy = { v: 0 };
       ScrollTrigger.create({
         trigger: el,
-        start: 'top 85%',
+        start: 'top 110%',
         once: true,
         onEnter: () => {
           gsap.to(proxy, {

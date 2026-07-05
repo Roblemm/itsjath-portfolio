@@ -1,4 +1,4 @@
-/* ── Signal — concentrated point, large reactions ────────── */
+/* ── Signal, concentrated point, large reactions ────────── */
 
 .signal {
   --signal-gold: 0;
@@ -17,7 +17,7 @@
   transform-origin: center center;
 }
 
-/* Large ambient reaction — not the signal body */
+/* Large ambient reaction, not the signal body */
 .signal__reach {
   position: absolute;
   left: 50%;
@@ -83,7 +83,7 @@
   height: 1px;
 }
 
-/* The signal itself — sharp pinprick */
+/* The signal itself, sharp pinprick */
 .signal__point {
   position: absolute;
   left: 50%;

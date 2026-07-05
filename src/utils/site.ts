@@ -21,7 +21,6 @@ export const EDUCATION = {
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/work/', label: 'Work' },
-  { href: '/about/', label: 'About' },
   { href: '/resume.pdf', label: 'Resume' },
   { href: '/contact/', label: 'Contact' },
 ] as const;
