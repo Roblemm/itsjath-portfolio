@@ -242,9 +242,13 @@ export function initHome(): () => void {
     if (fb) gsap.set(fb, { clearProps: 'all', opacity: 1, y: 0 });
     setCountersFinal();
     field?.setScroll(0);
-    document.querySelector('[data-intro]')?.remove();
-    document.querySelector('[data-home]')?.removeAttribute('data-intro-pending');
-    cleanups.push(initSignalScroll());
+    cleanups.push(
+      initHomeIntro({
+        onComplete: () => {
+          cleanups.push(initSignalScroll());
+        },
+      }),
+    );
     return () => cleanups.forEach((fn) => fn());
   }
 

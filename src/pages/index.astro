@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import IntroSequence from '../components/global/IntroSequence.astro';
 import Signal from '../components/global/Signal.astro';
 import { EDUCATION, SITE } from '../utils/site';
 
@@ -16,50 +17,7 @@ const capabilities = [
 ---
 
 <BaseLayout>
- <div class="intro" data-intro>
- <div class="intro__grain" aria-hidden="true"></div>
- <div class="intro__core" data-intro-core aria-hidden="true">
- <span class="intro__ring intro__ring--outer"></span>
- <span class="intro__ring intro__ring--inner"></span>
- <span class="intro__spark"></span>
- </div>
- <div class="intro__fragments" aria-label="Portfolio proof fragments">
- {[
- 'lua systems',
- 'roblox games',
- 'backend platforms',
- 'creator launches',
- 'operations tools',
- '78M+ reach',
- ].map((fragment) => (
- <span data-intro-fragment>{fragment}</span>
- ))}
- </div>
- <div class="intro__reel" aria-hidden="true">
- <figure class="intro__panel intro__panel--clip" data-intro-panel>
- <video
- autoplay
- loop
- muted
- playsinline
- preload="metadata"
- poster="/images/work/forestlygames/studio/fg-showcase-poster.jpg"
- src="/images/work/forestlygames/studio/fg-showcase-260129-v003.mp4"
- ></video>
- </figure>
- <figure class="intro__panel intro__panel--bruno" data-intro-panel>
- <img src="/images/work/forestlygames/studio/escape-bruno-mirabel-glow.png" alt="" loading="eager" decoding="async" />
- </figure>
- <figure class="intro__panel intro__panel--roempires" data-intro-panel>
- <img src="/images/work/forestlygames/studio/roempires-thumbnail.png" alt="" loading="eager" decoding="async" />
- </figure>
- <figure class="intro__panel intro__panel--platform" data-intro-panel>
- <img src="/images/work/forestlydevs/cover.png" alt="" loading="eager" decoding="async" />
- </figure>
- </div>
- <p class="intro__lock" data-intro-lock>Building systems that move.</p>
- <button type="button" class="intro__skip" data-intro-skip>Skip intro</button>
- </div>
+  <IntroSequence />
 
  <div class="home" data-home data-intro-pending>
  <Signal />
