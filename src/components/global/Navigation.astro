@@ -8,7 +8,6 @@ interface Props {
 const { currentPath } = Astro.props;
 
 function isActive(href: string): boolean {
-  if (href === '/resume.pdf') return false;
   if (href === '/') return currentPath === '/';
   return currentPath.startsWith(href.replace(/\/$/, ''));
 }
