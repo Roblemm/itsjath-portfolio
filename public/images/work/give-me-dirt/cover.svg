@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Give Me Dirt cover</title>
+  <desc id="desc">Abstract Minecraft plugin cover for Give Me Dirt.</desc>
+  <rect width="1200" height="760" fill="#11140f"/>
+  <rect x="92" y="88" width="1016" height="584" rx="36" fill="#1a2417" stroke="#86efac" stroke-opacity=".24"/>
+  <text x="142" y="168" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="48" font-weight="800">GIVE ME DIRT</text>
+  <text x="142" y="214" fill="#86efac" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="4">MINECRAFT / BUKKIT / SPIGOT</text>
+  <g transform="translate(166 292)">
+    <rect width="160" height="160" fill="#6b4f2a"/>
+    <rect x="160" width="160" height="160" fill="#7a5b32"/>
+    <rect x="320" width="160" height="160" fill="#6b4f2a"/>
+    <rect y="160" width="160" height="160" fill="#7a5b32"/>
+    <rect x="160" y="160" width="160" height="160" fill="#4d8d35"/>
+    <rect x="320" y="160" width="160" height="160" fill="#7a5b32"/>
+  </g>
+  <g fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">
+    <text x="720" y="338">1,557 CurseForge</text>
+    <text x="720" y="402">4.7/5 Spigot</text>
+    <text x="720" y="466">12 public updates</text>
+  </g>
+</svg>

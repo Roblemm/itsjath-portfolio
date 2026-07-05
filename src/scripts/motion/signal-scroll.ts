@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { createSignalLayoutCache } from './signal-scroll-cache';
+import { createSignalLayoutCache, viewportFromDocumentPoint } from './signal-scroll-cache';
 import { calculateStatGlowValues } from './signal-scroll-math';
 import { prefersReducedMotion } from './reduced-motion';
 
@@ -60,13 +60,13 @@ function readWaypointPosition(el: HTMLElement): { x: number; y: number } {
           anchor === 'baseline'
             ? r.top + r.height * 0.82
             : r.top + r.height * 0.5;
-        return clampViewport(x, y);
+        return { x, y };
       }
     }
   }
 
   const rect = el.getBoundingClientRect();
-  return clampViewport(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
 }
 
 function readWaypointDocumentPosition(el: HTMLElement): { x: number; y: number } {
@@ -241,8 +241,12 @@ export function initSignalScroll(
     const layout = layoutCache.read();
     const points = layout.points.map((point) => ({
       ...point,
-      x: point.x - window.scrollX,
-      y: point.y - window.scrollY,
+      ...viewportFromDocumentPoint(point, {
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      }),
     }));
     const segments = points.length - 1;
     const scaled = Math.min(Math.max(progress, 0), 1) * segments;

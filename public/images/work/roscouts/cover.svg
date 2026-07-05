@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">RoScouts cover</title>
+  <desc id="desc">Abstract Roblox market and live operations research cover.</desc>
+  <rect width="1200" height="760" fill="#07111f"/>
+  <circle cx="1010" cy="120" r="260" fill="#1d4ed8" opacity=".38"/>
+  <circle cx="170" cy="650" r="300" fill="#16a34a" opacity=".24"/>
+  <text x="116" y="156" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="46" font-weight="800">ROSCOUTS</text>
+  <text x="116" y="202" fill="#67e8f9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="4">MARKET / RETENTION / LIVEOPS</text>
+  <g transform="translate(116 286)">
+    <path d="M0 260c90-120 170-80 260-150 86-67 160-138 254-72 76 54 112 160 206 114 68-33 98-112 190-98" fill="none" stroke="#67e8f9" stroke-width="10" stroke-linecap="round"/>
+    <g fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">
+      <text x="36" y="48">17,825 players</text>
+      <text x="408" y="118">10.50M visits</text>
+      <text x="690" y="42">96.13% rating</text>
+    </g>
+  </g>
+</svg>

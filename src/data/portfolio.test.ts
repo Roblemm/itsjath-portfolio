@@ -20,6 +20,17 @@ const expectedSlugs = [
   'purdue-dining-revamp',
   'jat-app',
   'frontera',
+  'dataannotation',
+  'amobant',
+  'independent-game-design',
+  'forestlygames-roblox-backend-systems',
+  'bleep',
+  'convergence-msu-neuralgrid',
+  'rise-n-grind-smart-alarm',
+  'give-me-dirt',
+  'forestlygames-discord-bot',
+  'roscouts',
+  'the-livingston',
 ];
 
 describe('portfolio data source', () => {
@@ -43,6 +54,17 @@ describe('portfolio data source', () => {
       'purdue-dining-revamp',
       'jat-app',
       'frontera',
+      'dataannotation',
+      'amobant',
+      'independent-game-design',
+      'forestlygames-roblox-backend-systems',
+      'bleep',
+      'convergence-msu-neuralgrid',
+      'rise-n-grind-smart-alarm',
+      'give-me-dirt',
+      'forestlygames-discord-bot',
+      'roscouts',
+      'the-livingston',
     ]);
   });
 
@@ -60,12 +82,46 @@ describe('portfolio data source', () => {
       'purdue-dining-revamp',
       'jat-app',
       'frontera',
+      'dataannotation',
+      'amobant',
+      'independent-game-design',
+      'forestlygames-roblox-backend-systems',
+      'bleep',
+      'convergence-msu-neuralgrid',
+      'rise-n-grind-smart-alarm',
+      'give-me-dirt',
+      'forestlygames-discord-bot',
+      'roscouts',
+      'the-livingston',
     ]);
 
     expect(getPortfolioExperienceBySlug('forestlygames')?.showOnWork).toBe(true);
     expect(getPortfolioExperienceBySlug('forestlygames')?.publishCaseStudy).toBe(true);
     expect(getPortfolioExperienceBySlug('forestlygames-operations-platform')?.showOnWork).toBe(true);
     expect(getPortfolioExperienceBySlug('forestlygames-operations-platform')?.publishCaseStudy).toBe(false);
+  });
+
+  it('keeps newly added preview cards non-routable', () => {
+    const previewSlugs = [
+      'dataannotation',
+      'amobant',
+      'independent-game-design',
+      'forestlygames-roblox-backend-systems',
+      'bleep',
+      'convergence-msu-neuralgrid',
+      'rise-n-grind-smart-alarm',
+      'give-me-dirt',
+      'forestlygames-discord-bot',
+      'roscouts',
+      'the-livingston',
+    ];
+
+    previewSlugs.forEach((slug) => {
+      const project = getPortfolioExperienceBySlug(slug);
+      expect(project?.showOnWork).toBe(true);
+      expect(project?.publishCaseStudy).toBe(false);
+      expect(project?.caseStudy).toBeUndefined();
+    });
   });
 
   it('allows optional media and metrics fields to be omitted per project', () => {

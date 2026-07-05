@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Amobant cover</title>
+  <desc id="desc">Abstract e-commerce inventory analytics cover for the Amobant card.</desc>
+  <rect width="1200" height="760" fill="#0f1218"/>
+  <rect x="92" y="92" width="1016" height="576" rx="36" fill="#151a22" stroke="#ffffff" stroke-opacity=".12"/>
+  <text x="142" y="170" fill="#fff7ed" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="46" font-weight="800">AMOBANT OPS</text>
+  <text x="142" y="214" fill="#fb923c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="4">INVENTORY / CHANNELS / DECISIONS</text>
+  <g transform="translate(142 288)">
+    <rect width="270" height="170" rx="24" fill="#1f2937" stroke="#fb923c" stroke-opacity=".45"/>
+    <rect x="320" width="270" height="170" rx="24" fill="#1f2937" stroke="#38bdf8" stroke-opacity=".42"/>
+    <rect x="640" width="270" height="170" rx="24" fill="#1f2937" stroke="#86efac" stroke-opacity=".42"/>
+    <text x="28" y="58" fill="#fb923c" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700">244</text>
+    <text x="28" y="104" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">SKUs analyzed</text>
+    <text x="348" y="58" fill="#38bdf8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700">1,725</text>
+    <text x="348" y="104" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">units modeled</text>
+    <text x="668" y="58" fill="#86efac" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700">$47.7K</text>
+    <text x="668" y="104" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">catalog value</text>
+  </g>
+  <path d="M150 562c150-90 245-42 356-82 128-46 198-138 332-74 64 31 114 82 204 58" fill="none" stroke="#fb923c" stroke-width="10" stroke-linecap="round"/>
+</svg>
