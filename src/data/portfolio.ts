@@ -605,12 +605,7 @@ export const portfolioExperiences = [
     takeaway:
       "Full-stack ownership of a real operations product: schema design, auth, background jobs, and business rules in production.",
     highlight:
-      "The internal system running budgets, staffing, and payments across a studio with 54M+ game visits.",
-    metrics: [
-      { value: "54M+", label: "Game visits" },
-      { value: "6.3M+", label: "Hours played" },
-      { value: "24M+", label: "YouTube views" },
-    ],
+      "The internal system running budgets, staffing, and payments across a studio.",
     featured: true,
     flagship: false,
     showOnWork: true,
@@ -632,7 +627,7 @@ export const portfolioExperiences = [
                   text: "ForestlyGames marketing site",
                   href: "https://forestlygames.com",
                 },
-                " - 54M+ visits, 6.3M+ hours played, 24M+ YouTube views across the portfolio.",
+                ".",
               ],
             },
           ],
@@ -1074,18 +1069,18 @@ export const portfolioExperiences = [
     slug: "forestlydevs-marketplace",
     title: "ForestlyDevs Marketplace",
     category: "platform",
-    status: "Operated 2020-2024",
+    status: "Active",
     dates: {
-      display: "2020-2024",
-      timeline: "Jul 2020 - Jul 2024",
+      display: "2020-Present",
+      timeline: "Jul 2020 - present",
     },
     role: "Founder & Platform Manager",
     shortSummary:
-      "Two-sided developer marketplace that grew to 1,200+ users and 8,500+ portfolios.",
+      "Two-sided developer marketplace with 1,200+ users and 8,500+ investment opportunities, portfolios, and job postings.",
     problem:
       "Creators needed a trusted place to find collaborators, post work, and showcase portfolios - with onboarding that did not stall after signup.",
     outcome:
-      "Grew to 1,200+ users hosting 8,500+ portfolios; redesigned onboarding to increase engagement 500%+ and facilitate 40 new development projects in one month.",
+      "Grew to 1,200+ users and 8,500+ investment opportunities, portfolios, and job postings; redesigned onboarding to increase engagement 500%+ and facilitate 40 new development projects in one month.",
     technologies: [
       "Platform operations",
       "Onboarding design",
@@ -1102,10 +1097,10 @@ export const portfolioExperiences = [
     takeaway:
       "Built and operated a real marketplace - growth, onboarding optimization, and facilitating transactions between developers.",
     highlight:
-      "Redesigned onboarding for a 500%+ engagement lift - 1,200+ users and 8,500+ portfolios hosted.",
+      "Redesigned onboarding for a 500%+ engagement lift - 1,200+ users and 8,500+ combined listings.",
     metrics: [
       { value: "1,200+", label: "Users" },
-      { value: "8,500+", label: "Portfolios hosted" },
+      { value: "8,500+", label: "Opportunities, portfolios, and jobs" },
       { value: "500%", label: "Onboarding lift" },
       { value: "40", label: "Projects in one month" },
     ],
@@ -1138,7 +1133,7 @@ export const portfolioExperiences = [
                 "Ran the two-sided marketplace end to end",
                 "Onboarded and coached 100+ developers, converting interest into 40 new projects in one month",
                 "Redesigned onboarding flows based on drop-off analysis - 500%+ engagement lift the following week",
-                "Connected users with 8,500+ investment opportunities, portfolios, and job postings",
+                "Connected users with 8,500+ investment opportunities, portfolios, and job postings as a combined number",
               ],
             },
           ],
@@ -1157,38 +1152,39 @@ export const portfolioExperiences = [
   },
   {
     slug: "purdue-dining-revamp",
-    title: "Purdue Dining Product Research",
+    title: "Purdue Dining Revamp",
     category: "platform",
-    status: "Research archive",
+    status: "Completed",
     dates: {
       display: "2024",
-      timeline: "Aug 2024",
+      timeline: "August 2024",
     },
-    role: "Product research & strategy lead",
+    role: "Consumer Research and Marketing Strategy Lead",
     shortSummary:
-      "Student-led product research initiative around Purdue Dining app and service friction.",
+      "Consumer research and marketing initiative for improving the Purdue Dining app experience.",
     problem:
-      "Purdue's dining app and services had friction students felt daily, but feedback was scattered and hard to act on.",
+      "Purdue Dining needed clearer student feedback to address concerns with the dining app experience.",
     outcome:
-      "Collected student feedback, analyzed recurring pain points, and prepared data-informed recommendations for Purdue administration.",
+      "Generated 100+ form submissions within 24 hours, analyzed consumer survey data, and presented actionable insights to Purdue administration.",
     technologies: [
-      "Product research",
       "Consumer research",
+      "Survey analysis",
       "Marketing strategy",
       "Data analysis",
       "Stakeholder management",
     ],
     cardSignals: [
-      "Product research",
-      "Customer research",
+      "Consumer research",
+      "Survey analysis",
       "Marketing strategy",
       "Data analysis",
       "Stakeholder management",
     ],
     takeaway:
-      "Shows product-minded research and stakeholder communication around a real campus service.",
+      "Shows consumer research, data analysis, and stakeholder communication around a real campus service.",
     highlight:
-      "Product research translating student dining feedback into clearer recommendations.",
+      "Converted student dining feedback into app-improvement recommendations.",
+    metrics: [{ value: "100+", label: "Form submissions in 24h" }],
     featured: false,
     flagship: false,
     showOnWork: true,
@@ -1201,7 +1197,7 @@ export const portfolioExperiences = [
           blocks: [
             {
               type: "paragraph",
-              text: "Product research initiative focused on understanding student friction with Purdue Dining services and the dining app experience.",
+              text: "Revamped Purdue Dining services by analyzing consumer feedback, designing targeted marketing campaigns, and leading collaborative efforts with administration to enhance the dining app experience.",
             },
           ],
         },
@@ -1211,10 +1207,10 @@ export const portfolioExperiences = [
             {
               type: "list",
               items: [
+                "Designed and distributed promotional materials across social media, generating 100+ form submissions and engagement within 24 hours",
                 "Conducted consumer surveys to identify issues with the Purdue dining app",
                 "Coordinated meetings with Purdue administration to present data analytics and actionable insights",
-                "Helped shape marketing and outreach strategy so more student feedback could be collected and understood",
-                "Turned scattered student feedback into clearer problem areas for service and app improvements",
+                "Led a team to develop and implement marketing strategies, enhancing communication and outreach efforts",
               ],
             },
           ],
@@ -1235,7 +1231,7 @@ export const portfolioExperiences = [
     slug: "jat-app",
     title: "Jat App",
     category: "software",
-    status: "Shipped",
+    status: "Alpha",
     dates: {
       display: "2026",
       timeline: "2026",
@@ -1246,7 +1242,7 @@ export const portfolioExperiences = [
     problem:
       "Needed a personal system to track goals, tasks, and job applications with proper domain modeling and test coverage - not another untyped side project.",
     outcome:
-      "Shipped a Spring Boot REST API and Next.js front end with JUnit tests, DTOs, centralized exception handling, and Docker deployment.",
+      "Built an alpha Spring Boot REST API and Next.js front end with JUnit tests, DTOs, centralized exception handling, and Docker deployment.",
     technologies: [
       "Java",
       "Spring Boot",
@@ -1265,7 +1261,7 @@ export const portfolioExperiences = [
     takeaway:
       "Classic full-stack delivery - API design, persistence, front end, tests, and containerization.",
     highlight:
-      "Spring Boot + Next.js productivity stack with JUnit coverage and Docker deployment.",
+      "Alpha Spring Boot + Next.js productivity stack with JUnit coverage and Docker deployment.",
     metrics: [
       { value: "Full-stack", label: "Solo build" },
       { value: "JUnit", label: "Test coverage" },
@@ -1321,30 +1317,31 @@ export const portfolioExperiences = [
       display: "2024-2025",
       timeline: "Aug 2024 - Apr 2025",
     },
-    role: "Marketing & Community Operations Lead",
+    role: "Cofounder",
     shortSummary:
-      "Marketing and community operations for a Purdue student entrepreneurship organization.",
+      "Intercollegiate student club connecting college students across universities for tech and creative projects.",
     problem:
-      "An early student founder community needed clearer marketing, stronger engagement, and more reliable operating rhythms as it grew.",
+      "College students needed a platform to exchange ideas, form partnerships, and build meaningful tech and creative projects together.",
     outcome:
-      "Supported Frontera marketing initiatives, improved team engagement, and helped scale an online community from 0 to 200 members in three months.",
+      "Connected college students for tech and creative collaboration, fostered campus partnerships, and contributed to the club's brand identity and marketing strategy.",
     technologies: [
-      "Community growth",
+      "Campus partnerships",
       "Marketing strategy",
-      "Team coordination",
-      "Process improvement",
+      "Brand identity",
+      "Community building",
+      "Event strategy",
     ],
     cardSignals: [
-      "Community growth",
+      "Campus partnerships",
       "Marketing strategy",
-      "Team coordination",
-      "Process improvement",
+      "Brand identity",
+      "Community building",
+      "Event strategy",
     ],
     takeaway:
-      "Shows community-building and operating discipline in a student organization with real growth pressure.",
+      "Shows early-stage organization building, positioning, and cross-campus collaboration.",
     highlight:
-      "Scaled an online community from 0 to 200 members in three months.",
-    metrics: [{ value: "200", label: "Members in 3 months" }],
+      "Helped shape an intercollegiate club for student tech and creative collaboration.",
     featured: false,
     flagship: false,
     showOnWork: true,
@@ -1357,7 +1354,7 @@ export const portfolioExperiences = [
           blocks: [
             {
               type: "paragraph",
-              text: "Frontera is a student entrepreneurship organization at Purdue. My work sat between marketing, operations, and community building: helping the team communicate more clearly, organize internal work, and turn early interest into a more active online community.",
+              text: "Frontera is an intercollegiate club that connects college students across universities for collaboration on tech and creative projects. Through events, workshops, and networking opportunities, the club provides a platform for students to exchange ideas, form partnerships, and build meaningful projects together.",
             },
           ],
         },
@@ -1367,10 +1364,9 @@ export const portfolioExperiences = [
             {
               type: "list",
               items: [
-                "Supported marketing initiatives across Frontera channels and community touchpoints",
-                "Improved team engagement through clearer operating processes and coordination",
-                "Built and scaled an online community server from 0 to 200 members in three months",
-                "Helped translate the organization's identity into practical outreach and member-facing systems",
+                "Connected college students for collaboration on tech and creative projects",
+                "Fostered partnerships with campus organizations to expand the club's network and resources",
+                "Contributed to the marketing strategy, helping decide the brand name, color scheme, and overall identity",
               ],
             },
           ],
@@ -1380,7 +1376,7 @@ export const portfolioExperiences = [
           blocks: [
             {
               type: "paragraph",
-              text: "This work shows the same pattern as the studio projects in a campus context: build the operating layer, clarify the message, and help a young community become easier to join and easier to run.",
+              text: "This work shows early product and organization-building judgment: clarify the audience, shape the brand, build partnerships, and create a structure people can join.",
             },
           ],
         },
@@ -1391,10 +1387,10 @@ export const portfolioExperiences = [
     slug: "dataannotation",
     title: "DataAnnotation",
     category: "software",
-    status: "Active",
+    status: "Completed",
     dates: {
-      display: "2024-Present",
-      timeline: "July 2024 to Present",
+      display: "2024-2026",
+      timeline: "July 2024 to 2026",
     },
     role: "AI Trainer and Code Reviewer",
     shortSummary:
@@ -1438,7 +1434,7 @@ export const portfolioExperiences = [
       display: "2023-Present",
       timeline: "March 2023 to Present",
     },
-    role: "ICT Associate",
+    role: "Information and Communications Technology Associate",
     shortSummary:
       "Support e-commerce operations through troubleshooting, workflow improvement, inventory analysis, platform research, and decision modeling across sales channels.",
     technologies: [
@@ -1460,7 +1456,6 @@ export const portfolioExperiences = [
     metrics: [
       { value: "244", label: "SKUs analyzed" },
       { value: "1,725", label: "Units modeled" },
-      { value: "$47.7K", label: "Catalog value" },
     ],
     showOnWork: true,
     publishCaseStudy: false,
@@ -1705,25 +1700,26 @@ export const portfolioExperiences = [
       display: "2026-Present",
       timeline: "2026 to Present",
     },
-    role: "Independent Game Scout and Research Lead",
+    role: "Independent Game Scout",
     shortSummary:
-      "Structured Roblox market and LiveOps research process using concurrency, visits, ratings, retention, monetization, update cadence, gameplay teardowns, and validated AI-assisted synthesis.",
+      "Analyze Roblox game performance and market signals to predict breakout games and support acquisition outreach.",
     technologies: [
       "Market research",
       "Game analytics",
-      "Live operations",
-      "Product strategy",
+      "Acquisition outreach",
+      "Performance analysis",
       "Roblox",
       "AI-assisted synthesis",
     ],
     cardSignals: [
       "Market research",
       "Game analytics",
-      "LiveOps",
-      "Roblox",
+      "Acquisition outreach",
+      "Performance analysis",
       "AI-assisted synthesis",
     ],
-    highlight: "Finds game opportunities through player evidence.",
+    disciplines: ["research", "product"],
+    highlight: "Finds breakout game opportunities through player and market evidence.",
     showOnWork: true,
     publishCaseStudy: false,
     cover: "/images/work/roscouts/cover.svg",

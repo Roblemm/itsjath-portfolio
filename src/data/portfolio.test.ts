@@ -247,10 +247,73 @@ describe("portfolio data source", () => {
   });
 
   it("allows optional media and metrics fields to be omitted per project", () => {
-    const purdue = getPortfolioExperienceBySlug("purdue-dining-revamp");
+    const livingston = getPortfolioExperienceBySlug("the-livingston");
 
-    expect(purdue?.metrics).toBeUndefined();
-    expect(purdue?.gallery).toBeUndefined();
+    expect(livingston?.metrics).toBeUndefined();
+    expect(livingston?.gallery).toBeUndefined();
+  });
+
+  it("keeps corrected project facts and private values off Work cards", () => {
+    const operations = getPortfolioExperienceBySlug(
+      "forestlygames-operations-platform",
+    );
+    expect(operations?.metrics).toBeUndefined();
+    expect(operations?.highlight).not.toContain("54M");
+
+    const forestlyDevs = getPortfolioExperienceBySlug(
+      "forestlydevs-marketplace",
+    );
+    expect(forestlyDevs?.status).toBe("Active");
+    expect(forestlyDevs?.dates.display).toBe("2020-Present");
+    expect(forestlyDevs?.metrics).toContainEqual({
+      value: "8,500+",
+      label: "Opportunities, portfolios, and jobs",
+    });
+
+    const purdue = getPortfolioExperienceBySlug("purdue-dining-revamp");
+    expect(purdue?.title).toBe("Purdue Dining Revamp");
+    expect(purdue?.status).toBe("Completed");
+    expect(purdue?.dates.display).toBe("2024");
+    expect(purdue?.metrics).toEqual([
+      { value: "100+", label: "Form submissions in 24h" },
+    ]);
+    expect(purdue?.cardSignals).toEqual([
+      "Consumer research",
+      "Survey analysis",
+      "Marketing strategy",
+      "Data analysis",
+      "Stakeholder management",
+    ]);
+
+    const jat = getPortfolioExperienceBySlug("jat-app");
+    expect(jat?.status).toBe("Alpha");
+    expect(jat?.outcome).toContain("alpha Spring Boot REST API");
+
+    const frontera = getPortfolioExperienceBySlug("frontera");
+    expect(frontera?.role).toBe("Cofounder");
+    expect(frontera?.shortSummary).toContain("Intercollegiate student club");
+
+    const dataAnnotation = getPortfolioExperienceBySlug("dataannotation");
+    expect(dataAnnotation?.status).toBe("Completed");
+    expect(dataAnnotation?.dates.display).toBe("2024-2026");
+
+    const amobant = getPortfolioExperienceBySlug("amobant");
+    expect(amobant?.role).toBe(
+      "Information and Communications Technology Associate",
+    );
+    expect(JSON.stringify(amobant)).not.toContain("$47.7K");
+    expect(JSON.stringify(amobant)).not.toContain("Catalog value");
+
+    const roScouts = getPortfolioExperienceBySlug("roscouts");
+    expect(roScouts?.role).toBe("Independent Game Scout");
+    expect(roScouts?.disciplines).toEqual(["research", "product"]);
+    expect(roScouts?.cardSignals).toEqual([
+      "Market research",
+      "Game analytics",
+      "Acquisition outreach",
+      "Performance analysis",
+      "AI-assisted synthesis",
+    ]);
   });
 
   it("provides cover art for Work cards that previously fell back to the code placeholder", () => {

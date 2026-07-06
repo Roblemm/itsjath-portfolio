@@ -1,23 +1,21 @@
 ---
 title: Frontera
-one_line_summary: Marketing and community operations for a Purdue student entrepreneurship organization.
+one_line_summary: Intercollegiate student club connecting college students across universities for tech and creative projects.
 category: platform
 status: Completed
 year: "2024-2025"
-role: Marketing Lead
+role: Cofounder
 timeline: Aug 2024 - Apr 2025
-problem: An early student founder community needed clearer marketing, stronger engagement, and more reliable operating rhythms as it grew.
-outcome: Supported Frontera marketing initiatives, improved team engagement, and helped scale an online community from 0 to 200 members in three months.
+problem: College students needed a platform to exchange ideas, form partnerships, and build meaningful tech and creative projects together.
+outcome: Connected college students for tech and creative collaboration, fostered campus partnerships, and contributed to the club's brand identity and marketing strategy.
 skills:
-  - Community growth
-  - Marketing operations
-  - Team coordination
-  - Process improvement
-recruiter_takeaway: Shows community-building and operating discipline in a student organization with real growth pressure.
-highlight: Scaled an online community from 0 to 200 members in three months.
-metrics:
-  - value: "200"
-    label: Members in 3 months
+  - Campus partnerships
+  - Marketing strategy
+  - Brand identity
+  - Community building
+  - Event strategy
+recruiter_takeaway: Shows early-stage organization building, positioning, and cross-campus collaboration.
+highlight: Helped shape an intercollegiate club for student tech and creative collaboration.
 featured: false
 flagship: false
 cover: /images/work/project-ignite/cover.png
@@ -25,15 +23,14 @@ cover: /images/work/project-ignite/cover.png
 
 ## Overview
 
-Frontera is a student entrepreneurship organization at Purdue. My work sat between marketing, operations, and community building: helping the team communicate more clearly, organize internal work, and turn early interest into a more active online community.
+Frontera is an intercollegiate club that connects college students across universities for collaboration on tech and creative projects. Through events, workshops, and networking opportunities, the club provides a platform for students to exchange ideas, form partnerships, and build meaningful projects together.
 
 ## Work
 
-- Supported marketing initiatives across Frontera channels and community touchpoints
-- Improved team engagement through clearer operating processes and coordination
-- Built and scaled an online community server from 0 to 200 members in three months
-- Helped translate the organization's identity into practical outreach and member-facing systems
+- Connected college students for collaboration on tech and creative projects
+- Fostered partnerships with campus organizations to expand the club's network and resources
+- Contributed to the marketing strategy, helping decide the brand name, color scheme, and overall identity
 
 ## Relevance
 
-This work shows the same pattern as the studio projects in a campus context: build the operating layer, clarify the message, and help a young community become easier to join and easier to run.
+This work shows early product and organization-building judgment: clarify the audience, shape the brand, build partnerships, and create a structure people can join.

@@ -39,13 +39,14 @@ describe('portfolio content positioning', () => {
     expect(content).not.toContain('Build Purdue');
   });
 
-  it('does not publish unaudited Purdue Dining metrics', () => {
+  it('uses corrected Purdue Dining consumer research details', () => {
     const content = readProject('purdue-dining-revamp.md');
 
-    expect(content).not.toContain('100+');
-    expect(content).not.toContain('Submissions in 24h');
     expect(content).not.toContain('status: Active');
-    expect(content).toContain('Product research');
+    expect(content).toContain('title: Purdue Dining Revamp');
+    expect(content).toContain('Consumer research');
+    expect(content).toContain('100+ form submissions');
+    expect(content).toContain('Form submissions in 24h');
   });
 
   it('frames ForestlyGames as a studio portfolio rather than only Escape Bruno', () => {
