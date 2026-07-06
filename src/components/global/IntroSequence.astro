@@ -1,15 +1,4 @@
 ---
-/*
-  Edit these arrays to tune the intro. Placeholder stats stay explicit until
-  real figures are ready.
-*/
-const introEditableStats = {
-  productsShipped: '{N}',
-  creatorsOrOpsMetric: '{creators scouted / ops metric}',
-} as const;
-
-const dot = ' · ';
-
 const introBeats = [
   {
     id: 'init',
@@ -23,17 +12,21 @@ const introBeats = [
     start: 2,
     end: 5.5,
     lines: [
-      [{ text: 'I BUILD SYSTEMS' }],
+      [{ text: 'SYSTEMS' }],
       [{ text: 'PEOPLE ACTUALLY ' }, { text: 'USE.', accent: true }],
     ],
-    caption: `software${dot}products${dot}operations`,
+    caption: 'software · products · operations',
   },
   {
     id: 'stack',
     start: 5.5,
     end: 9.5,
-    lines: [[{ text: 'BACKEND. PRODUCT. ' }, { text: 'OPERATIONS.', accent: true }]],
-    caption: `stack types in: java${dot}spring boot${dot}postgresql${dot}next.js${dot}docker`,
+    lines: [
+      [{ text: 'BACKEND.' }],
+      [{ text: 'PRODUCT.' }],
+      [{ text: 'OPERATIONS.', accent: true }],
+    ],
+    caption: 'languages: python · java · javascript · typescript · c# · sql · lua · html/css',
   },
   {
     id: 'reach',
@@ -50,8 +43,11 @@ const introBeats = [
     id: 'studio',
     start: 14,
     end: 18,
-    lines: [[{ text: 'SHIPPED THE CODE. ' }, { text: 'RAN THE STUDIO.', accent: true }]],
-    caption: `${introEditableStats.productsShipped} products shipped${dot}${introEditableStats.creatorsOrOpsMetric}${dot}live operations`,
+    lines: [
+      [{ text: 'SHIPPED CODE.' }],
+      [{ text: 'RAN THE ' }, { text: 'STUDIO.', accent: true }],
+    ],
+    caption: '15+ projects shipped · 100+ collaborators · live operations',
   },
   {
     id: 'final',
@@ -61,7 +57,7 @@ const introBeats = [
       [{ text: 'BUILDING SYSTEMS' }],
       [{ text: 'THAT ' }, { text: 'MOVE', accent: true }, { text: '.', purple: true }],
     ],
-    caption: `JATH${dot}engineer${dot}product${dot}operator`,
+    caption: 'JATH · engineer · product · operator',
   },
 ] as const;
 
