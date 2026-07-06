@@ -7,7 +7,7 @@ year: "2020-Present"
 role: Founder
 timeline: Jul 2020 - present
 problem: Build repeatable entertainment products that could move from early Roblox concepts into launched games with players, creator coverage, community, and operational follow-through.
-outcome: "Delivered 6 game projects, reached 78M+ combined plays and video views, collaborated with 30+ creators, grew a 4,000-member community, and had one project reach #1 trending on YouTube Gaming."
+outcome: "Delivered 15+ game projects, reached 78M+ combined plays and video views, collaborated with 30+ creators, grew a 4,000-member community, and had one project reach #1 trending on YouTube Gaming."
 skills:
   - Product direction
   - Lua game programming
@@ -68,7 +68,7 @@ Evil Pets added another angle to the portfolio: character-driven, collectible-st
 
 ## Building and operating the studio
 
-- Delivered 6 game projects by coordinating programming, design, QA, launch, and iteration
+- Delivered 15+ game projects by coordinating programming, design, QA, launch, and iteration
 - Planned creator outreach and collaborations that helped projects reach millions of viewers
 - Grew a 4,000-member community through events, communication, and consistent updates
 - Built investor and developer relationships through contracts, reporting, and project planning

@@ -555,7 +555,7 @@ export const portfolioExperiences = [
             {
               type: "list",
               items: [
-                "Delivered 6 game projects by coordinating programming, design, QA, launch, and iteration",
+                "Delivered 15+ game projects by coordinating programming, design, QA, launch, and iteration",
                 "Planned creator outreach and collaborations that helped projects reach millions of viewers",
                 "Grew a 4,000-member community through events, communication, and consistent updates",
                 "Built investor and developer relationships through contracts, reporting, and project planning",
