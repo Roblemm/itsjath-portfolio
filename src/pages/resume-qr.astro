@@ -1,0 +1,42 @@
+---
+const resumes = [
+  { name: 'Product Resume', file: 'Product%20Resume.pdf', qr: 'product' },
+  { name: 'Technical Resume', file: 'Technical%20Resume.pdf', qr: 'technical' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Resume QR Codes | Jathniel Ahonsi</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main aria-label="Resume QR codes">
+      {resumes.map((resume) => (
+        <a href={`https://www.itsjath.com/${resume.file}`}>
+          <h1>{resume.name}</h1>
+          <img src={`/images/resume-qr/${resume.qr}.png`} width="492" height="492" alt={`Scan to open Jathniel Ahonsi’s ${resume.name}`} />
+          <span>Scan or tap to open PDF <span aria-hidden="true">↗</span></span>
+        </a>
+      ))}
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #111113; color: #faf9f6; }
+  main { min-height: 100svh; display: flex; align-items: center; justify-content: center; gap: clamp(2rem, 6vw, 6rem); padding: 3rem 1.5rem; }
+  a { display: block; width: min(100%, 340px); color: inherit; text-decoration: none; }
+  h1 { margin: 0 0 1.25rem; font: 400 clamp(1.6rem, 3vw, 2rem)/1.2 Georgia, serif; letter-spacing: -.03em; }
+  img { display: block; width: 100%; height: auto; background: white; }
+  a > span { display: flex; justify-content: space-between; margin-top: 1rem; color: #b8b8bd; font: 12px/1.5 monospace; }
+  a:hover > span { color: white; }
+  a:focus-visible { outline: 2px solid #c7b5ff; outline-offset: 10px; }
+  @media (max-width: 640px) { main { flex-direction: column; } }
+  @media print { :global(body) { background: white; color: black; } main { min-height: auto; } a > span { color: black; } }
+</style>
